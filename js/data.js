@@ -1,50 +1,108 @@
 /* Loads the aggregated survey tables (built by scripts/build_data.py) with d3.csv
-   and shapes them for the story. Every number on the page comes from here. */
+   and shapes them for the story. Every number on the page comes from here.
+   Year rule: the AI trend uses 2023–2025; everything else uses 2025. */
 
 const DATA_DIR = 'data/';
+const DOT_SIZE = 100;                 // one crowd dot stands for about 100 respondents
+const ALL_COUNTRIES = 'All countries';
+const ROOM_ROLES = ['Developer, full-stack', 'Developer, back-end', 'Student', 'Developer, front-end'];   // dot groups; a fifth group holds everyone else
+const BAR_ROLES = ['Developer, full-stack', 'Developer, back-end', 'Student'];                            // bars in chapter 1
+
+/* Short forms of long survey answers, used on the story cards. */
+const ROLE_SHORT = { 'Developer, desktop or enterprise applications': 'Developer, desktop or enterprise' };
+const COUNTRY_SHORT = { 'United States of America': 'United States', 'United Kingdom of Great Britain and Northern Ireland': 'United Kingdom' };
+const LEARN = {   // 2025 question: "How did you learn to code in the past year?"  answer -> [card label, sentence]
+  'School (i.e., University, College, etc)': ['School', 'learned new coding skills in school this past year'],
+  'Online Courses or Certification (includes all media types)': ['Online courses', 'learned new coding skills from online courses this past year'],
+  'Books / Physical media': ['Books', 'learned new coding skills from books this past year'],
+  'Videos (not associated with specific online course or certification)': ['Videos', 'learned new coding skills from videos this past year']
+};
+
+/* One story card = one real 2025 respondent (data/story_cards_2025.csv). Only the name is added. */
+function toPersona(c, heatRoles, heatBands, payBands) {
+  const langs = String(c.languages).split(';').map(s => s.replace(' (all shells)', ''));
+  // the card row holds about 34 characters: show up to three languages, then how many more
+  const langLine = k => langs.slice(0, k).join(' · ') + (langs.length > k ? `  +${langs.length - k} more` : '');
+  let k = Math.min(3, langs.length);
+  while (k > 1 && langLine(k).length > 34) k--;
+  const [learnLabel, phrase] = LEARN[c.learn_featured];
+  const others = c.learn_selected_n - 1;
+  const room = ROOM_ROLES.indexOf(c.dev_type);
+  const hr = heatRoles.indexOf(c.heat_role), hb = heatBands.indexOf(c.heat_band);
+  return {
+    id: '#' + c.response_id, name: c.name,
+    kind: c.dev_type === 'Student' ? 'student' : 'developer',
+    role: ROLE_SHORT[c.dev_type] || c.dev_type,
+    years: String(c.years_code),
+    learned: learnLabel + (others > 0 ? ` (+${others} more), past year` : ', past year'),
+    phrase,
+    langs: langLine(k),
+    edu: String(c.ed_level).replace(/\s*\(.*\)$/, '').replace('Some college/university study without earning a degree', 'Some college, no degree'),
+    country: COUNTRY_SHORT[c.country] || c.country,
+    room: room < 0 ? ROOM_ROLES.length : room,
+    bar: BAR_ROLES.indexOf(c.dev_type),
+    heat: hr >= 0 && hb >= 0 ? [hr, hb] : null,
+    pay: Math.max(0, payBands.indexOf(c.pay_band))
+  };
+}
 
 function loadData() {
-  const num = d => { for (const k in d) { if (k !== 'year' && d[k] !== '' && !isNaN(+d[k])) d[k] = +d[k]; } d.year = +d.year || d.year; return d; };
+  const num = d => { for (const k in d) { if (d[k] !== '' && !isNaN(+d[k])) d[k] = +d[k]; } return d; };
   return Promise.all([
-    d3.csv(DATA_DIR + 'role_share.csv', num),
+    d3.csv(DATA_DIR + 'role_share_2025.csv', num),
     d3.csv(DATA_DIR + 'role_experience_2025.csv', num),
-    d3.csv(DATA_DIR + 'pay_by_experience_2024.csv', num),
+    d3.csv(DATA_DIR + 'pay_by_experience_2025.csv', num),
     d3.csv(DATA_DIR + 'languages_2025.csv', num),
     d3.csv(DATA_DIR + 'ai_trends.csv', num),
-    d3.csv(DATA_DIR + 'ai_use_by_experience_2024.csv', num)
-  ]).then(([roles, heat, pay, langs, ai, aiExp]) => {
-    /* --- Chapter 1: role shares (2025, % of respondents who answered DevType) --- */
-    const r25 = roles.filter(d => d.year === 2025);
-    const share = role => (r25.find(d => d.role === role) || { pct_of_answered: 0 }).pct_of_answered;
-    const fs = share('Developer, full-stack'), be = share('Developer, back-end'),
-          st = share('Student'), fe = share('Developer, front-end');
-    // 650 dots ≈ 2024 respondents / 100; grouped by 2025 role shares
-    const N = 650, grp = [fs, be, st, fe].map(p => Math.round(N * p / 100));
-    grp.push(N - d3.sum(grp));
+    d3.csv(DATA_DIR + 'ai_use_by_experience_2025.csv', num),
+    d3.csv(DATA_DIR + 'story_cards_2025.csv', num)
+  ]).then(([roles, heatAll, pay, langs, ai, aiExp, cards]) => {
+    /* --- Chapter 1: role shares (% of respondents who reported a role) and the dot crowd (counts) --- */
+    const row = role => roles.find(d => d.role === role) || { n: 0, pct_of_answered: 0 };
+    const [fs, be, st] = BAR_ROLES.map(r => row(r).pct_of_answered);
+    const respondents = roles[0].respondents_n;
+    const totalDots = Math.round(respondents / DOT_SIZE);
+    const grp = ROOM_ROLES.map(r => Math.round(row(r).n / DOT_SIZE));
+    grp.push(totalDots - d3.sum(grp));              // other roles and people who gave no role
 
-    /* --- Chapter 2: role × experience heatmap --- */
-    heat.sort((a, b) => d3.ascending(a.role_order, b.role_order) || d3.ascending(a.band_order, b.band_order));
+    /* --- Chapter 2: role × experience heatmap, plus one block per country for the peer locator --- */
+    heatAll.sort((a, b) => d3.ascending(a.country_order, b.country_order) || d3.ascending(a.role_order, b.role_order) || d3.ascending(a.band_order, b.band_order));
+    const heat = heatAll.filter(d => d.country === ALL_COUNTRIES);
     const heatRoles = [...new Set(heat.map(d => d.role))];
     const heatBands = [...new Set(heat.map(d => d.band))];
     const heatPct = d3.rollup(heat, v => v[0].pct, d => d.role, d => d.band);
+    const countries = [...new Set(heatAll.map(d => d.country))];
+    const heatByCountry = new Map(countries.map(c => {
+      const block = heatAll.filter(d => d.country === c);
+      const cell = (r, b) => block.find(d => d.role === r && d.band === b);
+      return [c, {
+        pct: heatRoles.map(r => heatBands.map(b => Math.round(cell(r, b).pct))),
+        n: heatRoles.map(r => cell(r, heatBands[0]).role_n),
+        shown: heatRoles.map(r => cell(r, heatBands[0]).displayed === 'True')
+      }];
+    }));
 
-    /* --- Chapter 3: pay, US professional developers 2024 --- */
+    /* --- Chapter 3: pay, US professional developers --- */
     const payUS = pay.filter(d => d.country === 'United States').sort((a, b) => a.band_order - b.band_order);
 
     /* --- Chapter 5: AI --- */
     ai.sort((a, b) => a.year - b.year);
-    const n2024 = ai.find(d => d.year === 2024).respondents_n;
+
+    /* --- Story cards --- */
+    cards.sort((a, b) => a.card_order - b.card_order);
+    const personas = cards.map(c => toPersona(c, heatRoles, heatBands, payUS.map(d => d.band)));
 
     return {
-      share: { fs, be, st, fe, other: 100 - fs - be - st },
-      roomCounts: grp,
-      heat, heatRoles, heatBands, heatPct,
+      share: { fs, be, st, other: 100 - fs - be - st },
+      roomCounts: grp, totalDots,
+      heat, heatRoles, heatBands, heatPct, heatByCountry, countries,
       payUS,
       langs: langs.map(d => [d.language, d.used_pct, d.want_pct]),
       ai, aiUse: ai.map(d => d.adoption_pct), aiTrust: ai.map(d => d.trust_pct),
       aiExp,
-      respondents2024: n2024,
-      aboutN: Math.round(n2024 / 1000) * 1000
+      personas,
+      respondents,
+      aboutN: Math.round(respondents / 1000) * 1000
     };
   });
 }

@@ -1,41 +1,241 @@
-role,role_order,band,band_order,n,role_n,pct
-Full-stack,0,1–5,0,3615,11982,30.17025538307461
-Full-stack,0,6–10,1,2947,11982,24.595226172592223
-Full-stack,0,11–15,2,1940,11982,16.190953096311134
-Full-stack,0,16–20,3,1369,11982,11.425471540644299
-Full-stack,0,21–30,4,1547,11982,12.911033216491404
-Full-stack,0,31–40,5,445,11982,3.71390418961776
-Full-stack,0,41–50,6,112,11982,0.9347354364880655
-Full-stack,0,50+,7,7,11982,0.05842096478050409
-Back-end,1,1–5,0,1691,6272,26.961096938775512
-Back-end,1,6–10,1,1631,6272,26.004464285714285
-Back-end,1,11–15,2,1195,6272,19.052933673469386
-Back-end,1,16–20,3,754,6272,12.021683673469388
-Back-end,1,21–30,4,767,6272,12.228954081632653
-Back-end,1,31–40,5,190,6272,3.0293367346938775
-Back-end,1,41–50,6,38,6272,0.6058673469387755
-Back-end,1,50+,7,6,6272,0.09566326530612244
-Front-end,2,1–5,0,658,1872,35.14957264957265
-Front-end,2,6–10,1,558,1872,29.807692307692307
-Front-end,2,11–15,2,317,1872,16.933760683760685
-Front-end,2,16–20,3,159,1872,8.493589743589743
-Front-end,2,21–30,4,139,1872,7.4252136752136755
-Front-end,2,31–40,5,36,1872,1.9230769230769231
-Front-end,2,41–50,6,3,1872,0.16025641025641027
-Front-end,2,50+,7,2,1872,0.10683760683760683
-Architect,3,1–5,0,168,2640,6.363636363636363
-Architect,3,6–10,1,358,2640,13.56060606060606
-Architect,3,11–15,2,526,2640,19.924242424242426
-Architect,3,16–20,3,529,2640,20.03787878787879
-Architect,3,21–30,4,745,2640,28.21969696969697
-Architect,3,31–40,5,245,2640,9.280303030303031
-Architect,3,41–50,6,59,2640,2.234848484848485
-Architect,3,50+,7,10,2640,0.3787878787878788
-Enterprise / desktop,4,1–5,0,429,1849,23.201730665224446
-Enterprise / desktop,4,6–10,1,309,1849,16.711736073553272
-Enterprise / desktop,4,11–15,2,244,1849,13.196322336398053
-Enterprise / desktop,4,16–20,3,196,1849,10.600324499729583
-Enterprise / desktop,4,21–30,4,403,1849,21.79556517036236
-Enterprise / desktop,4,31–40,5,208,1849,11.249323958896701
-Enterprise / desktop,4,41–50,6,51,1849,2.758247701460249
-Enterprise / desktop,4,50+,7,9,1849,0.48674959437533805
+country,country_order,role,role_order,band,band_order,n,role_n,pct,displayed
+All countries,0,Full-stack,0,1–5,0,3615,11982,30.17025538307461,True
+All countries,0,Full-stack,0,6–10,1,2947,11982,24.595226172592223,True
+All countries,0,Full-stack,0,11–15,2,1940,11982,16.190953096311134,True
+All countries,0,Full-stack,0,16–20,3,1369,11982,11.425471540644299,True
+All countries,0,Full-stack,0,21–30,4,1547,11982,12.911033216491404,True
+All countries,0,Full-stack,0,31–40,5,445,11982,3.71390418961776,True
+All countries,0,Full-stack,0,41–50,6,112,11982,0.9347354364880655,True
+All countries,0,Full-stack,0,50+,7,7,11982,0.05842096478050409,True
+All countries,0,Back-end,1,1–5,0,1691,6272,26.961096938775512,True
+All countries,0,Back-end,1,6–10,1,1631,6272,26.004464285714285,True
+All countries,0,Back-end,1,11–15,2,1195,6272,19.052933673469386,True
+All countries,0,Back-end,1,16–20,3,754,6272,12.021683673469388,True
+All countries,0,Back-end,1,21–30,4,767,6272,12.228954081632653,True
+All countries,0,Back-end,1,31–40,5,190,6272,3.0293367346938775,True
+All countries,0,Back-end,1,41–50,6,38,6272,0.6058673469387755,True
+All countries,0,Back-end,1,50+,7,6,6272,0.09566326530612244,True
+All countries,0,Front-end,2,1–5,0,658,1872,35.14957264957265,True
+All countries,0,Front-end,2,6–10,1,558,1872,29.807692307692307,True
+All countries,0,Front-end,2,11–15,2,317,1872,16.933760683760685,True
+All countries,0,Front-end,2,16–20,3,159,1872,8.493589743589743,True
+All countries,0,Front-end,2,21–30,4,139,1872,7.4252136752136755,True
+All countries,0,Front-end,2,31–40,5,36,1872,1.9230769230769231,True
+All countries,0,Front-end,2,41–50,6,3,1872,0.16025641025641027,True
+All countries,0,Front-end,2,50+,7,2,1872,0.10683760683760683,True
+All countries,0,Architect,3,1–5,0,168,2640,6.363636363636363,True
+All countries,0,Architect,3,6–10,1,358,2640,13.56060606060606,True
+All countries,0,Architect,3,11–15,2,526,2640,19.924242424242426,True
+All countries,0,Architect,3,16–20,3,529,2640,20.03787878787879,True
+All countries,0,Architect,3,21–30,4,745,2640,28.21969696969697,True
+All countries,0,Architect,3,31–40,5,245,2640,9.280303030303031,True
+All countries,0,Architect,3,41–50,6,59,2640,2.234848484848485,True
+All countries,0,Architect,3,50+,7,10,2640,0.3787878787878788,True
+All countries,0,Enterprise / desktop,4,1–5,0,429,1849,23.201730665224446,True
+All countries,0,Enterprise / desktop,4,6–10,1,309,1849,16.711736073553272,True
+All countries,0,Enterprise / desktop,4,11–15,2,244,1849,13.196322336398053,True
+All countries,0,Enterprise / desktop,4,16–20,3,196,1849,10.600324499729583,True
+All countries,0,Enterprise / desktop,4,21–30,4,403,1849,21.79556517036236,True
+All countries,0,Enterprise / desktop,4,31–40,5,208,1849,11.249323958896701,True
+All countries,0,Enterprise / desktop,4,41–50,6,51,1849,2.758247701460249,True
+All countries,0,Enterprise / desktop,4,50+,7,9,1849,0.48674959437533805,True
+Canada,1,Full-stack,0,1–5,0,85,383,22.193211488250654,True
+Canada,1,Full-stack,0,6–10,1,82,383,21.409921671018278,True
+Canada,1,Full-stack,0,11–15,2,71,383,18.5378590078329,True
+Canada,1,Full-stack,0,16–20,3,44,383,11.488250652741515,True
+Canada,1,Full-stack,0,21–30,4,72,383,18.798955613577025,True
+Canada,1,Full-stack,0,31–40,5,24,383,6.266318537859008,True
+Canada,1,Full-stack,0,41–50,6,5,383,1.3054830287206267,True
+Canada,1,Full-stack,0,50+,7,0,383,0.0,True
+Canada,1,Back-end,1,1–5,0,25,157,15.92356687898089,True
+Canada,1,Back-end,1,6–10,1,39,157,24.840764331210192,True
+Canada,1,Back-end,1,11–15,2,33,157,21.019108280254777,True
+Canada,1,Back-end,1,16–20,3,23,157,14.64968152866242,True
+Canada,1,Back-end,1,21–30,4,27,157,17.197452229299362,True
+Canada,1,Back-end,1,31–40,5,8,157,5.095541401273885,True
+Canada,1,Back-end,1,41–50,6,2,157,1.2738853503184713,True
+Canada,1,Back-end,1,50+,7,0,157,0.0,True
+Canada,1,Front-end,2,1–5,0,13,48,27.083333333333332,True
+Canada,1,Front-end,2,6–10,1,8,48,16.666666666666668,True
+Canada,1,Front-end,2,11–15,2,16,48,33.333333333333336,True
+Canada,1,Front-end,2,16–20,3,4,48,8.333333333333334,True
+Canada,1,Front-end,2,21–30,4,5,48,10.416666666666666,True
+Canada,1,Front-end,2,31–40,5,2,48,4.166666666666667,True
+Canada,1,Front-end,2,41–50,6,0,48,0.0,True
+Canada,1,Front-end,2,50+,7,0,48,0.0,True
+Canada,1,Architect,3,1–5,0,1,62,1.6129032258064515,True
+Canada,1,Architect,3,6–10,1,3,62,4.838709677419355,True
+Canada,1,Architect,3,11–15,2,9,62,14.516129032258064,True
+Canada,1,Architect,3,16–20,3,16,62,25.806451612903224,True
+Canada,1,Architect,3,21–30,4,19,62,30.64516129032258,True
+Canada,1,Architect,3,31–40,5,10,62,16.129032258064516,True
+Canada,1,Architect,3,41–50,6,3,62,4.838709677419355,True
+Canada,1,Architect,3,50+,7,1,62,1.6129032258064515,True
+Canada,1,Enterprise / desktop,4,1–5,0,17,81,20.987654320987655,True
+Canada,1,Enterprise / desktop,4,6–10,1,11,81,13.580246913580247,True
+Canada,1,Enterprise / desktop,4,11–15,2,10,81,12.345679012345679,True
+Canada,1,Enterprise / desktop,4,16–20,3,8,81,9.876543209876543,True
+Canada,1,Enterprise / desktop,4,21–30,4,18,81,22.22222222222222,True
+Canada,1,Enterprise / desktop,4,31–40,5,15,81,18.51851851851852,True
+Canada,1,Enterprise / desktop,4,41–50,6,2,81,2.4691358024691357,True
+Canada,1,Enterprise / desktop,4,50+,7,0,81,0.0,True
+United States,2,Full-stack,0,1–5,0,375,2032,18.45472440944882,True
+United States,2,Full-stack,0,6–10,1,486,2032,23.91732283464567,True
+United States,2,Full-stack,0,11–15,2,350,2032,17.224409448818896,True
+United States,2,Full-stack,0,16–20,3,267,2032,13.13976377952756,True
+United States,2,Full-stack,0,21–30,4,374,2032,18.405511811023622,True
+United States,2,Full-stack,0,31–40,5,133,2032,6.5452755905511815,True
+United States,2,Full-stack,0,41–50,6,44,2032,2.1653543307086616,True
+United States,2,Full-stack,0,50+,7,3,2032,0.14763779527559054,True
+United States,2,Back-end,1,1–5,0,113,803,14.07222914072229,True
+United States,2,Back-end,1,6–10,1,170,803,21.1706102117061,True
+United States,2,Back-end,1,11–15,2,167,803,20.79701120797011,True
+United States,2,Back-end,1,16–20,3,119,803,14.819427148194272,True
+United States,2,Back-end,1,21–30,4,154,803,19.17808219178082,True
+United States,2,Back-end,1,31–40,5,61,803,7.596513075965131,True
+United States,2,Back-end,1,41–50,6,16,803,1.9925280199252802,True
+United States,2,Back-end,1,50+,7,3,803,0.37359900373599003,True
+United States,2,Front-end,2,1–5,0,42,248,16.93548387096774,True
+United States,2,Front-end,2,6–10,1,68,248,27.419354838709676,True
+United States,2,Front-end,2,11–15,2,51,248,20.56451612903226,True
+United States,2,Front-end,2,16–20,3,34,248,13.709677419354838,True
+United States,2,Front-end,2,21–30,4,38,248,15.32258064516129,True
+United States,2,Front-end,2,31–40,5,12,248,4.838709677419355,True
+United States,2,Front-end,2,41–50,6,2,248,0.8064516129032258,True
+United States,2,Front-end,2,50+,7,1,248,0.4032258064516129,True
+United States,2,Architect,3,1–5,0,14,435,3.218390804597701,True
+United States,2,Architect,3,6–10,1,36,435,8.275862068965518,True
+United States,2,Architect,3,11–15,2,68,435,15.632183908045977,True
+United States,2,Architect,3,16–20,3,71,435,16.32183908045977,True
+United States,2,Architect,3,21–30,4,153,435,35.172413793103445,True
+United States,2,Architect,3,31–40,5,64,435,14.71264367816092,True
+United States,2,Architect,3,41–50,6,25,435,5.747126436781609,True
+United States,2,Architect,3,50+,7,4,435,0.9195402298850575,True
+United States,2,Enterprise / desktop,4,1–5,0,53,325,16.307692307692307,True
+United States,2,Enterprise / desktop,4,6–10,1,48,325,14.76923076923077,True
+United States,2,Enterprise / desktop,4,11–15,2,38,325,11.692307692307692,True
+United States,2,Enterprise / desktop,4,16–20,3,33,325,10.153846153846153,True
+United States,2,Enterprise / desktop,4,21–30,4,73,325,22.46153846153846,True
+United States,2,Enterprise / desktop,4,31–40,5,53,325,16.307692307692307,True
+United States,2,Enterprise / desktop,4,41–50,6,22,325,6.769230769230769,True
+United States,2,Enterprise / desktop,4,50+,7,5,325,1.5384615384615385,True
+United Kingdom,3,Full-stack,0,1–5,0,121,593,20.404721753794266,True
+United Kingdom,3,Full-stack,0,6–10,1,120,593,20.236087689713322,True
+United Kingdom,3,Full-stack,0,11–15,2,106,593,17.875210792580102,True
+United Kingdom,3,Full-stack,0,16–20,3,76,593,12.816188870151771,True
+United Kingdom,3,Full-stack,0,21–30,4,121,593,20.404721753794266,True
+United Kingdom,3,Full-stack,0,31–40,5,31,593,5.227655986509275,True
+United Kingdom,3,Full-stack,0,41–50,6,16,593,2.69814502529511,True
+United Kingdom,3,Full-stack,0,50+,7,2,593,0.3372681281618887,True
+United Kingdom,3,Back-end,1,1–5,0,48,318,15.09433962264151,True
+United Kingdom,3,Back-end,1,6–10,1,67,318,21.069182389937108,True
+United Kingdom,3,Back-end,1,11–15,2,65,318,20.440251572327043,True
+United Kingdom,3,Back-end,1,16–20,3,43,318,13.522012578616351,True
+United Kingdom,3,Back-end,1,21–30,4,72,318,22.641509433962263,True
+United Kingdom,3,Back-end,1,31–40,5,18,318,5.660377358490566,True
+United Kingdom,3,Back-end,1,41–50,6,5,318,1.5723270440251573,True
+United Kingdom,3,Back-end,1,50+,7,0,318,0.0,True
+United Kingdom,3,Front-end,2,1–5,0,12,63,19.047619047619047,True
+United Kingdom,3,Front-end,2,6–10,1,12,63,19.047619047619047,True
+United Kingdom,3,Front-end,2,11–15,2,18,63,28.571428571428573,True
+United Kingdom,3,Front-end,2,16–20,3,6,63,9.523809523809524,True
+United Kingdom,3,Front-end,2,21–30,4,10,63,15.873015873015873,True
+United Kingdom,3,Front-end,2,31–40,5,5,63,7.936507936507937,True
+United Kingdom,3,Front-end,2,41–50,6,0,63,0.0,True
+United Kingdom,3,Front-end,2,50+,7,0,63,0.0,True
+United Kingdom,3,Architect,3,1–5,0,3,119,2.5210084033613445,True
+United Kingdom,3,Architect,3,6–10,1,9,119,7.563025210084033,True
+United Kingdom,3,Architect,3,11–15,2,13,119,10.92436974789916,True
+United Kingdom,3,Architect,3,16–20,3,23,119,19.327731092436974,True
+United Kingdom,3,Architect,3,21–30,4,51,119,42.857142857142854,True
+United Kingdom,3,Architect,3,31–40,5,13,119,10.92436974789916,True
+United Kingdom,3,Architect,3,41–50,6,7,119,5.882352941176471,True
+United Kingdom,3,Architect,3,50+,7,0,119,0.0,True
+United Kingdom,3,Enterprise / desktop,4,1–5,0,15,92,16.304347826086957,True
+United Kingdom,3,Enterprise / desktop,4,6–10,1,15,92,16.304347826086957,True
+United Kingdom,3,Enterprise / desktop,4,11–15,2,12,92,13.043478260869565,True
+United Kingdom,3,Enterprise / desktop,4,16–20,3,8,92,8.695652173913043,True
+United Kingdom,3,Enterprise / desktop,4,21–30,4,17,92,18.47826086956522,True
+United Kingdom,3,Enterprise / desktop,4,31–40,5,19,92,20.652173913043477,True
+United Kingdom,3,Enterprise / desktop,4,41–50,6,4,92,4.3478260869565215,True
+United Kingdom,3,Enterprise / desktop,4,50+,7,2,92,2.1739130434782608,True
+Germany,4,Full-stack,0,1–5,0,217,833,26.050420168067227,True
+Germany,4,Full-stack,0,6–10,1,220,833,26.410564225690276,True
+Germany,4,Full-stack,0,11–15,2,151,833,18.127250900360146,True
+Germany,4,Full-stack,0,16–20,3,92,833,11.044417767106843,True
+Germany,4,Full-stack,0,21–30,4,109,833,13.085234093637455,True
+Germany,4,Full-stack,0,31–40,5,32,833,3.8415366146458583,True
+Germany,4,Full-stack,0,41–50,6,12,833,1.440576230492197,True
+Germany,4,Full-stack,0,50+,7,0,833,0.0,True
+Germany,4,Back-end,1,1–5,0,81,370,21.89189189189189,True
+Germany,4,Back-end,1,6–10,1,89,370,24.054054054054053,True
+Germany,4,Back-end,1,11–15,2,92,370,24.864864864864863,True
+Germany,4,Back-end,1,16–20,3,41,370,11.08108108108108,True
+Germany,4,Back-end,1,21–30,4,50,370,13.513513513513514,True
+Germany,4,Back-end,1,31–40,5,13,370,3.5135135135135136,True
+Germany,4,Back-end,1,41–50,6,4,370,1.0810810810810811,True
+Germany,4,Back-end,1,50+,7,0,370,0.0,True
+Germany,4,Front-end,2,1–5,0,33,114,28.94736842105263,True
+Germany,4,Front-end,2,6–10,1,34,114,29.82456140350877,True
+Germany,4,Front-end,2,11–15,2,26,114,22.80701754385965,True
+Germany,4,Front-end,2,16–20,3,4,114,3.508771929824561,True
+Germany,4,Front-end,2,21–30,4,12,114,10.526315789473685,True
+Germany,4,Front-end,2,31–40,5,4,114,3.508771929824561,True
+Germany,4,Front-end,2,41–50,6,0,114,0.0,True
+Germany,4,Front-end,2,50+,7,1,114,0.8771929824561403,True
+Germany,4,Architect,3,1–5,0,9,211,4.265402843601896,True
+Germany,4,Architect,3,6–10,1,25,211,11.848341232227488,True
+Germany,4,Architect,3,11–15,2,51,211,24.170616113744074,True
+Germany,4,Architect,3,16–20,3,42,211,19.90521327014218,True
+Germany,4,Architect,3,21–30,4,64,211,30.33175355450237,True
+Germany,4,Architect,3,31–40,5,17,211,8.056872037914692,True
+Germany,4,Architect,3,41–50,6,3,211,1.4218009478672986,True
+Germany,4,Architect,3,50+,7,0,211,0.0,True
+Germany,4,Enterprise / desktop,4,1–5,0,39,173,22.54335260115607,True
+Germany,4,Enterprise / desktop,4,6–10,1,43,173,24.85549132947977,True
+Germany,4,Enterprise / desktop,4,11–15,2,34,173,19.653179190751445,True
+Germany,4,Enterprise / desktop,4,16–20,3,15,173,8.670520231213873,True
+Germany,4,Enterprise / desktop,4,21–30,4,29,173,16.76300578034682,True
+Germany,4,Enterprise / desktop,4,31–40,5,10,173,5.780346820809249,True
+Germany,4,Enterprise / desktop,4,41–50,6,3,173,1.7341040462427746,True
+Germany,4,Enterprise / desktop,4,50+,7,0,173,0.0,True
+India,5,Full-stack,0,1–5,0,366,619,59.12762520193861,True
+India,5,Full-stack,0,6–10,1,147,619,23.747980613893375,True
+India,5,Full-stack,0,11–15,2,81,619,13.08562197092084,True
+India,5,Full-stack,0,16–20,3,17,619,2.7463651050080777,True
+India,5,Full-stack,0,21–30,4,8,619,1.2924071082390953,True
+India,5,Full-stack,0,31–40,5,0,619,0.0,True
+India,5,Full-stack,0,41–50,6,0,619,0.0,True
+India,5,Full-stack,0,50+,7,0,619,0.0,True
+India,5,Back-end,1,1–5,0,173,353,49.008498583569406,True
+India,5,Back-end,1,6–10,1,114,353,32.29461756373938,True
+India,5,Back-end,1,11–15,2,43,353,12.181303116147308,True
+India,5,Back-end,1,16–20,3,15,353,4.2492917847025495,True
+India,5,Back-end,1,21–30,4,8,353,2.26628895184136,True
+India,5,Back-end,1,31–40,5,0,353,0.0,True
+India,5,Back-end,1,41–50,6,0,353,0.0,True
+India,5,Back-end,1,50+,7,0,353,0.0,True
+India,5,Front-end,2,1–5,0,76,147,51.70068027210884,True
+India,5,Front-end,2,6–10,1,49,147,33.333333333333336,True
+India,5,Front-end,2,11–15,2,20,147,13.605442176870747,True
+India,5,Front-end,2,16–20,3,2,147,1.3605442176870748,True
+India,5,Front-end,2,21–30,4,0,147,0.0,True
+India,5,Front-end,2,31–40,5,0,147,0.0,True
+India,5,Front-end,2,41–50,6,0,147,0.0,True
+India,5,Front-end,2,50+,7,0,147,0.0,True
+India,5,Architect,3,1–5,0,11,147,7.482993197278912,True
+India,5,Architect,3,6–10,1,27,147,18.367346938775512,True
+India,5,Architect,3,11–15,2,51,147,34.69387755102041,True
+India,5,Architect,3,16–20,3,36,147,24.489795918367346,True
+India,5,Architect,3,21–30,4,17,147,11.564625850340136,True
+India,5,Architect,3,31–40,5,4,147,2.7210884353741496,True
+India,5,Architect,3,41–50,6,1,147,0.6802721088435374,True
+India,5,Architect,3,50+,7,0,147,0.0,True
+India,5,Enterprise / desktop,4,1–5,0,24,56,42.857142857142854,True
+India,5,Enterprise / desktop,4,6–10,1,9,56,16.071428571428573,True
+India,5,Enterprise / desktop,4,11–15,2,10,56,17.857142857142858,True
+India,5,Enterprise / desktop,4,16–20,3,8,56,14.285714285714286,True
+India,5,Enterprise / desktop,4,21–30,4,4,56,7.142857142857143,True
+India,5,Enterprise / desktop,4,31–40,5,1,56,1.7857142857142858,True
+India,5,Enterprise / desktop,4,41–50,6,0,56,0.0,True
+India,5,Enterprise / desktop,4,50+,7,0,56,0.0,True
