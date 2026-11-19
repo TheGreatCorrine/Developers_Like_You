@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Developers Like You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5ee; --navy:#1f2944; --ink:#4a4f5c; --mute:#6b6e78; --mute2:#8a8d95;
+  --orange:#d45d00; --blue:#0a6bb5; --chap:#1f78b4; --green:#0f9a73;
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;background:var(--bg);overflow-x:hidden}
+#scrollspace{width:1px}
+#stage{position:fixed;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:var(--bg);overflow:hidden;
+  font-family:var(--sans);color:var(--navy);-webkit-font-smoothing:antialiased}
+.abs{position:absolute}
+.scene{position:absolute;left:0;top:0;width:1920px;height:1080px}
+.serif{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-variation-settings:"opsz" 72}
+.mono{font-family:var(--mono)}
+.chap{position:absolute;left:145px;top:86px;font:500 18px/24px var(--mono);letter-spacing:.2em;color:var(--chap)}
+.h2{position:absolute;left:142px;top:116px;font-size:70px;line-height:86px;white-space:nowrap}
+.sub{position:absolute;left:145px;top:220px;font:400 17px/22px var(--mono);letter-spacing:.06em;color:var(--mute);white-space:nowrap}
+.arrow{font:400 21px/28px var(--mono);color:var(--mute2);letter-spacing:.03em}
+.tag{position:absolute;background:#232945;color:#fff;font:500 16px/32px var(--mono);padding:0 12px;border-radius:5px;white-space:nowrap}
+svg{position:absolute;left:0;top:0;overflow:visible}
+b{font-weight:600;color:var(--navy)}
+/* intro */
+#laptop{left:885px;top:225px;width:840px;height:580px;background:var(--navy);border-radius:24px 24px 6px 6px}
+#lbase{left:840px;top:803px;width:930px;height:21px;background:var(--navy);border-radius:0 0 16px 16px}
+#screen{left:20px;top:20px;width:800px;height:542px;background:#fff;border-radius:6px;overflow:hidden}
+#ihead{position:absolute;left:0;top:0;width:100%;height:74px;border-bottom:1.5px solid #ece9e4;background:#fff;z-index:2}
+#ihead .t{position:absolute;left:26px;top:22px;font:400 24px/30px var(--sans);color:var(--navy)}
+#badge{position:absolute;right:26px;top:19px;height:35px;padding:0 15px;border-radius:18px;background:var(--orange);color:#fff;font:500 18px/35px var(--mono)}
+#rows{position:absolute;left:0;top:75px;width:100%}
+.row{position:absolute;left:0;width:100%;height:78px;border-bottom:1.5px solid #efece8}
+.row .av{position:absolute;left:27px;top:17px;width:44px;height:44px;border-radius:50%;background:#ece6de;font:600 16px/44px var(--sans);text-align:center;color:#2b3048}
+.row .n{position:absolute;left:93px;top:12px;font:400 20px/26px var(--sans);color:var(--navy)}
+.row .s{position:absolute;left:93px;top:42px;font:400 18px/24px var(--sans);color:#6b6f78}
+.row .tm{position:absolute;right:27px;top:26px;font:400 18px/24px var(--mono);color:#6b6f78}
+/* cards */
+.fcard{position:absolute;width:252px;height:342px;background:#fff;border:1.5px solid #e6e1da;border-radius:14px;box-shadow:0 14px 28px rgba(60,40,20,.07)}
+.fcard .f{position:absolute;left:21px;top:20px;font:400 15px/20px var(--mono);letter-spacing:.12em;color:#8a8a8a}
+.fcard .id{position:absolute;right:18px;top:20px;font:400 15px/20px var(--mono);color:#8a8a8a}
+.fcard .ph{position:absolute;left:24px;top:58px;width:52px;height:52px;border-radius:50%;background:#ebe4dc}
+.fcard .ln{position:absolute;left:24px;height:10px;border-radius:5px;background:#ebe4dc}
+.fcard .r{position:absolute;left:21px;bottom:16px;font:400 15px/20px var(--mono);letter-spacing:.1em;color:#8a8a8a}
+#acard{position:absolute;background:#fff;overflow:hidden}
+#acard .in{position:absolute;left:0;top:0;width:630px;height:704px}
+.fl{position:absolute;left:39px;font:400 15px/20px var(--mono);letter-spacing:.14em;color:#8a8f98}
+.fv{position:absolute;left:216px;font:400 22px/28px var(--sans);color:var(--navy)}
+/* heat */
+.cell{position:absolute;width:147px;height:87px;border-radius:3px;font:400 25px/87px var(--sans);text-align:center}
+.box{position:absolute;border:3px solid var(--navy);border-radius:8px}
+/* plan */
+.selw{position:absolute;top:376px;width:388px;height:62px}
+.selw:after{content:"▾";position:absolute;right:20px;top:0;line-height:62px;font-size:16px;color:#7a7d85;pointer-events:none}
+.sel{position:absolute;left:0;top:0;width:100%;height:100%;-webkit-appearance:none;appearance:none;border:1.5px solid #e3ddd3;border-radius:8px;background:#fff;font:400 24px var(--sans);padding:0 44px 0 21px;color:var(--navy);cursor:pointer;outline:none;transition:border-color .2s,box-shadow .2s,background .2s}
+.sel:focus{border-color:rgba(212,93,0,.8);box-shadow:0 0 0 3px rgba(212,93,0,.25);background:#fff7f0}
+.fcard{cursor:pointer}
+.flab{position:absolute;top:347px;font:400 15px/20px var(--mono);letter-spacing:.12em;color:#8a8f98}
+</style>
+</head>
+<body>
+<div id="scrollspace"></div>
+<div id="stage">
+
+<!-- ============ S1 INTRO ============ -->
+<div class="scene" id="s1" data-a="0" data-b="7.05" data-o="0.55">
+  <div class="abs mono" data-t="0.15" style="left:165px;top:300px;font-size:17px;letter-spacing:.2em;color:#6b6e78">DEVELOPERS LIKE YOU</div>
+  <div class="abs serif" style="left:163px;top:338px;font-size:86px;line-height:85px;white-space:nowrap">
+    <div data-t="0.4">Today, you're</div><div data-t="0.62">on the other</div><div data-t="0.84">side of the</div><div data-t="1.06">inbox.</div>
+  </div>
+  <div class="abs" data-t="1.35" style="left:165px;top:715px;font-size:24px;line-height:39.5px;color:#4a4f5c;white-space:nowrap">Every internship season, students send out<br>applications by the hundreds. For a moment,<br>imagine you are the one reading them.</div>
+  <div id="lapwrap" data-t="0.85" data-d="0.55" data-dy="0">
+    <div class="abs" id="laptop"><div class="abs" id="screen">
+      <div id="ihead"><div class="t">Inbox</div><div id="badge">0 new applications</div></div>
+      <div id="rows"></div>
+    </div></div>
+    <div class="abs" id="lbase"></div>
+  </div>
+</div>
+
+<!-- ============ S2 PICK ONE ============ -->
+<div class="scene" id="s2" data-a="7.7" data-b="27.2" data-o="0.05">
+  <div class="abs serif" id="pickT" style="left:0;width:1920px;text-align:center;top:91px;font-size:70px;line-height:88px">Pick one. Any one.</div>
+  <div class="abs" id="pickS" style="left:0;width:1920px;text-align:center;top:192px;font-size:24px;line-height:36px;color:#4a4f5c">Each card is a real person who answered<br>the Stack Overflow Developer Survey.</div>
+  <div id="fan"></div>
+  <div id="acard"><div class="in">
+    <div id="phc">
+      <div class="abs mono" style="left:21px;top:20px;font-size:15px;letter-spacing:.12em;color:#8a8a8a">FILE</div>
+      <div class="abs mono" id="phid" style="left:164px;top:20px;font-size:15px;color:#8a8a8a">#31045</div>
+      <div class="abs" style="left:24px;top:58px;width:52px;height:52px;border-radius:50%;background:#ebe4dc"></div>
+      <div class="abs" style="left:24px;top:132px;width:180px;height:10px;border-radius:5px;background:#ebe4dc"></div>
+      <div class="abs" style="left:24px;top:156px;width:145px;height:10px;border-radius:5px;background:#ebe4dc"></div>
+      <div class="abs" style="left:24px;top:180px;width:162px;height:10px;border-radius:5px;background:#ebe4dc"></div>
+      <div class="abs mono" id="selL" style="left:21px;top:302px;font-size:15px;letter-spacing:.1em;color:#8a8a8a">RESPONDENT</div>
+    </div>
+    <div id="alexc">
+      <div id="ahead">
+        <div class="fl" style="top:36px">RESPONDENT FILE</div>
+        <div class="abs mono" id="aid" style="right:33px;top:36px;font-size:15px;letter-spacing:.06em;color:#8a8f98">#31045</div>
+        <div class="abs serif" style="left:39px;top:88px;width:78px;height:78px;border-radius:50%;background:#ece3db;text-align:center;font-size:36px;line-height:80px" id="avI">A</div>
+        <div class="abs serif" style="left:140px;top:84px;font-size:43px;line-height:56px"><span class="pn">Alex</span></div>
+        <div class="abs" style="left:141px;top:141px;font-size:18px;line-height:24px;color:#555b68">Name added for the story</div>
+        <div class="abs" style="left:39px;top:192px;width:558px;height:1.5px;background:#e6e1da"></div>
+      </div>
+      <div id="hlrow" class="abs" style="left:27px;top:364px;width:582px;height:54px;background:#fbe8da;border-left:4px solid #d05e00"></div>
+      <div class="arow"><div class="fl" style="top:232px">ROLE</div><div class="fv" id="fv0" style="top:228px">Developer, full-stack</div></div>
+      <div class="arow"><div class="fl" style="top:307px">YEARS CODING</div><div class="fv" id="fv1" style="top:303px">6</div></div>
+      <div class="arow"><div class="fl" style="top:382px">LEARNED TO CODE</div><div class="fv" id="fv2" style="top:378px">School (university, college)</div></div>
+      <div class="arow"><div class="fl" style="top:457px">LANGUAGES</div><div class="fv" id="fv3" style="top:453px">Python · TypeScript · SQL</div></div>
+      <div class="arow"><div class="fl" style="top:532px">EDUCATION</div><div class="fv" id="fv4" style="top:528px">Bachelor’s degree</div></div>
+      <div class="arow"><div class="fl" style="top:607px">COUNTRY</div><div class="fv" id="fv5" style="top:603px">Canada</div></div>
+    </div>
+  </div></div>
+  <div id="meet">
+    <div class="abs serif" data-t="16.85" style="left:928px;top:300px;font-size:74px;line-height:90px;white-space:nowrap">Meet <span class="pn">Alex</span>.</div>
+    <div class="abs" data-t="17.45" style="left:930px;top:418px;font-size:24px;line-height:41px;color:#4a4f5c;white-space:nowrap"><span class="pn">Alex</span> is a <span id="pkind">developer</span> who took the 2024 Stack Overflow<br>Developer Survey.</div>
+    <div class="abs" data-t="18.3" style="left:930px;top:526px;font-size:24px;line-height:41px;color:#4a4f5c;white-space:nowrap">Like you, <span class="pn">Alex</span> <span id="phr" style="font-weight:500;color:var(--navy);padding:2px 5px;border-radius:2px">learned to code in school</span>.</div>
+    <div class="abs" data-t="20.6" style="left:930px;top:593px;font-size:24px;line-height:41px;color:#4a4f5c;white-space:nowrap">So where did <span class="pn">Alex</span> end up, and where might you?</div>
+  </div>
+</div>
+
+<!-- ============ S3 RINGS ============ -->
+<div class="scene" id="s3" data-a="25.3" data-b="31" data-o="0.1">
+  <svg width="1920" height="1080" id="rings">
+    <rect x="735" y="255" width="450" height="450" rx="42" fill="none" stroke="#e8b48a" stroke-width="1.6"/>
+    <rect x="810" y="330" width="300" height="300" rx="36" fill="none" stroke="#e8b48a" stroke-width="1.6"/>
+    <rect x="865" y="385" width="190" height="190" rx="36" fill="none" stroke="#e8b48a" stroke-width="1.6"/>
+    <rect x="907" y="427" width="106" height="106" rx="24" fill="none" stroke="#e8b48a" stroke-width="1.6"/>
+  </svg>
+  <div class="abs serif" id="every" style="left:0;width:1920px;text-align:center;top:836px;font-size:52px;line-height:66px">Every file is a person. Every person becomes a point.</div>
+</div>
+
+<!-- ============ S4 FIELD ============ -->
+<div class="scene" id="s4" data-a="31.1" data-b="38.55" data-o="0.55">
+  <div class="abs serif" data-t="31.25" style="left:143px;top:83px;font-size:57.5px;line-height:63px;white-space:nowrap"><span class="pn">Alex</span> is one of about <span id="cnt">0</span> developers who<br>answered the survey.</div>
+  <div class="abs mono" data-t="32.9" style="right:144px;top:226px;font-size:18px;line-height:22px;color:#6b6e78;white-space:nowrap"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#b3b2ab;margin-right:8px;vertical-align:-1px"></span>1 dot ≈ 100 respondents</div>
+  <div class="abs" data-t="34.85" style="left:144px;top:960px;font-size:24px;line-height:38px;color:#4a4f5c;white-space:nowrap">Somewhere in here are people with a story a lot like yours. Let's find out who they<br>are.</div>
+</div>
+<canvas id="dots" width="1920" height="1080" style="position:absolute;left:0;top:0;width:1920px;height:1080px"></canvas>
+
+<!-- ============ S5 WHO ============ -->
+<div class="scene" id="s5" data-a="39.8" data-b="47.15" data-o="0.6">
+  <div class="chap" data-t="40.0" style="top:98px">CHAPTER 1</div>
+  <div class="h2 serif" data-t="40.35" style="top:130px">Who's in the room?</div>
+  <div id="glabels"></div>
+</div>
+
+<!-- Alex marker (shared by S3-S5) -->
+<div id="am" class="abs" style="left:0;top:0">
+  <div id="amHalo" class="abs" style="border-radius:50%;background:#f2decc"></div>
+  <div id="amDot" class="abs" style="border-radius:50%;background:#db5900;border:2px solid #fff"></div>
+  <div id="amTxt" class="abs mono" style="font-size:22px;line-height:28px;color:var(--navy);white-space:nowrap"><span class="pn">Alex</span></div>
+  <div id="amTag" class="tag" style="font-size:17px"><span class="pn">Alex</span></div>
+</div>
+
+<!-- ============ S6 BARS ============ -->
+<div class="scene" id="s6" data-a="48.0" data-b="60.15" data-o="0.6">
+  <div class="chap" data-t="48.05">CHAPTER 1</div>
+  <div class="h2 serif" data-t="48.25">Where do developers actually work?</div>
+  <div class="sub" data-t="48.65">SHARE OF 2025 RESPONDENTS, BY REPORTED ROLE</div>
+  <div id="bars"></div>
+  <div class="abs" data-t="50.6" style="left:450px;top:703px;font-size:21px;line-height:28px;color:#6b6e78">The other ~48% are spread across many smaller roles.</div>
+  <div class="abs serif" data-t="53.45" style="left:144px;top:806px;font-size:42px;line-height:52px;font-weight:600;white-space:nowrap">Full-stack is the most common reported role. But are roles distributed<br>differently across <span style="color:var(--orange)">career stages</span>?</div>
+  <div class="abs arrow" data-t="56.15" style="left:144px;top:960px">→ Compare roles with experience.</div>
+</div>
+
+<!-- ============ S7 HEATMAP ============ -->
+<div class="scene" id="s7" data-a="60.9" data-b="76.15" data-o="0.6">
+  <div class="chap" data-t="60.95">CHAPTER 2</div>
+  <div class="h2 serif" data-t="61.25">Your starting point: find your peers</div>
+  <div class="sub" data-t="61.65">% OF EACH ROLE IN EACH EXPERIENCE BAND · 2025</div>
+  <div id="heat"></div>
+  <div id="cap1" class="abs" style="left:144px;top:891px;font-size:24px;line-height:30px;color:#4a4f5c;white-space:nowrap">In their first 1–5 years: <b>33% of front-end</b> and <b>28% of full-stack</b> developers. These roles have a lot of early-career peers.</div>
+  <div id="cap2" class="abs" style="left:144px;top:891px;font-size:24px;line-height:30px;color:#4a4f5c;white-space:nowrap"><b>Architects</b> peak at <b>21–30 years</b> (28%). Some roles are reached later in a career.</div>
+  <div class="abs arrow" data-t="74.0" style="left:144px;top:977px">→ What does gaining experience bring?</div>
+</div>
+
+<!-- ============ S8 PAY ============ -->
+<div class="scene" id="s8" data-a="76.95" data-b="91.8" data-o="0.6">
+  <div class="chap" data-t="77.0">CHAPTER 3</div>
+  <div class="h2 serif" data-t="77.3">Growing your career: experience &amp; pay</div>
+  <div class="sub" data-t="77.7">ANNUAL COMPENSATION (USD) · US RESPONDENTS · 2024 · APPROX. VALUES FROM TEAM DRAFT</div>
+  <svg width="1920" height="1080" id="paysvg"></svg>
+  <div class="abs mono" data-t="78.55" style="left:1590px;top:300px;font-size:18px;line-height:24px;color:#6b6e78"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--navy);margin-right:12px;vertical-align:-1px"></span>Median</div>
+  <div class="abs mono" data-t="78.55" style="left:1590px;top:342px;font-size:18px;line-height:24px;color:#6b6e78"><span style="display:inline-block;width:4px;height:22px;background:#0071ad;margin-right:12px;vertical-align:-5px"></span>Spread</div>
+  <div id="pn1" class="abs" style="left:1590px;top:437px;font-size:22px;line-height:35px;color:#4a4f5c;width:262px">Median pay rises from <b>~$70K</b> to <b>~$175K</b> by 11–20 years, then levels off.</div>
+  <div id="pn2" class="abs" style="left:1590px;top:437px;font-size:22px;line-height:35px;color:#4a4f5c;width:262px">The ranges <b style="background:#fae1ce;padding:0 2px">overlap</b>. Experience matters, but it doesn't guarantee a fixed outcome.</div>
+  <div class="abs arrow" data-t="89.6" style="left:144px;top:990px">→ What can <span class="pn">Alex</span> start learning today?</div>
+</div>
+
+<!-- ============ S9 SKILLS ============ -->
+<div class="scene" id="s9" data-a="93.2" data-b="106.85" data-o="0.6">
+  <div class="chap" data-t="93.25">CHAPTER 4</div>
+  <div class="h2 serif" data-t="93.45">Building skills: use versus interest</div>
+  <div class="sub" data-t="93.75">SHARE OF 2025 RESPONDENTS (%) · APPROX. VALUES FROM TEAM DRAFT</div>
+  <svg width="1920" height="1080" id="sksvg"></svg>
+  <div id="sn1" class="abs" style="left:1575px;top:604px;font-size:22px;line-height:36px;color:#4a4f5c;width:310px"><b>Rust</b> and <b>Go</b>: more developers want them than use them today.</div>
+  <div id="sn2" class="abs" style="left:1575px;top:303px;font-size:22px;line-height:36px;color:#4a4f5c;width:310px"><b>JavaScript</b>, <b>SQL</b>, <b>Python</b>: widely used today. A practical foundation.</div>
+  <div class="abs serif" data-t="105.45" style="left:144px;top:930px;font-size:31px;line-height:40px;font-weight:600;white-space:nowrap">Start with JavaScript, SQL and Python. Explore Rust and Go as your skills grow.</div>
+</div>
+
+<!-- ============ S10 AI ============ -->
+<div class="scene" id="s10" data-a="108.1" data-b="122.15" data-o="0.6">
+  <div class="chap" data-t="108.15">CHAPTER 5</div>
+  <div class="h2 serif" data-t="108.45">Adapting to change: the rise of AI</div>
+  <div class="sub" data-t="108.75">% OF RESPONDENTS · 2023–2025</div>
+  <svg width="1920" height="1080" id="aisvg"></svg>
+  <div id="aip" style="opacity:0">
+    <div class="abs mono" style="left:1440px;top:300px;font-size:17px;line-height:21px;letter-spacing:.14em;color:#6b6e78;white-space:nowrap">USE AI TOOLS, BY EXPERIENCE ·<br>2024</div>
+    <div class="abs" style="left:1440px;top:363px;font-size:22px;line-height:28px;color:var(--navy)">0–5 years</div>
+    <div id="aib1" class="abs" style="left:1440px;top:401px;height:32px;width:0;background:var(--blue);border-radius:3px"></div>
+    <div id="aiv1" class="abs serif" style="left:1440px;top:395px;font-size:34px;line-height:44px">0%</div>
+    <div class="abs" style="left:1440px;top:459px;font-size:22px;line-height:28px;color:var(--navy)">6+ years</div>
+    <div id="aib2" class="abs" style="left:1440px;top:497px;height:32px;width:0;background:#7eb0d4;border-radius:3px"></div>
+    <div id="aiv2" class="abs serif" style="left:1440px;top:491px;font-size:34px;line-height:44px">0%</div>
+    <div class="abs" style="left:1440px;top:558px;font-size:21px;line-height:28px;color:#4a4f5c">Newer developers use AI more.</div>
+  </div>
+  <div class="abs serif" data-t="117.95" style="left:144px;top:927px;font-size:36px;line-height:46px;font-weight:600;white-space:nowrap">More developers use AI every year, but <span style="color:var(--green)">trust is falling</span>. Adoption doesn't mean trust.</div>
+  <div class="abs arrow" data-t="120.35" style="left:144px;top:1003px">→ How should <span class="pn">Alex</span> prepare to adapt?</div>
+</div>
+
+<!-- ============ S11 ROADMAP ============ -->
+<div class="scene" id="s11" data-a="123.0" data-b="136.15" data-o="0.55">
+  <div class="chap" data-t="123.05" style="color:var(--orange)">THE AHA</div>
+  <div class="h2 serif" data-t="123.3"><span class="pn">Alex</span>'s career roadmap emerges</div>
+  <svg width="1920" height="1080" id="rmsvg"></svg>
+  <div id="rmlab"></div>
+  <div class="abs mono" data-t="130.15" style="left:195px;top:850px;font-size:18px;line-height:22px;letter-spacing:.12em;color:var(--chap)">STAY ADAPTABLE: AI TOOLS ALL ALONG THE WAY</div>
+  <div class="abs serif" data-t="131.6" style="left:144px;top:920px;font-size:40px;line-height:48px;font-weight:600;white-space:nowrap">Start in front-end or full-stack. Build experience and expertise, then consider roles like solution<br>architect.</div>
+</div>
+
+<!-- ============ S12 PLAN ============ -->
+<div class="scene" id="s12" data-a="137.1" data-b="146.55" data-o="0.6">
+  <div class="chap" data-t="137.15">NEXT STEP</div>
+  <div class="h2 serif" data-t="137.4">Make your own career plan</div>
+  <div id="pcard" class="abs" data-t="137.85" style="left:301px;top:265px;width:1318px;height:448px;background:#fdfdfc;border:1.5px solid #ebe6df;border-radius:22px;box-shadow:0 20px 40px rgba(60,40,20,.08)">
+    <div class="abs mono" style="left:48px;top:42px;font-size:16px;letter-spacing:.16em;color:#8a8f98">PEER LOCATOR</div>
+  </div>
+  <div id="pin" data-t="137.85">
+    <div class="flab" style="left:350px">ROLE</div><div class="flab" style="left:766px">EXPERIENCE</div><div class="flab" style="left:1182px">LOCATION</div>
+    <div class="selw" style="left:350px"><select class="sel" id="selRole"></select></div>
+    <div class="selw" style="left:766px"><select class="sel" id="selExp"></select></div>
+    <div class="selw" style="left:1182px"><select class="sel" id="selLoc"></select></div>
+    <div id="pbig" class="abs serif" style="left:348px;top:478px;font-size:116px;line-height:120px;color:var(--orange);font-weight:500">0%</div>
+    <div id="pdesc" class="abs" style="left:603px;top:551px;font-size:20px;line-height:38px;color:#4a4f5c;width:830px"></div>
+  </div>
+  <div class="abs serif" data-t="140.5" style="left:0;width:1920px;text-align:center;top:772px;font-size:28px;line-height:46px;font-weight:600">“Start with a role you can grow into, build skills that matter today, and stay<br>ready for the technologies of tomorrow.”</div>
+</div>
+
+<!-- ============ S13 END ============ -->
+<div class="scene" id="s13" data-a="146.9" data-b="9999">
+  <div class="abs mono" data-t="146.95" style="left:0;width:1920px;text-align:center;top:375px;font-size:16px;letter-spacing:.2em;color:#6b6e78">DEVELOPERS LIKE YOU</div>
+  <div class="abs serif" data-t="147.15" style="left:0;width:1920px;text-align:center;top:428px;font-size:98px;line-height:108px">Where Do We Stand?</div>
+  <div class="abs" data-t="147.4" style="left:0;width:1920px;text-align:center;top:551px;font-size:27px;line-height:36px;color:#4a4f5c">Understand what developers like you are doing.</div>
+  <div class="abs mono" data-t="147.65" style="left:0;width:1920px;text-align:center;top:646px;font-size:19.5px;line-height:26px;color:var(--navy)">Corrine Xiang · Andy Chen · Clovis Zhu</div>
+  <div class="abs mono" data-t="147.85" style="left:0;width:1920px;text-align:center;top:686px;font-size:16.5px;line-height:22px;color:#8a8d95">CSC316 · Data: Stack Overflow Developer Survey, 2023–2025</div>
+</div>
+
+</div>
+
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+const stage = $('stage');
+const NS = 'http://www.w3.org/2000/svg';
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const P = (t, a, d) => cl((t - a) / d);
+const eo = x => 1 - Math.pow(1 - x, 3);
+const eio = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const lerp = (a, b, k) => a + (b - a) * k;
+const fmt = n => Math.round(n).toLocaleString('en-US');
+function sv(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; }
+function el(html, parent) { const d = document.createElement('div'); d.innerHTML = html.trim(); const e = d.firstChild; parent.appendChild(e); return e; }
+function op(e, v) { e.style.opacity = v; }
+function fade(e, t, a, d = .6, dy = 0) { const k = eo(P(t, a, d)); e.style.opacity = k; if (dy) e.style.transform = `translateY(${(1 - k) * dy}px)`; return k; }
+let rnd = (() => { let s = 7; return () => (s = (s * 16807) % 2147483647) / 2147483647; })();
+
+/* ---------- fit stage ---------- */
+function fit() {
+  const W = document.documentElement.clientWidth, H = innerHeight, s = Math.min(W / 1920, H / 1080);
+  stage.style.transform = `translate(${(W - 1920 * s) / 2}px,${(H - 1080 * s) / 2}px) scale(${s})`;
+}
+addEventListener('resize', fit); fit();
+
+/* ---------- generic fade-ups ---------- */
+const fades = [...document.querySelectorAll('[data-t]')].map(e => ({ e, t: +e.dataset.t, d: +(e.dataset.d || .6), dy: e.dataset.dy !== undefined ? +e.dataset.dy : 16 }));
+const scenes = [...document.querySelectorAll('.scene')].map(e => ({ e, a: +e.dataset.a, b: +e.dataset.b, o: +(e.dataset.o || .5) }));
+
+/* ================= S1 INTRO ================= */
+const rowsEl = $('rows'), badge = $('badge'), screen = $('screen'), lap = $('lapwrap');
+const decs = [2, 2, 6, 5, 4, 4, 4, 3, 4, 5, 3, 2, 5, 4, 2, 3, 3, 4, 3, 4, 3, 2, 5, 3, 4, 2, 4, 3, 5, 2, 3, 4, 3, 4, 2, 5, 3, 3, 4, 2];
+const rows = []; let mins = 9 * 60 + 41;
+for (let i = 0; i < 40; i++) {
+  const hh = Math.floor(mins / 60), mm = String(mins % 60).padStart(2, '0');
+  rows.push(el(`<div class="row" style="top:${i * 78}px"><div class="av">A${i + 1}</div><div class="n">Applicant ${String(118 + i).padStart(4, '0')}</div><div class="s">Application — Software Developer Intern, Summer 2027</div><div class="tm">${hh}:${mm}</div></div>`, rowsEl));
+  mins -= decs[i];
+}
+function s1(t) {
+  const n = Math.round(127 * eo(P(t, 1.5, 2.8)));
+  badge.textContent = n + ' new applications';
+  rows.forEach((r, i) => { if (i < 6) { const k = eo(P(t, 1.6 + i * .17, .5)); r.style.opacity = k; r.style.transform = `translateX(${(1 - k) * 36}px)`; } else { r.style.opacity = 1; r.style.transform = ''; } });
+  const SC = [[4.85, 0], [5.35, 60], [5.85, 250], [6.35, 555], [6.85, 1110], [7.25, 1716], [7.65, 2400]];
+  let off = 0;
+  if (t > SC[0][0]) { let j = 0; while (j < SC.length - 2 && t > SC[j + 1][0]) j++; const k = cl((t - SC[j][0]) / (SC[j + 1][0] - SC[j][0])); off = lerp(SC[j][1], SC[j + 1][1], k); }
+  rowsEl.style.transform = `translateY(${-off}px)`;
+  const sp = 60 * (off - (() => { const u = t - 1 / 60; let o = 0; if (u > SC[0][0]) { let j = 0; while (j < SC.length - 2 && u > SC[j + 1][0]) j++; o = lerp(SC[j][1], SC[j + 1][1], cl((u - SC[j][0]) / (SC[j + 1][0] - SC[j][0]))); } return o; })());
+  const bl = cl((sp - 900) / 300, 0, 3);
+  rowsEl.style.filter = bl > .05 ? `blur(${bl.toFixed(2)}px)` : 'none';
+}
+
+/* ================= S2 PICK / ALEX CARD ================= */
+const fan = $('fan');
+/* Each card is one respondent. Fields: heatmap cell [row, col], "who's in the room" group,
+   bar index in the role chart (-1 = not one of the three bars), pay band index. */
+const PERSONAS = [
+  { id: '#18392', name: 'Maya', kind: 'developer', role: 'Developer, front-end', years: '3', learned: 'Online courses or certification', phrase: 'learned to code online', langs: 'JavaScript · TypeScript · HTML/CSS', edu: 'Bachelor’s degree', country: 'India', room: 3, bar: -1, heat: [2, 0], pay: 1 },
+  { id: '#40817', name: 'Sam', kind: 'developer', role: 'Developer, back-end', years: '9', learned: 'School (university, college)', phrase: 'learned to code in school', langs: 'Java · Go · SQL', edu: 'Master’s degree', country: 'Germany', room: 1, bar: 1, heat: [1, 1], pay: 3 },
+  { id: '#27554', name: 'Priya', kind: 'developer', role: 'Architect, software or solutions', years: '24', learned: 'Books / physical media', phrase: 'learned to code from books', langs: 'Java · Python · SQL', edu: 'Master’s degree', country: 'United States', room: 4, bar: -1, heat: [3, 4], pay: 5 },
+  { id: '#31045', name: 'Alex', kind: 'developer', role: 'Developer, full-stack', years: '6', learned: 'School (university, college)', phrase: 'learned to code in school', langs: 'Python · TypeScript · SQL', edu: 'Bachelor’s degree', country: 'Canada', room: 0, bar: 0, heat: [0, 0], pay: 0 },
+  { id: '#46203', name: 'Jordan', kind: 'developer', role: 'Developer, desktop or enterprise', years: '13', learned: 'Coding bootcamp', phrase: 'learned to code at a bootcamp', langs: 'C# · SQL · PowerShell', edu: 'Bachelor’s degree', country: 'United Kingdom', room: 4, bar: -1, heat: [4, 2], pay: 4 },
+  { id: '#52288', name: 'Lee', kind: 'student', role: 'Student', years: '2', learned: 'School (university, college)', phrase: 'learned to code in school', langs: 'Python · Java · C', edu: 'Some college study', country: 'Canada', room: 2, bar: 2, heat: null, pay: 0 }];
+const fanDef = [
+  { x: 602, y: 652, r: -16 }, { x: 759, y: 635, r: -8 }, { x: 918, y: 619, r: -3 },
+  { x: 1107, y: 596, r: 0 }, { x: 1245, y: 622, r: 5 }, { x: 1450, y: 645, r: 14 }];
+const deckRot = [-5, 3, -2, 0, 4, -3];
+const GATE = 12.3;          // the story waits here until a card is picked
+let picked = null;          // index into PERSONAS
+let hoverI = -1;
+const lift = fanDef.map(() => 0);
+const fcards = fanDef.map((c, i) => {
+  const e = el(`<div class="fcard"><div class="f">FILE</div><div class="id">${PERSONAS[i].id}</div><div class="ph"></div><div class="ln" style="top:132px;width:180px"></div><div class="ln" style="top:156px;width:145px"></div><div class="ln" style="top:180px;width:162px"></div><div class="r">RESPONDENT</div></div>`, fan);
+  e.addEventListener('mouseenter', () => { hoverI = i; });
+  e.addEventListener('mouseleave', () => { if (hoverI === i) hoverI = -1; });
+  e.addEventListener('click', () => pick(i));
+  return e;
+});
+const P0 = () => PERSONAS[picked === null ? 3 : picked];
+function applyPersona() {
+  const q = P0();
+  document.querySelectorAll('.pn').forEach(e => { e.textContent = q.name; });
+  $('avI').textContent = q.name[0]; $('aid').textContent = q.id; $('phid').textContent = q.id;
+  [q.role, q.years, q.learned, q.langs, q.edu, q.country].forEach((v, i) => { $('fv' + i).textContent = v; });
+  $('pkind').textContent = q.kind; $('phr').textContent = q.phrase;
+  setLocator(q.heat ? q.heat[0] : 0, q.heat ? q.heat[1] : 0, q.country, true);
+}
+function pick(i) {
+  if (!(cur > 9.9 && cur < 13.2)) return;
+  picked = i; hoverI = -1; applyPersona(); dirty = true;
+  window.scrollTo({ top: scrollAtTime(12.95), behavior: 'smooth' });
+}
+const acard = $('acard'), phc = $('phc'), selL = $('selL'), ahead = $('ahead'), arows = [...document.querySelectorAll('.arow')], hlrow = $('hlrow'), phr = $('phr'), meet = $('meet');
+const pickT = $('pickT'), pickS = $('pickS');
+function rectAt(e, cx, cy, w, h, rot = 0) { e.style.left = (cx - w / 2) + 'px'; e.style.top = (cy - h / 2) + 'px'; e.style.width = w + 'px'; e.style.height = h + 'px'; e.style.transform = `rotate(${rot}deg)`; }
+function deckPos(i, t) {
+  // deck enters from below, then fans out
+  const ent = eo(P(t, 7.85, .8));
+  const dk = { x: 960, y: 662 + (1 - ent) * 140, r: deckRot[i] * .6 };
+  return dk;
+}
+function s2(t) {
+  fade(pickT, t, 7.8, .6, 16); fade(pickS, t, 8.35, .6, 16);
+  const outK = eo(P(t, 13.25, .55));
+  if (t > 13.25) { pickT.style.opacity = Math.min(+pickT.style.opacity, 1 - outK); pickS.style.opacity = Math.min(+pickS.style.opacity, 1 - outK); }
+  const ent = eo(P(t, 7.85, .8)), entO = P(t, 7.85, .55);
+  const si = picked === null ? 3 : picked, chosen = t >= 12.35;
+  const poses = fcards.map((e, i) => {
+    const c = fanDef[i], dk = deckPos(i, t);
+    const k = eio(P(t, 8.95 + (i === 3 ? 0 : Math.abs(i - 2.5) * .05), 1.15));
+    const x = lerp(dk.x, c.x, k), y = lerp(dk.y + i * -2 - (i === 3 ? 6 : 0), c.y, k) - lift[i], r = lerp(dk.r, c.r, k);
+    rectAt(e, x, y + outK * 40, 252, 342, r);
+    e.style.opacity = (chosen && i === si) ? 0 : entO * (1 - outK);
+    e.style.zIndex = i === hoverI ? 12 : i === 3 ? 10 : i;
+    e.style.boxShadow = lift[i] > .5 ? `0 ${14 + lift[i]}px ${28 + lift[i]}px rgba(60,40,20,.10)` : '';
+    return { x, y, r };
+  });
+  fan.style.pointerEvents = t > 9.9 && t < 13.2 ? 'auto' : 'none';
+  // selected card
+  const sp = poses[si];
+  let cx = sp.x, cy = sp.y, w = 252, h = 342, rad = 14, rot = sp.r;
+  if (t >= 13.95 && t < 24.9) {
+    const k = eio(P(t, 13.95, 1.5));
+    cx = lerp(sp.x, 465, k); cy = lerp(fanDef[si].y, 540, k); w = lerp(252, 630, k); h = lerp(342, 704, k); rad = lerp(14, 22, k); rot = lerp(fanDef[si].r, 0, k);
+  }
+  if (t >= 24.9) { // morph into point
+    const K = [[24.9, 465, 540, 630, 704, 22], [25.7, 700, 513, 450, 486, 26], [26.2, 960, 480, 268, 268, 30], [26.7, 960, 480, 192, 192, 24], [27.15, 960, 480, 28, 28, 14]];
+    let j = 0; while (j < K.length - 2 && t > K[j + 1][0]) j++;
+    const A = K[j], B = K[j + 1], k = eio(P(t, A[0], B[0] - A[0]));
+    cx = lerp(A[1], B[1], k); cy = lerp(A[2], B[2], k); w = lerp(A[3], B[3], k); h = lerp(A[4], B[4], k); rad = lerp(A[5], B[5], k);
+  }
+  rectAt(acard, cx, cy, w, h, t >= 24.9 ? 0 : rot);
+  acard.style.borderRadius = rad + 'px';
+  const sel = eo(P(t, 12.35, .35));
+  const bw = lerp(1.5, 3, sel);
+  acard.style.border = `${bw}px solid ${sel > .01 ? `rgb(${lerp(230, 208, sel)},${lerp(225, 94, sel)},${lerp(218, 0, sel)})` : '#e6e1da'}`;
+  acard.style.boxShadow = `0 14px 28px rgba(60,40,20,.07), 0 0 ${40 * sel}px rgba(212,93,0,${.16 * sel})`;
+  acard.style.opacity = chosen && t <= 27.15 ? 1 : 0;
+  acard.style.zIndex = 20;
+  // fill change for point morph
+  const f1 = eo(P(t, 26.25, .45)), f2 = eo(P(t, 26.8, .35));
+  acard.style.background = t < 26.25 ? '#fff' : `rgb(${lerp(lerp(255, 236, f1), 219, f2)},${lerp(lerp(255, 184, f1), 89, f2)},${lerp(lerp(255, 140, f1), 0, f2)})`;
+  // contents
+  phc.style.opacity = 1 - P(t, 13.55, .45);
+  selL.textContent = t >= 12.35 ? 'SELECTED' : 'RESPONDENT';
+  selL.style.color = t >= 12.35 ? '#d05e00' : '#8a8a8a';
+  const cOut = 1 - P(t, 24.75, .4);
+  ahead.style.opacity = fade(ahead, t, 14.75, .55) * cOut;
+  arows.forEach((r, i) => { r.style.opacity = eo(P(t, 15.25 + i * .25, .5)) * cOut; });
+  hlrow.style.opacity = eo(P(t, 19.95, .45)) * cOut;
+  phr.style.background = `rgba(249,228,203,${eo(P(t, 19.95, .45))})`;
+  meet.style.opacity = 1 - P(t, 24.45, .45);
+}
+
+/* ================= S3 RINGS + ALEX MARKER ================= */
+const rings = $('rings'), every = $('every');
+const am = $('am'), amHalo = $('amHalo'), amDot = $('amDot'), amTxt = $('amTxt'), amTag = $('amTag');
+const GX = g => 360 + 300 * g;
+const ROOMN = [190, 120, 85, 60, 195];
+function alexSlot() { const g = P0().room; const row = g === 0 ? 9 : Math.floor(ROOMN[g] / 12 / 2); return { x: GX(g) - 82.5 + 15 * 5, y: 885 - 15 * row }; }
+function s3(t) {
+  const ri = eo(P(t, 25.45, .6)), ro = eo(P(t, 29.5, .7));
+  rings.style.opacity = ri * (1 - ro);
+  rings.style.transformOrigin = '960px 480px';
+  rings.style.transform = `scale(${lerp(.9, 1, ri) + .06 * ro})`;
+  every.style.opacity = eo(P(t, 27.6, .6)) * (1 - P(t, 30.0, .6));
+  every.style.transform = `translateY(${(1 - eo(P(t, 27.6, .6))) * 16}px)`;
+  // marker
+  let x = 960, y = 480, r = 14, hr = 28;
+  if (t > 30.5) { const k = eio(P(t, 30.5, 1.0)); x = lerp(960, 918, k); y = lerp(480, 615, k); r = lerp(14, 9, k); hr = lerp(28, 18, k); }
+  if (t > 39.5) { const ag = alexSlot(), k = eio(P(t, 39.6, 1.8)); x = lerp(918, ag.x, k); y = lerp(615, ag.y, k); r = lerp(9, 8.5, k); hr = lerp(18, 17, k); }
+  const vis = t >= 27.1 && t < 47.8 ? 1 - P(t, 47.15, .55) : 0;
+  am.style.opacity = vis;
+  am.style.display = vis > 0 ? 'block' : 'none';
+  amDot.style.width = amDot.style.height = 2 * r + 'px'; amDot.style.left = (x - r) + 'px'; amDot.style.top = (y - r) + 'px';
+  amHalo.style.width = amHalo.style.height = 2 * hr + 'px'; amHalo.style.left = (x - hr) + 'px'; amHalo.style.top = (y - hr) + 'px';
+  amHalo.style.opacity = eo(P(t, 27.15, .4));
+  amTxt.style.left = (x + 22) + 'px'; amTxt.style.top = (y - 14) + 'px';
+  amTxt.style.opacity = eo(P(t, 27.45, .5)) * (1 - P(t, 30.0, .5));
+  amTag.style.left = (x + 15) + 'px'; amTag.style.top = (y - 50) + 'px';
+  amTag.style.opacity = eo(P(t, 31.95, .5));
+}
+
+/* ================= S4/S5 DOTS ================= */
+const cv = $('dots'), ctx = cv.getContext('2d');
+const dpr = Math.min(2, window.devicePixelRatio || 1);
+cv.width = 1920 * dpr; cv.height = 1080 * dpr; ctx.scale(dpr, dpr);
+const counts = [190, 120, 85, 60, 195];
+const grid = [];
+counts.forEach((n, g) => { for (let i = 0; i < n; i++) { const c = i % 12, rr = Math.floor(i / 12); grid.push({ x: GX(g) - 82.5 + 15 * c, y: 885 - 15 * rr, g }); } });
+const field = [];
+for (let r = 0; r < 18; r++) for (let c = 0; c < 37; c++) field.push({ x: 160 + c * 44.8 + (rnd() - .5) * 28, y: 340 + r * 33.4 + (rnd() - .5) * 20 });
+while (field.length > 650) field.splice(Math.floor(rnd() * field.length), 1);
+// pair field dots to grid slots by x-order so motion is sensible
+const fOrder = field.map((p, i) => i).sort((a, b) => field[a].x - field[b].x);
+const gOrder = grid.map((p, i) => i).sort((a, b) => grid[a].x - grid[b].x);
+const dots = fOrder.map((fi, k) => {
+  const f = field[fi], gp = grid[gOrder[k]];
+  const dist = Math.hypot(f.x - 918, (f.y - 615) * 1.5);
+  return { f, gp, at: 31.75 + dist / 1000 * 2.3, md: rnd() * .7, nx: (rnd() - .5) * 90, ny: (rnd() - .5) * 90 };
+});
+function s45(t) {
+  const on = t > 31.6 && t < 47.8;
+  cv.style.display = on ? 'block' : 'none';
+  if (!on) return;
+  ctx.clearRect(0, 0, 1920, 1080);
+  const gout = 1 - P(t, 47.15, .55);
+  ctx.fillStyle = '#b3b2ab';
+  for (const d of dots) {
+    let a = eo(P(t, d.at, .35));
+    if (a <= 0) continue;
+    let x = lerp(918 + (d.f.x - 918) * .55, d.f.x, eo(P(t, d.at, .9)));
+    let y = lerp(615 + (d.f.y - 615) * .55, d.f.y, eo(P(t, d.at, .9)));
+    if (t > 39.4) {
+      const k = eio(P(t, 39.45 + d.md, 1.35));
+      const s = Math.sin(Math.PI * k);
+      x = lerp(d.f.x, d.gp.x, k) + d.nx * s; y = lerp(d.f.y, d.gp.y, k) + d.ny * s * .7;
+    }
+    ctx.globalAlpha = a * gout;
+    ctx.beginPath(); ctx.arc(x, y, t > 40.5 ? lerp(5, 5.5, P(t, 40.5, .8)) : 5, 0, 6.2832); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  $('cnt').textContent = fmt(65000 * eo(P(t, 31.75, 3.1)));
+}
+const gl = $('glabels');
+const gls = ['Full-stack', 'Back-end', 'Student', 'Front-end', 'Other roles'].map((s, g) => el(`<div class="abs mono" style="left:${GX(g) - 120}px;width:240px;text-align:center;top:918px;font-size:19px;line-height:24px;color:#555a66">${s}</div>`, gl));
+function s5(t) { gls.forEach((e, g) => fade(e, t, 41.15 + g * .14, .5)); }
+
+/* ================= S6 BARS ================= */
+const bars = $('bars');
+const bdef = [['Full-stack', 27, 0, 347], ['Back-end', 14.2, 1, 473], ['Student', 11, 0, 599]];
+const B = bdef.map(([lab, v, dec, y], i) => {
+  const L = el(`<div class="abs" style="left:145px;top:${y - 15}px;font-size:24px;line-height:30px;color:var(--navy)">${lab}</div>`, bars);
+  const tr = el(`<div class="abs" style="left:450px;top:${y - 29}px;width:906px;height:60px;background:#efe9e2;border-radius:4px"></div>`, bars);
+  const br = el(`<div class="abs" style="left:450px;top:${y - 29}px;height:60px;width:0;background:${i ? 'var(--navy)' : 'var(--orange)'};border-radius:4px"></div>`, bars);
+  const nv = el(`<div class="abs serif" style="top:${y - 24}px;font-size:37px;line-height:48px">0%</div>`, bars);
+  return { L, tr, br, nv, v, dec: lab === 'Back-end' ? 1 : 0, i };
+});
+const bRing = el(`<div class="abs" style="left:1298px;top:338px;width:21px;height:21px;border-radius:50%;border:2.5px solid #fff"></div>`, bars);
+const bTag = el(`<div class="tag" style="left:1281px;top:273px"><span class="pn">Alex</span></div>`, bars);
+function s6(t) {
+  const out = eo(P(t, 60.15, .55));
+  B.forEach(b => {
+    fade(b.L, t, 48.85 + b.i * .15, .5); fade(b.tr, t, 48.85 + b.i * .15, .5);
+    const k = eo(P(t, 49.6 + b.i * .34, 1.25)) * (1 - out);
+    const w = b.v / 27.45 * 906 * k;
+    b.br.style.width = w + 'px';
+    b.br.style.opacity = P(t, 49.5 + b.i * .34, .1);
+    b.nv.style.left = (450 + Math.max(w, 0) + 21) + 'px';
+    const val = b.v * k;
+    b.nv.textContent = (b.dec ? val.toFixed(1) : (val < 1 && b.i === 1 ? val.toFixed(1) : Math.round(val))) + '%';
+    b.nv.style.opacity = P(t, 49.5 + b.i * .34, .3) * (k < .05 ? .4 : 1);
+    b.br.style.background = b.i === P0().bar ? 'var(--orange)' : 'var(--navy)';
+  });
+  const pb = P0().bar;
+  if (pb >= 0) {
+    const bx = 450 + B[pb].v / 27.45 * 906 - 33, by = bdef[pb][3];
+    bRing.style.left = (bx - 10.5) + 'px'; bRing.style.top = (by - 9) + 'px'; bRing.style.display = 'block';
+    bTag.style.left = (bx - 27) + 'px'; bTag.style.top = (by - 74) + 'px';
+  } else { bRing.style.display = 'none'; bTag.style.left = '1050px'; bTag.style.top = '700px'; }
+  fade(bRing, t, 50.7, .4); fade(bTag, t, 50.7, .4, 8);
+}
+
+/* ================= S7 HEATMAP ================= */
+const heat = $('heat');
+const HR = ['Full-stack', 'Back-end', 'Front-end', 'Architect', 'Enterprise / desktop'];
+const HC = ['1–5', '6–10', '11–15', '16–20', '21–30', '31–40', '41–50', '50+'];
+const HV = [[28, 24, 16, 11, 13, 4, 1, 0], [25, 26, 19, 12, 12, 3, 1, 0], [33, 29, 17, 8, 7, 2, 0, 0], [6, 14, 20, 20, 28, 9, 2, 0], [21, 17, 13, 10, 21, 11, 2, 0]];
+const stops = [[0, 0xf8f0e5], [2, 0xf5ead9], [4, 0xf4e2cf], [6, 0xf2ddc4], [8, 0xf3d8b8], [10, 0xf2d2b4], [11, 0xf1ceaa], [13, 0xefc89d], [16, 0xf0bf8e], [19, 0xecad78], [21, 0xe9a365], [25, 0xe18c43], [26, 0xdf8539], [28, 0xdd7a2a], [33, 0xd45d00]];
+function hcol(v) {
+  let j = 0; while (j < stops.length - 2 && v > stops[j + 1][0]) j++;
+  const [a, ca] = stops[j], [b, cb] = stops[j + 1], k = cl((v - a) / (b - a));
+  const ch = (c, s) => (c >> s) & 255;
+  return `rgb(${[16, 8, 0].map(s => Math.round(lerp(ch(ca, s), ch(cb, s), k))).join(',')})`;
+}
+const hl = HR.map((r, i) => el(`<div class="abs" style="left:145px;top:${300 + i * 93 + 28}px;font-size:23px;line-height:30px;color:var(--navy);white-space:nowrap">${r}</div>`, heat));
+const cells = [];
+HV.forEach((row, i) => row.forEach((v, j) => {
+  const c = el(`<div class="cell" style="left:${435 + j * 153}px;top:${300 + i * 93}px;background:${hcol(v)};color:${v >= 22 ? '#fff' : '#2b3048'}">0%</div>`, heat);
+  cells.push({ c, v, i, j });
+}));
+const hcl = HC.map((s, j) => el(`<div class="abs mono" style="left:${435 + j * 153}px;width:147px;text-align:center;top:774px;font-size:18px;line-height:24px;color:#6b6e78">${s}</div>`, heat));
+const hax = el(`<div class="abs mono" style="left:435px;width:1218px;text-align:center;top:811px;font-size:17px;line-height:22px;letter-spacing:.06em;color:#8a8d95">YEARS OF PROFESSIONAL EXPERIENCE</div>`, heat);
+const box1 = el(`<div class="box" style="left:428px;top:294px;width:161px;height:472px"></div>`, heat);
+const box2 = el(`<div class="box" style="left:1041px;top:573px;width:159px;height:99px"></div>`, heat);
+const hRing = el(`<div class="abs" style="left:553px;top:307px;width:22px;height:22px;border-radius:50%;border:2.5px solid #fff"></div>`, heat);
+const hRingDot = el(`<div class="abs" style="left:553px;top:307px;width:22px;height:22px;border-radius:50%;background:#e07a2a;border:2.5px solid #fff;opacity:0"></div>`, heat);
+const hTag = el(`<div class="tag" style="left:579px;top:268px"><span class="pn">Alex</span></div>`, heat);
+const cap1 = $('cap1'), cap2 = $('cap2');
+function s7(t) {
+  hl.forEach((e, i) => fade(e, t, 61.8 + i * .08, .5));
+  hcl.forEach((e, j) => fade(e, t, 62.1 + j * .2, .5)); fade(hax, t, 63.0, .5);
+  const ph1 = eo(P(t, 65.45, .45)) * (1 - eo(P(t, 69.4, .45)));
+  const ph2 = eo(P(t, 69.4, .45)) * (1 - eo(P(t, 73.45, .45)));
+  cells.forEach(o => {
+    const st = 62.0 + o.j * .17 + o.i * .03;
+    const k = eo(P(t, st, .5));
+    const cnt = eo(P(t, st, .9));
+    o.c.textContent = Math.round(o.v * cnt) + '%';
+    let dim = 1;
+    if (!(o.j === 0)) dim = Math.min(dim, 1 - .74 * ph1);
+    if (!(o.i === 3 && o.j === 4)) dim = Math.min(dim, 1 - .74 * ph2);
+    o.c.style.opacity = k * dim;
+    o.c.style.transform = `scale(${lerp(.92, 1, k)})`;
+  });
+  op(box1, ph1); op(box2, ph2);
+  const hc = P0().heat;
+  if (hc) {
+    const x0 = 435 + 153 * hc[1], y0 = 300 + 93 * hc[0];
+    [hRing, hRingDot].forEach(e => { e.style.left = (x0 + 118) + 'px'; e.style.top = (y0 + 7) + 'px'; e.style.display = 'block'; });
+    hTag.style.left = (x0 + 144) + 'px'; hTag.style.top = (y0 - 32) + 'px'; hTag.style.display = 'block';
+    hRingDot.style.background = hcol(HV[hc[0]][hc[1]]);
+    fade(hRing, t, 63.35, .4); fade(hTag, t, 63.35, .4, 8);
+    hRingDot.style.opacity = Math.max(hc[1] !== 0 ? ph1 : 0, (hc[0] === 3 && hc[1] === 4) ? 0 : ph2);
+  } else { [hRing, hRingDot, hTag].forEach(e => { e.style.display = 'none'; }); }
+  cap1.style.opacity = eo(P(t, 65.7, .5)) * (1 - P(t, 69.3, .4));
+  cap2.style.opacity = eo(P(t, 69.75, .5)) * (1 - P(t, 73.35, .4));
+}
+
+/* ================= S8 PAY ================= */
+const ps = $('paysvg');
+const PX = i => 375 + 207 * i, PY = v => 777 - (v - 50) * 2.5;
+const PD = [[70, 50, 88, '$70K'], [96, 70, 122, '$96K'], [116, 95, 150, '$116K'], [148, 110, 190, '$148K'], [173, 128, 222, '$173K'], [174, 133, 220, '$174K']];
+const PXL = ['<1', '1–2', '3–5', '6–10', '11–20', '21+'];
+const pGrid = sv('g', {}, ps);
+[50, 100, 150, 200].forEach(v => {
+  sv('line', { x1: 285, x2: 1500, y1: PY(v), y2: PY(v), stroke: '#e8e1d8', 'stroke-width': 1.5 }, pGrid);
+  const tx = sv('text', { x: 270, y: PY(v) + 6, 'text-anchor': 'end', 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#6b6e78' }, pGrid); tx.textContent = '$' + v + 'K';
+});
+const pXl = sv('g', {}, ps);
+PXL.forEach((s, i) => { const tx = sv('text', { x: PX(i), y: 888, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 20, fill: '#1f2944' }, pXl); tx.textContent = s; });
+const pAx = sv('text', { x: 892, y: 930, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#8a8d95', 'letter-spacing': '1' }, ps); pAx.textContent = 'YEARS OF PROFESSIONAL CODING EXPERIENCE';
+const pHl = sv('rect', { x: 730, y: PY(150), width: 326, height: PY(110) - PY(150), rx: 6, fill: '#fae1ce' }, ps);
+const pLine = sv('polyline', { points: PD.map((d, i) => `${PX(i)},${PY(d[0])}`).join(' '), fill: 'none', stroke: '#5b5f6e', 'stroke-width': 2, 'stroke-dasharray': '6 5' }, ps);
+const pLineMask = sv('clipPath', { id: 'plc' }, ps); const pClip = sv('rect', { x: 0, y: 0, width: 0, height: 1080 }, pLineMask); pLine.setAttribute('clip-path', 'url(#plc)');
+const PP = PD.map((d, i) => {
+  const g = sv('g', {}, ps);
+  const sp = sv('g', {}, g);
+  const vl = sv('line', { x1: PX(i), x2: PX(i), y1: PY(d[0]), y2: PY(d[0]), stroke: '#0071ad', 'stroke-width': 4 }, sp);
+  const c1 = sv('line', { x1: PX(i) - 15, x2: PX(i) + 15, y1: PY(d[2]), y2: PY(d[2]), stroke: '#0071ad', 'stroke-width': 4 }, sp);
+  const c2 = sv('line', { x1: PX(i) - 15, x2: PX(i) + 15, y1: PY(d[1]), y2: PY(d[1]), stroke: '#0071ad', 'stroke-width': 4 }, sp);
+  const dot = sv('circle', { cx: PX(i), cy: PY(d[0]), r: 11, fill: '#1f2944', stroke: '#fff', 'stroke-width': 2.5 }, g);
+  const lb = sv('text', { x: PX(i) + 24, y: PY(d[0]) + 7, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#1f2944' }, g); lb.textContent = d[3];
+  return { d, i, vl, c1, c2, dot, lb, sp };
+});
+const pAH = sv('circle', { r: 19, fill: '#f2decc' }, ps), pAD = sv('circle', { r: 9, fill: '#db5900', stroke: '#fff', 'stroke-width': 2 }, ps);
+const pTag = el(`<div class="tag" style="left:0;top:0"><span class="pn">Alex</span></div>`, $('s8'));
+const pn1 = $('pn1'), pn2 = $('pn2');
+function s8(t) {
+  op(pGrid, eo(P(t, 77.95, .5))); op(pXl, eo(P(t, 78.15, .5))); op(pAx, eo(P(t, 78.55, .5)));
+  PP.forEach(p => {
+    const st = 79.1 + p.i * .33, i = p.i, d = p.d;
+    const kd = eo(P(t, st, .3));
+    p.dot.setAttribute('opacity', kd); p.dot.setAttribute('r', 11 * lerp(.4, 1, kd));
+    const ks = eo(P(t, st + .15, .45));
+    const yT = lerp(PY(d[0]), PY(d[2]), ks), yB = lerp(PY(d[0]), PY(d[1]), ks);
+    p.vl.setAttribute('y1', yT); p.vl.setAttribute('y2', yB);
+    p.c1.setAttribute('y1', yT); p.c1.setAttribute('y2', yT); p.c2.setAttribute('y1', yB); p.c2.setAttribute('y2', yB);
+    p.sp.setAttribute('opacity', ks > 0 ? 1 : 0);
+    p.lb.setAttribute('opacity', eo(P(t, st + .3, .5)));
+  });
+  pClip.setAttribute('width', 1500 * eio(P(t, 81.85, .8)));
+  // Alex along median line
+  const s0 = P0().pay, s1e = s0 < 4 ? 4 : s0;
+  const s = lerp(s0, s1e, eio(P(t, 82.75, 2.4 * Math.max(.4, (s1e - s0) / 4))));
+  const j = Math.min(4, Math.floor(s)), f = s - j, j2 = Math.min(5, j + 1);
+  const ax = lerp(PX(j), PX(j2), f), ay = lerp(PY(PD[j][0]), PY(PD[j2][0]), f);
+  const ak = eo(P(t, 81.6, .4));
+  [pAH, pAD].forEach(c => { c.setAttribute('cx', ax); c.setAttribute('cy', ay); c.setAttribute('opacity', ak); });
+  pTag.style.left = (ax - pTag.offsetWidth / 2) + 'px'; pTag.style.top = (ay - 66) + 'px'; pTag.style.opacity = ak;
+  pn1.style.opacity = eo(P(t, 83.2, .5)) * (1 - P(t, 86.3, .35));
+  pn2.style.opacity = eo(P(t, 86.55, .5));
+  pHl.setAttribute('opacity', eo(P(t, 86.45, .5)));
+}
+
+/* ================= S9 SKILLS ================= */
+const ks = $('sksvg');
+const SX = v => 450 + (v - 10) * 17.5, SY = i => 318 + i * 67.5;
+const SD = [['Python', 58, 42], ['SQL', 59.5, 38.5], ['HTML/CSS', 62, 35], ['JavaScript', 66, 35.5], ['TypeScript', 44, 32.5], ['Rust', 14, 30.5], ['Bash/Shell', 48.5, 28], ['Go', 16, 24]];
+const sBands = sv('g', {}, ks);
+const sGrid = sv('g', {}, ks);
+for (let v = 10; v <= 70; v += 10) {
+  sv('line', { x1: SX(v), x2: SX(v), y1: 288, y2: 832, stroke: '#edece5', 'stroke-width': 1.5 }, sGrid);
+  const tx = sv('text', { x: SX(v), y: 857, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#6b6e78' }, sGrid); tx.textContent = v + '%';
+}
+const sLeg = sv('g', {}, ks);
+sv('circle', { cx: 457, cy: 276, r: 7, fill: '#0a6bb5' }, sLeg); let tx = sv('text', { x: 475, y: 282, 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#6b6e78' }, sLeg); tx.textContent = 'Worked with in past year';
+sv('circle', { cx: 769, cy: 276, r: 7, fill: '#cf5d05' }, sLeg); tx = sv('text', { x: 787, y: 282, 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#6b6e78' }, sLeg); tx.textContent = 'Want to work with next year';
+const SR = SD.map((d, i) => {
+  const band = sv('rect', { x: 135, y: SY(i) - 30, width: 1402, height: 60, rx: 8, fill: '#fbe8da', opacity: 0 }, sBands);
+  const g = sv('g', {}, ks);
+  const lab = sv('text', { x: 414, y: SY(i) + 8, 'text-anchor': 'end', 'font-family': 'Inter', 'font-size': 23, fill: '#1f2944' }, g); lab.textContent = d[0];
+  const ln = sv('line', { x1: SX(d[1]), x2: SX(d[1]), y1: SY(i), y2: SY(i), stroke: '#9e9ca6', 'stroke-width': 3 }, g);
+  const od = sv('circle', { cx: SX(d[1]), cy: SY(i), r: 12, fill: '#cf5d05' }, g);
+  const bd = sv('circle', { cx: SX(d[1]), cy: SY(i), r: 12, fill: '#0a6bb5' }, g);
+  return { d, i, band, g, lab, ln, od, bd };
+});
+const sn1 = $('sn1'), sn2 = $('sn2');
+function s9(t) {
+  op(sGrid, eo(P(t, 93.9, .5))); op(sLeg, eo(P(t, 93.95, .5)));
+  const hA = eo(P(t, 99.45, .45)) * (1 - eo(P(t, 102.35, .45)));
+  const hB = eo(P(t, 102.35, .45)) * (1 - eo(P(t, 105.35, .45)));
+  SR.forEach(r => {
+    const i = r.i, d = r.d;
+    r.lab.setAttribute('opacity', eo(P(t, 94.05 + i * .06, .5)));
+    const kb = eo(P(t, 94.3 + i * .12, .35));
+    r.bd.setAttribute('opacity', kb); r.bd.setAttribute('r', 12 * lerp(.3, 1, kb));
+    const ko = eio(P(t, 95.45 + i * .15, .85));
+    const ox = lerp(SX(d[1]), SX(d[2]), ko);
+    r.od.setAttribute('cx', ox); r.od.setAttribute('opacity', P(t, 95.45 + i * .15, .15));
+    r.ln.setAttribute('x2', ox);
+    const inA = i === 5 || i === 7, inB = i === 0 || i === 1 || i === 3;
+    const dim = Math.min(inA ? 1 : 1 - .65 * hA, inB ? 1 : 1 - .65 * hB);
+    r.band.setAttribute('opacity', inA ? hA : inB ? hB : 0);
+    r.ln.setAttribute('opacity', dim); r.od.setAttribute('opacity', P(t, 95.45 + i * .15, .15) * dim); r.bd.setAttribute('opacity', kb * dim);
+    r.lab.setAttribute('fill', dim < .99 ? `rgba(31,41,68,${lerp(.35, 1, (dim - .35) / .65)})` : '#1f2944');
+  });
+  sn1.style.opacity = eo(P(t, 99.6, .5)) * (1 - P(t, 102.3, .4));
+  sn2.style.opacity = eo(P(t, 102.5, .5)) * (1 - P(t, 105.2, .4));
+}
+
+/* ================= S10 AI ================= */
+const ai = $('aisvg');
+const AX = i => 315 + 405 * i, AY = v => 840 - v * 5.25;
+const UB = [44.4, 61.8, 78.5], TG = [48.2, 43.0, 39.3];
+const aGrid = sv('g', {}, ai);
+for (let v = 0; v <= 100; v += 20) {
+  sv('line', { x1: 225, x2: 1200, y1: AY(v), y2: AY(v), stroke: v ? '#ebe7df' : '#d0cfc6', 'stroke-width': v ? 1.5 : 2 }, aGrid);
+  const t2 = sv('text', { x: 210, y: AY(v) + 6, 'text-anchor': 'end', 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#6b6e78' }, aGrid); t2.textContent = v + '%';
+}
+const aXl = sv('g', {}, ai);
+[2023, 2024, 2025].forEach((y, i) => { const t2 = sv('text', { x: AX(i), y: 882, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 20, fill: '#1f2944' }, aXl); t2.textContent = y; });
+const cf = 3.8 / 22.6, cxp = lerp(AX(0), AX(1), cf), cyp = AY(lerp(44.4, 61.8, cf));
+const aArea = sv('polygon', { points: `${cxp},${cyp} ${AX(1)},${AY(UB[1])} ${AX(2)},${AY(UB[2])} ${AX(2)},${AY(TG[2])} ${AX(1)},${AY(TG[1])}`, fill: '#e4eef6' }, ai);
+const aClipP = sv('clipPath', { id: 'aic' }, ai); const aClip = sv('rect', { x: 0, y: 0, width: 0, height: 1080 }, aClipP);
+const lU = sv('polyline', { points: UB.map((v, i) => `${AX(i)},${AY(v)}`).join(' '), fill: 'none', stroke: '#0a6bb5', 'stroke-width': 4, 'clip-path': 'url(#aic)' }, ai);
+const lT = sv('polyline', { points: TG.map((v, i) => `${AX(i)},${AY(v)}`).join(' '), fill: 'none', stroke: '#0f9a73', 'stroke-width': 4, 'clip-path': 'url(#aic)' }, ai);
+const aPts = [];
+[[UB, '#0a6bb5', [1, -1, -1]], [TG, '#0f9a73', [-1, 1, 1]]].forEach(([arr, col, side]) => arr.forEach((v, i) => {
+  const c = sv('circle', { cx: AX(i), cy: AY(v), r: 8, fill: col, stroke: '#fff', 'stroke-width': 2 }, ai);
+  const lb = sv('text', { x: AX(i) - (i === 0 ? 47 : 0), y: AY(v) + (side[i] < 0 ? -22 : 39), 'text-anchor': i === 0 ? 'middle' : 'middle', 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: col }, ai);
+  lb.textContent = v.toFixed(1) + '%';
+  aPts.push({ c, lb, i });
+}));
+// 2023 labels positioned left of points
+aPts.forEach(p => { if (p.i === 0) p.lb.setAttribute('x', 268); });
+const eU = sv('text', { x: 1230, y: AY(78.5) + 7, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#0a6bb5' }, ai); eU.textContent = 'Use AI tools';
+const eT = sv('text', { x: 1230, y: AY(39.3) + 7, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#0f9a73' }, ai); eT.textContent = 'Trust AI output';
+const aip = $('aip');
+function s10(t) {
+  op(aGrid, eo(P(t, 108.85, .5))); op(aXl, eo(P(t, 109.15, .5)));
+  const k = P(t, 110.0, 2.7);
+  aClip.setAttribute('width', AX(0) - 2 + k * (AX(2) - AX(0) + 14));
+  aPts.forEach(p => { const a = eo(P(t, 110.0 + p.i * 1.35, .3)); p.c.setAttribute('opacity', a); p.lb.setAttribute('opacity', a); });
+  const ea = eo(P(t, 112.95, .6)); aArea.setAttribute('opacity', ea); eU.setAttribute('opacity', ea); eT.setAttribute('opacity', ea);
+  const pk = eo(P(t, 115.3, .5)); aip.style.opacity = pk; aip.style.transform = `translateY(${(1 - pk) * 14}px)`;
+  const b1 = eo(P(t, 115.45, 1.2)), b2 = eo(P(t, 115.75, 1.2));
+  $('aib1').style.width = 230 * b1 + 'px'; $('aiv1').style.left = (1440 + 230 * b1 + 16) + 'px'; $('aiv1').textContent = Math.round(70 * b1) + '%';
+  $('aib2').style.width = 187 * b2 + 'px'; $('aiv2').style.left = (1440 + 187 * b2 + 16) + 'px'; $('aiv2').textContent = Math.round(57 * b2) + '%';
+}
+
+/* ================= S11 ROADMAP ================= */
+const rm = $('rmsvg');
+const RD = 'M193,630 C420,630 520,495 716,495 C900,495 1000,619 1178,619 C1380,619 1540,452 1725,450';
+const rGray = sv('path', { d: RD, fill: 'none', stroke: '#e4ddd3', 'stroke-width': 5, 'stroke-linecap': 'round' }, rm);
+const rDark = sv('path', { d: RD, fill: 'none', stroke: '#1f2944', 'stroke-width': 4.5, 'stroke-linecap': 'round' }, rm);
+const RL = rDark.getTotalLength();
+rDark.setAttribute('stroke-dasharray', RL); rDark.setAttribute('stroke-dashoffset', RL);
+const rDash = sv('line', { x1: 193, x2: 1725, y1: 833, y2: 833, stroke: '#1f78b4', 'stroke-width': 2.5, 'stroke-dasharray': '7 7' }, rm);
+const rClipP = sv('clipPath', { id: 'rdc' }, rm); const rClip = sv('rect', { x: 0, y: 800, width: 0, height: 60 }, rClipP); rDash.setAttribute('clip-path', 'url(#rdc)');
+function lenAtX(x) { let lo = 0, hi = RL; for (let n = 0; n < 30; n++) { const m = (lo + hi) / 2; if (rDark.getPointAtLength(m).x < x) lo = m; else hi = m; } return lo; }
+const MS = [{ x: 226, n: 1 }, { x: 716, n: 2 }, { x: 1178, n: 3 }, { x: 1700, n: 4 }].map(m => { const L = lenAtX(m.x), p = rDark.getPointAtLength(L); return { ...m, L, y: p.y }; });
+const msG = MS.map(m => {
+  const g = sv('g', { opacity: 0 }, rm);
+  sv('circle', { cx: m.x, cy: m.y, r: 17, fill: '#fff', stroke: '#1f2944', 'stroke-width': 3.5 }, g);
+  const t2 = sv('text', { x: m.x, y: m.y + 6, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 17, 'font-weight': 700, fill: '#1f2944' }, g); t2.textContent = m.n;
+  return g;
+});
+const rmlab = $('rmlab');
+const RLB = [
+  [197, 668, 'Start in a common entry<br>role', 'Front-end or full-stack'],
+  [687, 356, 'Build experience', 'Pay tends to grow with years'],
+  [1149, 657, 'Develop expertise', 'JS · SQL · Python → Rust · Go'],
+  [1530, 311, 'Advanced role', 'e.g. solution architect']].map(([x, y, h, s]) => el(`<div class="abs" style="left:${x}px;top:${y}px;white-space:nowrap"><div class="serif" style="font-size:32px;line-height:36px">${h}</div><div class="mono" style="font-size:19px;line-height:24px;color:#6b6e78;margin-top:10px;letter-spacing:.02em">${s}</div></div>`, rmlab));
+const rAH = sv('circle', { r: 19, fill: '#f2decc' }, rm), rAD = sv('circle', { r: 9, fill: '#db5900', stroke: '#fff', 'stroke-width': 2 }, rm);
+const rTag = el(`<div class="tag"><span class="pn">Alex</span></div>`, $('s11'));
+function s11(t) {
+  rGray.setAttribute('opacity', eo(P(t, 123.75, .6)));
+  const k = eio(P(t, 124.65, 4.7)), L = RL * k;
+  rDark.setAttribute('stroke-dashoffset', RL - L);
+  const p = rDark.getPointAtLength(L);
+  const ak = eo(P(t, 124.25, .45));
+  [rAH, rAD].forEach(c => { c.setAttribute('cx', p.x); c.setAttribute('cy', p.y); c.setAttribute('opacity', ak); });
+  rTag.style.left = (p.x - rTag.offsetWidth / 2) + 'px'; rTag.style.top = (p.y - 62) + 'px';
+  rTag.style.opacity = ak * (1 - P(t, 129.6, .4));
+  MS.forEach((m, i) => {
+    const reach = i === 0 ? 124.25 : 124.65 + 4.7 * invE(m.L / RL);
+    const a = eo(P(t, reach, .4)); msG[i].setAttribute('opacity', a);
+    const la = eo(P(t, reach + (i === 3 ? .75 : .05), .6)); RLB[i].style.opacity = la; RLB[i].style.transform = `translateY(${(1 - la) * 10}px)`;
+  });
+  rClip.setAttribute('width', 1800 * eio(P(t, 129.95, .9)));
+}
+function invE(y) { let lo = 0, hi = 1; for (let n = 0; n < 30; n++) { const m = (lo + hi) / 2; if (eio(m) < y) lo = m; else hi = m; } return lo; }
+
+/* ================= S12 PLAN ================= */
+const pbig = $('pbig'), pdesc = $('pdesc'), selRole = $('selRole'), selExp = $('selExp'), selLoc = $('selLoc');
+const LOCS = ['Canada', 'United States', 'United Kingdom', 'Germany', 'India'];
+HR.forEach((r, i) => selRole.add(new Option(r, i)));
+HC.forEach((c, i) => selExp.add(new Option(c + ' years', i)));
+LOCS.forEach(c => selLoc.add(new Option(c, c)));
+const NOUN = ['full-stack developers', 'back-end developers', 'front-end developers', 'architects', 'enterprise / desktop developers'];
+function descFor(r, c) {
+  const v = HV[r][c];
+  const span = c === 0 ? 'are in their first 1–5 years' : c === 7 ? 'have 50+ years of professional experience' : `have ${HC[c]} years of professional experience`;
+  const fixed = { '0,0': 'Plenty of peers start here.', '2,0': 'The most early-career role.', '3,0': 'A role most people grow into later.' }[r + ',' + c];
+  const tail = fixed || (v === Math.max(...HV[r]) ? 'The most common stage for this role.' : v >= 15 ? 'A common stage for this role.' : v >= 5 ? 'A smaller group of peers.' : 'Very few peers are at this stage.');
+  return `of ${NOUN[r]} ${span}. ${tail}`;
+}
+let locTarget = 28, locAnim = 28;
+function setLocator(r, c, country, instant) {
+  selRole.value = r; selExp.value = c; if (country) selLoc.value = LOCS.includes(country) ? country : LOCS[0];
+  locTarget = HV[r][c]; if (instant) locAnim = locTarget;
+  pdesc.textContent = descFor(r, c);
+  dirty = true;
+}
+[selRole, selExp].forEach(e => e.addEventListener('change', () => setLocator(+selRole.value, +selExp.value, null, false)));
+selLoc.addEventListener('change', () => { dirty = true; });
+function s12(t) {
+  const k = eo(P(t, 138.55, .9));
+  pbig.textContent = Math.round(locAnim * k) + '%';
+  pdesc.style.opacity = eo(P(t, 138.95, .5));
+}
+
+/* ================= MASTER ================= */
+function render(t) {
+  t -= 0.15;
+  for (const s of scenes) {
+    const vis = t >= s.a - .05 && t <= s.b + s.o + .05;
+    s.e.style.display = vis ? 'block' : 'none';
+    if (vis) s.e.style.opacity = 1 - P(t, s.b, s.o);
+  }
+  // intro blur on exit
+  $('s1').style.filter = t > 6.85 ? `blur(${(P(t, 6.85, .45) * 3).toFixed(2)}px)` : 'none';
+  for (const f of fades) fade(f.e, t, f.t, f.d, f.dy);
+  if (t < 7.8) s1(t);
+  if (t > 7.6 && t < 27.3) s2(t); else { $('acard').style.opacity = 0; }
+  s3(t);
+  s45(t);
+  if (t > 39 && t < 48) s5(t);
+  if (t > 47.9 && t < 61) s6(t);
+  if (t > 60.8 && t < 77) s7(t);
+  if (t > 76.8 && t < 93) s8(t);
+  if (t > 93 && t < 108) s9(t);
+  if (t > 108 && t < 123) s10(t);
+  if (t > 122.9 && t < 137) s11(t);
+  if (t > 137 && t < 147.1) s12(t);
+}
+const END = 153;
+window.__render = render;
+/* ---------- scroll-driven timeline ----------
+   Scroll position maps to story time. Passages where the video only holds
+   still get less scroll distance than passages where things move. */
+const INTRO = 0;                   // nothing plays on its own: time starts at 0 and only scrolling advances it
+const PX_PER_SEC = 130;            // scroll pixels for one second of animated time
+const HOLDS = [[16.9, 20], [21, 24.4], [28.3, 29.4], [35.5, 38.5], [42, 47], [54, 56], [56.6, 60], [66.2, 69.4], [70.4, 73.4], [74.6, 76], [85.6, 86.4], [87.2, 89.5], [90, 91.8], [98, 99.4], [100.4, 102.2], [103.2, 105.2], [106.2, 106.8], [119, 120.2], [120.8, 122], [132.4, 136], [145, 146.4], [149, 153]];
+const HOLD_W = .35;
+const STEP = .05, N = Math.round((END - INTRO) / STEP);
+const cum = new Float64Array(N + 1);
+for (let i = 0; i < N; i++) {
+  const tm = INTRO + (i + .5) * STEP;
+  const w = HOLDS.some(([a, b]) => tm >= a && tm < b) ? HOLD_W : 1;
+  cum[i + 1] = cum[i] + w * STEP * PX_PER_SEC;
+}
+const TOTAL = cum[N];
+const spacer = document.getElementById('scrollspace');
+function sizeSpacer() { spacer.style.height = (TOTAL + innerHeight) + 'px'; }
+function timeAtScroll(y) {
+  if (y <= 0) return INTRO;
+  if (y >= TOTAL) return END;
+  let lo = 0, hi = N;
+  while (hi - lo > 1) { const m = (lo + hi) >> 1; if (cum[m] <= y) lo = m; else hi = m; }
+  return INTRO + (lo + (y - cum[lo]) / (cum[lo + 1] - cum[lo])) * STEP;
+}
+function scrollAtTime(tm) {
+  const x = cl((tm - INTRO) / STEP, 0, N), i = Math.min(N - 1, Math.floor(x));
+  return cum[i] + (x - i) * (cum[i + 1] - cum[i]);
+}
+addEventListener('scroll', () => { if (picked === null && scrollY > scrollAtTime(GATE) + 2) scrollTo(0, scrollAtTime(GATE)); }, { passive: true });
+function uiTick() {
+  let moving = false;
+  lift.forEach((v, i) => { const g = i === hoverI ? 16 : 0; lift[i] += (g - v) * .2; if (Math.abs(g - lift[i]) < .05) lift[i] = g; else moving = true; });
+  locAnim += (locTarget - locAnim) * .12; if (Math.abs(locTarget - locAnim) < .02) locAnim = locTarget; else moving = true;
+  return moving;
+}
+let dirty = true;
+let cur = timeAtScroll(window.scrollY), last = -1;
+function frame() {
+  let target = timeAtScroll(window.scrollY);
+  if (picked === null) target = Math.min(target, GATE);
+  // ease toward the scroll target so wheel steps feel smooth
+  cur += (target - cur) * (Math.abs(target - cur) < .002 ? 1 : .14);
+  const ui = uiTick();
+  if (cur !== last || dirty || ui) { render(cur); last = cur; dirty = false; }
+  requestAnimationFrame(frame);
+}
+addEventListener('resize', sizeSpacer); sizeSpacer(); fit(); applyPersona();
+const still = new URLSearchParams(location.search).get('t');
+(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => { if (still !== null) render(+still); else requestAnimationFrame(frame); });
+})();
+</script>
+</body>
+</html>
