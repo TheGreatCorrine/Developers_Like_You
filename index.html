@@ -20,6 +20,8 @@ html,body{width:100%;background:var(--bg);overflow-x:hidden}
   font-family:var(--sans);color:var(--navy);-webkit-font-smoothing:antialiased}
 .abs{position:absolute}
 .scene{position:absolute;left:0;top:0;width:1920px;height:1080px}
+/* hide the stage until data and fonts are loaded and the first frame is drawn (avoids a flash of every scene stacked) */
+#stage:not(.ready){visibility:hidden}
 .serif{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;font-variation-settings:"opsz" 72}
 .mono{font-family:var(--mono)}
 .chap{position:absolute;left:145px;top:86px;font:500 18px/24px var(--mono);letter-spacing:.2em;color:var(--chap)}
@@ -894,7 +896,11 @@ function frame() {
 }
 addEventListener('resize', sizeSpacer); sizeSpacer(); fit(); applyPersona();
 const still = new URLSearchParams(location.search).get('t');
-(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => { if (still !== null) render(+still); else requestAnimationFrame(frame); });
+(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => {
+  if (still !== null) render(+still);
+  else { render(cur); last = cur; dirty = false; requestAnimationFrame(frame); }
+  stage.classList.add('ready');
+});
 }).catch(showDataError);
 </script>
 </body>
