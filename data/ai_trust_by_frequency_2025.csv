@@ -1,0 +1,26 @@
+frequency,freq_order,trust,trust_order,n,group_n,pct
+Daily,0,Highly distrust,0,1126,15662,7.189375558677052
+Daily,0,Somewhat distrust,1,3027,15662,19.32703358447197
+Daily,0,Neither trust nor distrust,2,3772,15662,24.083769633507853
+Daily,0,Somewhat trust,3,6887,15662,43.97267271102031
+Daily,0,Highly trust,4,850,15662,5.42714851232282
+Weekly,1,Highly distrust,0,760,5901,12.879173021521776
+Weekly,1,Somewhat distrust,1,1957,5901,33.16387053041857
+Weekly,1,Neither trust nor distrust,2,1446,5901,24.504321301474327
+Weekly,1,Somewhat trust,3,1664,5901,28.1986104050161
+Weekly,1,Highly trust,4,74,5901,1.2540247415692256
+Monthly or less,2,Highly distrust,0,1142,4563,25.027394258163486
+Monthly or less,2,Somewhat distrust,1,1721,4563,37.71641463949156
+Monthly or less,2,Neither trust nor distrust,2,895,4563,19.614288845058077
+Monthly or less,2,Somewhat trust,3,749,4563,16.414639491562568
+Monthly or less,2,Highly trust,4,56,4563,1.2272627657243043
+"Not yet, planning",3,Highly distrust,0,233,1754,13.283922462941847
+"Not yet, planning",3,Somewhat distrust,1,617,1754,35.17673888255416
+"Not yet, planning",3,Neither trust nor distrust,2,493,1754,28.107183580387684
+"Not yet, planning",3,Somewhat trust,3,362,1754,20.63854047890536
+"Not yet, planning",3,Highly trust,4,49,1754,2.793614595210946
+No plans,4,Highly distrust,0,3265,5380,60.687732342007436
+No plans,4,Somewhat distrust,1,1353,5380,25.148698884758364
+No plans,4,Neither trust nor distrust,2,549,5380,10.20446096654275
+No plans,4,Somewhat trust,3,198,5380,3.6802973977695173
+No plans,4,Highly trust,4,15,5380,0.2788104089219331

@@ -49,7 +49,7 @@ b{font-weight:600;color:var(--navy)}
 .fcard .ph{position:absolute;left:24px;top:58px;width:52px;height:52px;border-radius:50%;background:#ebe4dc}
 .fcard .ln{position:absolute;left:24px;height:10px;border-radius:5px;background:#ebe4dc}
 .fcard .r{position:absolute;left:21px;bottom:16px;font:400 15px/20px var(--mono);letter-spacing:.1em;color:#8a8a8a}
-#acard{position:absolute;background:#fff;overflow:hidden}
+#acard{position:absolute;background:#fff;overflow:hidden;pointer-events:none}
 #acard .in{position:absolute;left:0;top:0;width:630px;height:704px}
 .fl{position:absolute;left:39px;font:400 15px/20px var(--mono);letter-spacing:.14em;color:#8a8f98}
 .fv{position:absolute;left:216px;font:400 22px/28px var(--sans);color:var(--navy)}
@@ -166,7 +166,7 @@ b{font-weight:600;color:var(--navy)}
   <div class="h2 serif" data-t="48.25">Where do developers actually work?</div>
   <div class="sub" data-t="48.65">SHARE OF 2025 RESPONDENTS, BY REPORTED ROLE</div>
   <div id="bars"></div>
-  <div class="abs" data-t="50.6" style="left:450px;top:703px;font-size:21px;line-height:28px;color:#6b6e78">The other ~48% are spread across many smaller roles.</div>
+  <div class="abs" data-t="50.6" style="left:450px;top:703px;font-size:21px;line-height:28px;color:#6b6e78">The other <span id="otherPct">~48%</span> are spread across many smaller roles.</div>
   <div class="abs serif" data-t="53.45" style="left:144px;top:806px;font-size:42px;line-height:52px;font-weight:600;white-space:nowrap">Full-stack is the most common reported role. But are roles distributed<br>differently across <span style="color:var(--orange)">career stages</span>?</div>
   <div class="abs arrow" data-t="56.15" style="left:144px;top:960px">→ Compare roles with experience.</div>
 </div>
@@ -177,8 +177,8 @@ b{font-weight:600;color:var(--navy)}
   <div class="h2 serif" data-t="61.25">Your starting point: find your peers</div>
   <div class="sub" data-t="61.65">% OF EACH ROLE IN EACH EXPERIENCE BAND · 2025</div>
   <div id="heat"></div>
-  <div id="cap1" class="abs" style="left:144px;top:891px;font-size:24px;line-height:30px;color:#4a4f5c;white-space:nowrap">In their first 1–5 years: <b>33% of front-end</b> and <b>28% of full-stack</b> developers. These roles have a lot of early-career peers.</div>
-  <div id="cap2" class="abs" style="left:144px;top:891px;font-size:24px;line-height:30px;color:#4a4f5c;white-space:nowrap"><b>Architects</b> peak at <b>21–30 years</b> (28%). Some roles are reached later in a career.</div>
+  <div id="cap1" class="abs" style="left:144px;top:891px;font-size:24px;line-height:30px;color:#4a4f5c;white-space:nowrap">In their first 1–5 years: <b><span id="feEarly">33%</span> of front-end</b> and <b><span id="fsEarly">28%</span> of full-stack</b> developers. These roles have a lot of early-career peers.</div>
+  <div id="cap2" class="abs" style="left:144px;top:891px;font-size:24px;line-height:30px;color:#4a4f5c;white-space:nowrap"><b>Architects</b> peak at <b><span id="archBand">21–30</span> years</b> (<span id="archPct">28%</span>). Some roles are reached later in a career.</div>
   <div class="abs arrow" data-t="74.0" style="left:144px;top:977px">→ What does gaining experience bring?</div>
 </div>
 
@@ -186,11 +186,11 @@ b{font-weight:600;color:var(--navy)}
 <div class="scene" id="s8" data-a="76.95" data-b="91.8" data-o="0.6">
   <div class="chap" data-t="77.0">CHAPTER 3</div>
   <div class="h2 serif" data-t="77.3">Growing your career: experience &amp; pay</div>
-  <div class="sub" data-t="77.7">ANNUAL COMPENSATION (USD) · US RESPONDENTS · 2024 · APPROX. VALUES FROM TEAM DRAFT</div>
+  <div class="sub" data-t="77.7">ANNUAL COMPENSATION (USD) · US PROFESSIONAL DEVELOPERS · 2024 · MEDIAN AND MIDDLE 50%</div>
   <svg width="1920" height="1080" id="paysvg"></svg>
   <div class="abs mono" data-t="78.55" style="left:1590px;top:300px;font-size:18px;line-height:24px;color:#6b6e78"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--navy);margin-right:12px;vertical-align:-1px"></span>Median</div>
-  <div class="abs mono" data-t="78.55" style="left:1590px;top:342px;font-size:18px;line-height:24px;color:#6b6e78"><span style="display:inline-block;width:4px;height:22px;background:#0071ad;margin-right:12px;vertical-align:-5px"></span>Spread</div>
-  <div id="pn1" class="abs" style="left:1590px;top:437px;font-size:22px;line-height:35px;color:#4a4f5c;width:262px">Median pay rises from <b>~$70K</b> to <b>~$175K</b> by 11–20 years, then levels off.</div>
+  <div class="abs mono" data-t="78.55" style="left:1590px;top:342px;font-size:18px;line-height:24px;color:#6b6e78"><span style="display:inline-block;width:4px;height:22px;background:#0071ad;margin-right:12px;vertical-align:-5px"></span>Middle 50%<br><span style="padding-left:16px">(Q1–Q3)</span></div>
+  <div id="pn1" class="abs" style="left:1590px;top:437px;font-size:22px;line-height:35px;color:#4a4f5c;width:262px">Median pay rises from <b id="payLo">~$70K</b> to <b id="payHi">~$175K</b> by 11–20 years, then levels off.</div>
   <div id="pn2" class="abs" style="left:1590px;top:437px;font-size:22px;line-height:35px;color:#4a4f5c;width:262px">The ranges <b style="background:#fae1ce;padding:0 2px">overlap</b>. Experience matters, but it doesn't guarantee a fixed outcome.</div>
   <div class="abs arrow" data-t="89.6" style="left:144px;top:990px">→ What can <span class="pn">Alex</span> start learning today?</div>
 </div>
@@ -199,7 +199,7 @@ b{font-weight:600;color:var(--navy)}
 <div class="scene" id="s9" data-a="93.2" data-b="106.85" data-o="0.6">
   <div class="chap" data-t="93.25">CHAPTER 4</div>
   <div class="h2 serif" data-t="93.45">Building skills: use versus interest</div>
-  <div class="sub" data-t="93.75">SHARE OF 2025 RESPONDENTS (%) · APPROX. VALUES FROM TEAM DRAFT</div>
+  <div class="sub" data-t="93.75">SHARE OF 2025 RESPONDENTS WHO ANSWERED THE LANGUAGE QUESTIONS (%)</div>
   <svg width="1920" height="1080" id="sksvg"></svg>
   <div id="sn1" class="abs" style="left:1575px;top:604px;font-size:22px;line-height:36px;color:#4a4f5c;width:310px"><b>Rust</b> and <b>Go</b>: more developers want them than use them today.</div>
   <div id="sn2" class="abs" style="left:1575px;top:303px;font-size:22px;line-height:36px;color:#4a4f5c;width:310px"><b>JavaScript</b>, <b>SQL</b>, <b>Python</b>: widely used today. A practical foundation.</div>
@@ -265,8 +265,10 @@ b{font-weight:600;color:var(--navy)}
 
 </div>
 
+<script src="js/vendor/d3.v7.9.0.min.js"></script>
+<script src="js/data.js"></script>
 <script>
-(() => {
+loadData().then(DATA => {
 const $ = id => document.getElementById(id);
 const stage = $('stage');
 const NS = 'http://www.w3.org/2000/svg';
@@ -421,7 +423,7 @@ function s2(t) {
 const rings = $('rings'), every = $('every');
 const am = $('am'), amHalo = $('amHalo'), amDot = $('amDot'), amTxt = $('amTxt'), amTag = $('amTag');
 const GX = g => 360 + 300 * g;
-const ROOMN = [190, 120, 85, 60, 195];
+const ROOMN = DATA.roomCounts;
 function alexSlot() { const g = P0().room; const row = g === 0 ? 9 : Math.floor(ROOMN[g] / 12 / 2); return { x: GX(g) - 82.5 + 15 * 5, y: 885 - 15 * row }; }
 function s3(t) {
   const ri = eo(P(t, 25.45, .6)), ro = eo(P(t, 29.5, .7));
@@ -450,7 +452,7 @@ function s3(t) {
 const cv = $('dots'), ctx = cv.getContext('2d');
 const dpr = Math.min(2, window.devicePixelRatio || 1);
 cv.width = 1920 * dpr; cv.height = 1080 * dpr; ctx.scale(dpr, dpr);
-const counts = [190, 120, 85, 60, 195];
+const counts = DATA.roomCounts;
 const grid = [];
 counts.forEach((n, g) => { for (let i = 0; i < n; i++) { const c = i % 12, rr = Math.floor(i / 12); grid.push({ x: GX(g) - 82.5 + 15 * c, y: 885 - 15 * rr, g }); } });
 const field = [];
@@ -485,7 +487,7 @@ function s45(t) {
     ctx.beginPath(); ctx.arc(x, y, t > 40.5 ? lerp(5, 5.5, P(t, 40.5, .8)) : 5, 0, 6.2832); ctx.fill();
   }
   ctx.globalAlpha = 1;
-  $('cnt').textContent = fmt(65000 * eo(P(t, 31.75, 3.1)));
+  $('cnt').textContent = fmt(DATA.aboutN * eo(P(t, 31.75, 3.1)));
 }
 const gl = $('glabels');
 const gls = ['Full-stack', 'Back-end', 'Student', 'Front-end', 'Other roles'].map((s, g) => el(`<div class="abs mono" style="left:${GX(g) - 120}px;width:240px;text-align:center;top:918px;font-size:19px;line-height:24px;color:#555a66">${s}</div>`, gl));
@@ -493,7 +495,9 @@ function s5(t) { gls.forEach((e, g) => fade(e, t, 41.15 + g * .14, .5)); }
 
 /* ================= S6 BARS ================= */
 const bars = $('bars');
-const bdef = [['Full-stack', 27, 0, 347], ['Back-end', 14.2, 1, 473], ['Student', 11, 0, 599]];
+const bdef = [['Full-stack', DATA.share.fs, 0, 347], ['Back-end', DATA.share.be, 1, 473], ['Student', DATA.share.st, 0, 599]];
+const BMAX = DATA.share.fs * 1.017;
+$('otherPct').textContent = '~' + Math.round(DATA.share.other) + '%';
 const B = bdef.map(([lab, v, dec, y], i) => {
   const L = el(`<div class="abs" style="left:145px;top:${y - 15}px;font-size:24px;line-height:30px;color:var(--navy)">${lab}</div>`, bars);
   const tr = el(`<div class="abs" style="left:450px;top:${y - 29}px;width:906px;height:60px;background:#efe9e2;border-radius:4px"></div>`, bars);
@@ -508,18 +512,18 @@ function s6(t) {
   B.forEach(b => {
     fade(b.L, t, 48.85 + b.i * .15, .5); fade(b.tr, t, 48.85 + b.i * .15, .5);
     const k = eo(P(t, 49.6 + b.i * .34, 1.25)) * (1 - out);
-    const w = b.v / 27.45 * 906 * k;
+    const w = b.v / BMAX * 906 * k;
     b.br.style.width = w + 'px';
     b.br.style.opacity = P(t, 49.5 + b.i * .34, .1);
     b.nv.style.left = (450 + Math.max(w, 0) + 21) + 'px';
     const val = b.v * k;
-    b.nv.textContent = (b.dec ? val.toFixed(1) : (val < 1 && b.i === 1 ? val.toFixed(1) : Math.round(val))) + '%';
+    b.nv.textContent = val.toFixed(1) + '%';
     b.nv.style.opacity = P(t, 49.5 + b.i * .34, .3) * (k < .05 ? .4 : 1);
     b.br.style.background = b.i === P0().bar ? 'var(--orange)' : 'var(--navy)';
   });
   const pb = P0().bar;
   if (pb >= 0) {
-    const bx = 450 + B[pb].v / 27.45 * 906 - 33, by = bdef[pb][3];
+    const bx = 450 + B[pb].v / BMAX * 906 - 33, by = bdef[pb][3];
     bRing.style.left = (bx - 10.5) + 'px'; bRing.style.top = (by - 9) + 'px'; bRing.style.display = 'block';
     bTag.style.left = (bx - 27) + 'px'; bTag.style.top = (by - 74) + 'px';
   } else { bRing.style.display = 'none'; bTag.style.left = '1050px'; bTag.style.top = '700px'; }
@@ -528,26 +532,33 @@ function s6(t) {
 
 /* ================= S7 HEATMAP ================= */
 const heat = $('heat');
-const HR = ['Full-stack', 'Back-end', 'Front-end', 'Architect', 'Enterprise / desktop'];
-const HC = ['1–5', '6–10', '11–15', '16–20', '21–30', '31–40', '41–50', '50+'];
-const HV = [[28, 24, 16, 11, 13, 4, 1, 0], [25, 26, 19, 12, 12, 3, 1, 0], [33, 29, 17, 8, 7, 2, 0, 0], [6, 14, 20, 20, 28, 9, 2, 0], [21, 17, 13, 10, 21, 11, 2, 0]];
-const stops = [[0, 0xf8f0e5], [2, 0xf5ead9], [4, 0xf4e2cf], [6, 0xf2ddc4], [8, 0xf3d8b8], [10, 0xf2d2b4], [11, 0xf1ceaa], [13, 0xefc89d], [16, 0xf0bf8e], [19, 0xecad78], [21, 0xe9a365], [25, 0xe18c43], [26, 0xdf8539], [28, 0xdd7a2a], [33, 0xd45d00]];
-function hcol(v) {
-  let j = 0; while (j < stops.length - 2 && v > stops[j + 1][0]) j++;
-  const [a, ca] = stops[j], [b, cb] = stops[j + 1], k = cl((v - a) / (b - a));
-  const ch = (c, s) => (c >> s) & 255;
-  return `rgb(${[16, 8, 0].map(s => Math.round(lerp(ch(ca, s), ch(cb, s), k))).join(',')})`;
-}
-const hl = HR.map((r, i) => el(`<div class="abs" style="left:145px;top:${300 + i * 93 + 28}px;font-size:23px;line-height:30px;color:var(--navy);white-space:nowrap">${r}</div>`, heat));
-const cells = [];
-HV.forEach((row, i) => row.forEach((v, j) => {
-  const c = el(`<div class="cell" style="left:${435 + j * 153}px;top:${300 + i * 93}px;background:${hcol(v)};color:${v >= 22 ? '#fff' : '#2b3048'}">0%</div>`, heat);
-  cells.push({ c, v, i, j });
-}));
-const hcl = HC.map((s, j) => el(`<div class="abs mono" style="left:${435 + j * 153}px;width:147px;text-align:center;top:774px;font-size:18px;line-height:24px;color:#6b6e78">${s}</div>`, heat));
+/* D3 #1 — peer-locator heatmap (novel view). Data: data/role_experience_2025.csv */
+const HR = DATA.heatRoles, HC = DATA.heatBands;
+const HV = HR.map(r => HC.map(b => Math.round(DATA.heatPct.get(r).get(b))));
+const hx = d3.scaleBand().domain(HC).range([435, 435 + 153 * HC.length]).paddingInner(6 / 153);
+const hy = d3.scaleBand().domain(HR).range([300, 300 + 93 * HR.length]).paddingInner(6 / 93);
+const hmax = d3.max(DATA.heat, d => d.pct);
+const hscale = d3.scaleSequential(d3.interpolateRgbBasis(['#f8f0e5', '#f3d8b8', '#f0bf8e', '#e18c43', '#d45d00'])).domain([0, hmax]);
+const hcol = v => hscale(v);
+const hl = HR.map((r, i) => el(`<div class="abs" style="left:145px;top:${hy(r) + 28}px;font-size:23px;line-height:30px;color:var(--navy);white-space:nowrap">${r}</div>`, heat));
+const cellSel = d3.select(heat).selectAll('div.cell').data(DATA.heat, d => d.role + '|' + d.band).join('div')
+  .attr('class', 'cell')
+  .attr('title', d => `${d.role}, ${d.band} years: ${d.pct.toFixed(1)}% (${d3.format(',')(d.n)} of ${d3.format(',')(d.role_n)})`)
+  .style('left', d => hx(d.band) + 'px').style('top', d => hy(d.role) + 'px')
+  .style('width', hx.bandwidth() + 'px').style('height', hy.bandwidth() + 'px')
+  .style('background', d => hcol(d.pct)).style('color', d => d.pct >= 22 ? '#fff' : '#2b3048')
+  .text('0%');
+const cells = cellSel.nodes().map(c => { const d = d3.select(c).datum(); return { c, d, v: Math.round(d.pct), i: HR.indexOf(d.role), j: HC.indexOf(d.band) }; });
+// captions computed from the data
+const pctAt = (r, b) => Math.round(DATA.heatPct.get(r).get(b));
+const archRow = HR.indexOf('Architect'), archPeak = d3.maxIndex(HV[archRow]);
+$('feEarly').textContent = pctAt('Front-end', HC[0]) + '%';
+$('fsEarly').textContent = pctAt('Full-stack', HC[0]) + '%';
+$('archBand').textContent = HC[archPeak]; $('archPct').textContent = HV[archRow][archPeak] + '%';
+const hcl = HC.map((s, j) => el(`<div class="abs mono" style="left:${hx(s)}px;width:147px;text-align:center;top:774px;font-size:18px;line-height:24px;color:#6b6e78">${s}</div>`, heat));
 const hax = el(`<div class="abs mono" style="left:435px;width:1218px;text-align:center;top:811px;font-size:17px;line-height:22px;letter-spacing:.06em;color:#8a8d95">YEARS OF PROFESSIONAL EXPERIENCE</div>`, heat);
-const box1 = el(`<div class="box" style="left:428px;top:294px;width:161px;height:472px"></div>`, heat);
-const box2 = el(`<div class="box" style="left:1041px;top:573px;width:159px;height:99px"></div>`, heat);
+const box1 = el(`<div class="box" style="left:${hx(HC[0]) - 7}px;top:${hy(HR[0]) - 6}px;width:${hx.bandwidth() + 14}px;height:${hy.range()[1] - hy.range()[0] + 6}px"></div>`, heat);
+const box2 = el(`<div class="box" style="left:${hx(HC[archPeak]) - 6}px;top:${hy('Architect') - 6}px;width:${hx.bandwidth() + 12}px;height:${hy.bandwidth() + 12}px"></div>`, heat);
 const hRing = el(`<div class="abs" style="left:553px;top:307px;width:22px;height:22px;border-radius:50%;border:2.5px solid #fff"></div>`, heat);
 const hRingDot = el(`<div class="abs" style="left:553px;top:307px;width:22px;height:22px;border-radius:50%;background:#e07a2a;border:2.5px solid #fff;opacity:0"></div>`, heat);
 const hTag = el(`<div class="tag" style="left:579px;top:268px"><span class="pn">Alex</span></div>`, heat);
@@ -564,19 +575,19 @@ function s7(t) {
     o.c.textContent = Math.round(o.v * cnt) + '%';
     let dim = 1;
     if (!(o.j === 0)) dim = Math.min(dim, 1 - .74 * ph1);
-    if (!(o.i === 3 && o.j === 4)) dim = Math.min(dim, 1 - .74 * ph2);
+    if (!(o.i === archRow && o.j === archPeak)) dim = Math.min(dim, 1 - .74 * ph2);
     o.c.style.opacity = k * dim;
     o.c.style.transform = `scale(${lerp(.92, 1, k)})`;
   });
   op(box1, ph1); op(box2, ph2);
   const hc = P0().heat;
   if (hc) {
-    const x0 = 435 + 153 * hc[1], y0 = 300 + 93 * hc[0];
+    const x0 = hx(HC[hc[1]]), y0 = hy(HR[hc[0]]);
     [hRing, hRingDot].forEach(e => { e.style.left = (x0 + 118) + 'px'; e.style.top = (y0 + 7) + 'px'; e.style.display = 'block'; });
     hTag.style.left = (x0 + 144) + 'px'; hTag.style.top = (y0 - 32) + 'px'; hTag.style.display = 'block';
     hRingDot.style.background = hcol(HV[hc[0]][hc[1]]);
     fade(hRing, t, 63.35, .4); fade(hTag, t, 63.35, .4, 8);
-    hRingDot.style.opacity = Math.max(hc[1] !== 0 ? ph1 : 0, (hc[0] === 3 && hc[1] === 4) ? 0 : ph2);
+    hRingDot.style.opacity = Math.max(hc[1] !== 0 ? ph1 : 0, (hc[0] === archRow && hc[1] === archPeak) ? 0 : ph2);
   } else { [hRing, hRingDot, hTag].forEach(e => { e.style.display = 'none'; }); }
   cap1.style.opacity = eo(P(t, 65.7, .5)) * (1 - P(t, 69.3, .4));
   cap2.style.opacity = eo(P(t, 69.75, .5)) * (1 - P(t, 73.35, .4));
@@ -584,35 +595,44 @@ function s7(t) {
 
 /* ================= S8 PAY ================= */
 const ps = $('paysvg');
-const PX = i => 375 + 207 * i, PY = v => 777 - (v - 50) * 2.5;
-const PD = [[70, 50, 88, '$70K'], [96, 70, 122, '$96K'], [116, 95, 150, '$116K'], [148, 110, 190, '$148K'], [173, 128, 222, '$173K'], [174, 133, 220, '$174K']];
-const PXL = ['<1', '1–2', '3–5', '6–10', '11–20', '21+'];
-const pGrid = sv('g', {}, ps);
-[50, 100, 150, 200].forEach(v => {
-  sv('line', { x1: 285, x2: 1500, y1: PY(v), y2: PY(v), stroke: '#e8e1d8', 'stroke-width': 1.5 }, pGrid);
-  const tx = sv('text', { x: 270, y: PY(v) + 6, 'text-anchor': 'end', 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#6b6e78' }, pGrid); tx.textContent = '$' + v + 'K';
-});
-const pXl = sv('g', {}, ps);
-PXL.forEach((s, i) => { const tx = sv('text', { x: PX(i), y: 888, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 20, fill: '#1f2944' }, pXl); tx.textContent = s; });
+/* D3 #2 — pay point-and-interval chart. Data: data/pay_by_experience_2024.csv (US) */
+const PXL = DATA.payUS.map(d => d.band);
+const px = d3.scalePoint().domain(PXL).range([375, 375 + 207 * (PXL.length - 1)]);
+const py = d3.scaleLinear().domain([50, 200]).range([777, 402]);          // thousands of USD
+const PX = i => px(PXL[i]), PY = v => py(v);
+const kfmt = v => '$' + Math.round(v) + 'K';
+const PD = DATA.payUS.map(d => [d.median / 1000, d.q1 / 1000, d.q3 / 1000, kfmt(d.median / 1000), d]);
+const pGrid = d3.select(ps).append('g');
+const gTick = pGrid.selectAll('g').data(py.ticks(4)).join('g');
+gTick.append('line').attr('x1', 285).attr('x2', 1500).attr('y1', py).attr('y2', py).attr('stroke', '#e8e1d8').attr('stroke-width', 1.5);
+gTick.append('text').attr('x', 270).attr('y', v => py(v) + 6).attr('text-anchor', 'end').attr('font-family', 'JetBrains Mono').attr('font-size', 18).attr('fill', '#6b6e78').text(v => '$' + v + 'K');
+const pXl = d3.select(ps).append('g');
+pXl.selectAll('text').data(PXL).join('text').attr('x', b => px(b)).attr('y', 888).attr('text-anchor', 'middle')
+  .attr('font-family', 'JetBrains Mono').attr('font-size', 20).attr('fill', '#1f2944').text(b => b);
 const pAx = sv('text', { x: 892, y: 930, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#8a8d95', 'letter-spacing': '1' }, ps); pAx.textContent = 'YEARS OF PROFESSIONAL CODING EXPERIENCE';
-const pHl = sv('rect', { x: 730, y: PY(150), width: 326, height: PY(110) - PY(150), rx: 6, fill: '#fae1ce' }, ps);
-const pLine = sv('polyline', { points: PD.map((d, i) => `${PX(i)},${PY(d[0])}`).join(' '), fill: 'none', stroke: '#5b5f6e', 'stroke-width': 2, 'stroke-dasharray': '6 5' }, ps);
+// overlap between the 3–5 and 6–10 middle-50% ranges
+const ovLo = Math.max(PD[2][1], PD[3][1]), ovHi = Math.min(PD[2][2], PD[3][2]);
+const pHl = sv('rect', { x: PX(2) - 60, y: PY(ovHi), width: PX(3) - PX(2) + 120, height: PY(ovLo) - PY(ovHi), rx: 6, fill: '#fae1ce' }, ps);
+const pLine = sv('path', { d: d3.line().x((d, i) => PX(i)).y(d => PY(d[0]))(PD), fill: 'none', stroke: '#5b5f6e', 'stroke-width': 2, 'stroke-dasharray': '6 5' }, ps);
 const pLineMask = sv('clipPath', { id: 'plc' }, ps); const pClip = sv('rect', { x: 0, y: 0, width: 0, height: 1080 }, pLineMask); pLine.setAttribute('clip-path', 'url(#plc)');
-const PP = PD.map((d, i) => {
-  const g = sv('g', {}, ps);
-  const sp = sv('g', {}, g);
-  const vl = sv('line', { x1: PX(i), x2: PX(i), y1: PY(d[0]), y2: PY(d[0]), stroke: '#0071ad', 'stroke-width': 4 }, sp);
-  const c1 = sv('line', { x1: PX(i) - 15, x2: PX(i) + 15, y1: PY(d[2]), y2: PY(d[2]), stroke: '#0071ad', 'stroke-width': 4 }, sp);
-  const c2 = sv('line', { x1: PX(i) - 15, x2: PX(i) + 15, y1: PY(d[1]), y2: PY(d[1]), stroke: '#0071ad', 'stroke-width': 4 }, sp);
-  const dot = sv('circle', { cx: PX(i), cy: PY(d[0]), r: 11, fill: '#1f2944', stroke: '#fff', 'stroke-width': 2.5 }, g);
-  const lb = sv('text', { x: PX(i) + 24, y: PY(d[0]) + 7, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#1f2944' }, g); lb.textContent = d[3];
-  return { d, i, vl, c1, c2, dot, lb, sp };
+const ppSel = d3.select(ps).selectAll('g.pp').data(PD).join('g').attr('class', 'pp');
+ppSel.append('title').text(d => `${d[4].band} years · n = ${d3.format(',')(d[4].n)}\nMedian ${kfmt(d[0])} · middle 50% ${kfmt(d[1])}–${kfmt(d[2])}`);
+const PP = ppSel.nodes().map((node, i) => {
+  const g = d3.select(node), d = PD[i];
+  const sp = g.append('g');
+  const vl = sp.append('line').attr('x1', PX(i)).attr('x2', PX(i)).attr('y1', PY(d[0])).attr('y2', PY(d[0])).attr('stroke', '#0071ad').attr('stroke-width', 4).node();
+  const c1 = sp.append('line').attr('x1', PX(i) - 15).attr('x2', PX(i) + 15).attr('y1', PY(d[2])).attr('y2', PY(d[2])).attr('stroke', '#0071ad').attr('stroke-width', 4).node();
+  const c2 = sp.append('line').attr('x1', PX(i) - 15).attr('x2', PX(i) + 15).attr('y1', PY(d[1])).attr('y2', PY(d[1])).attr('stroke', '#0071ad').attr('stroke-width', 4).node();
+  const dot = g.append('circle').attr('cx', PX(i)).attr('cy', PY(d[0])).attr('r', 11).attr('fill', '#1f2944').attr('stroke', '#fff').attr('stroke-width', 2.5).node();
+  const lb = g.append('text').attr('x', PX(i) + 24).attr('y', PY(d[0]) + 7).attr('font-family', 'JetBrains Mono').attr('font-size', 20).attr('font-weight', 500).attr('fill', '#1f2944').text(d[3]).node();
+  return { d, i, vl, c1, c2, dot, lb, sp: sp.node() };
 });
+$('payLo').textContent = '~' + kfmt(PD[0][0]); $('payHi').textContent = '~' + kfmt(d3.max(PD.slice(0, 5), d => d[0]));
 const pAH = sv('circle', { r: 19, fill: '#f2decc' }, ps), pAD = sv('circle', { r: 9, fill: '#db5900', stroke: '#fff', 'stroke-width': 2 }, ps);
 const pTag = el(`<div class="tag" style="left:0;top:0"><span class="pn">Alex</span></div>`, $('s8'));
 const pn1 = $('pn1'), pn2 = $('pn2');
 function s8(t) {
-  op(pGrid, eo(P(t, 77.95, .5))); op(pXl, eo(P(t, 78.15, .5))); op(pAx, eo(P(t, 78.55, .5)));
+  pGrid.attr('opacity', eo(P(t, 77.95, .5))); pXl.attr('opacity', eo(P(t, 78.15, .5))); op(pAx, eo(P(t, 78.55, .5)));
   PP.forEach(p => {
     const st = 79.1 + p.i * .33, i = p.i, d = p.d;
     const kd = eo(P(t, st, .3));
@@ -641,7 +661,7 @@ function s8(t) {
 /* ================= S9 SKILLS ================= */
 const ks = $('sksvg');
 const SX = v => 450 + (v - 10) * 17.5, SY = i => 318 + i * 67.5;
-const SD = [['Python', 58, 42], ['SQL', 59.5, 38.5], ['HTML/CSS', 62, 35], ['JavaScript', 66, 35.5], ['TypeScript', 44, 32.5], ['Rust', 14, 30.5], ['Bash/Shell', 48.5, 28], ['Go', 16, 24]];
+const SD = DATA.langs;
 const sBands = sv('g', {}, ks);
 const sGrid = sv('g', {}, ks);
 for (let v = 10; v <= 70; v += 10) {
@@ -687,7 +707,7 @@ function s9(t) {
 /* ================= S10 AI ================= */
 const ai = $('aisvg');
 const AX = i => 315 + 405 * i, AY = v => 840 - v * 5.25;
-const UB = [44.4, 61.8, 78.5], TG = [48.2, 43.0, 39.3];
+const UB = DATA.aiUse, TG = DATA.aiTrust;
 const aGrid = sv('g', {}, ai);
 for (let v = 0; v <= 100; v += 20) {
   sv('line', { x1: 225, x2: 1200, y1: AY(v), y2: AY(v), stroke: v ? '#ebe7df' : '#d0cfc6', 'stroke-width': v ? 1.5 : 2 }, aGrid);
@@ -695,7 +715,7 @@ for (let v = 0; v <= 100; v += 20) {
 }
 const aXl = sv('g', {}, ai);
 [2023, 2024, 2025].forEach((y, i) => { const t2 = sv('text', { x: AX(i), y: 882, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 20, fill: '#1f2944' }, aXl); t2.textContent = y; });
-const cf = 3.8 / 22.6, cxp = lerp(AX(0), AX(1), cf), cyp = AY(lerp(44.4, 61.8, cf));
+const cf = (TG[0] - UB[0]) / ((UB[1] - UB[0]) - (TG[1] - TG[0])), cxp = lerp(AX(0), AX(1), cf), cyp = AY(lerp(UB[0], UB[1], cf));
 const aArea = sv('polygon', { points: `${cxp},${cyp} ${AX(1)},${AY(UB[1])} ${AX(2)},${AY(UB[2])} ${AX(2)},${AY(TG[2])} ${AX(1)},${AY(TG[1])}`, fill: '#e4eef6' }, ai);
 const aClipP = sv('clipPath', { id: 'aic' }, ai); const aClip = sv('rect', { x: 0, y: 0, width: 0, height: 1080 }, aClipP);
 const lU = sv('polyline', { points: UB.map((v, i) => `${AX(i)},${AY(v)}`).join(' '), fill: 'none', stroke: '#0a6bb5', 'stroke-width': 4, 'clip-path': 'url(#aic)' }, ai);
@@ -709,8 +729,8 @@ const aPts = [];
 }));
 // 2023 labels positioned left of points
 aPts.forEach(p => { if (p.i === 0) p.lb.setAttribute('x', 268); });
-const eU = sv('text', { x: 1230, y: AY(78.5) + 7, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#0a6bb5' }, ai); eU.textContent = 'Use AI tools';
-const eT = sv('text', { x: 1230, y: AY(39.3) + 7, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#0f9a73' }, ai); eT.textContent = 'Trust AI output';
+const eU = sv('text', { x: 1230, y: AY(UB[2]) + 7, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#0a6bb5' }, ai); eU.textContent = 'Use AI tools';
+const eT = sv('text', { x: 1230, y: AY(TG[2]) + 7, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#0f9a73' }, ai); eT.textContent = 'Trust AI output';
 const aip = $('aip');
 function s10(t) {
   op(aGrid, eo(P(t, 108.85, .5))); op(aXl, eo(P(t, 109.15, .5)));
@@ -720,8 +740,9 @@ function s10(t) {
   const ea = eo(P(t, 112.95, .6)); aArea.setAttribute('opacity', ea); eU.setAttribute('opacity', ea); eT.setAttribute('opacity', ea);
   const pk = eo(P(t, 115.3, .5)); aip.style.opacity = pk; aip.style.transform = `translateY(${(1 - pk) * 14}px)`;
   const b1 = eo(P(t, 115.45, 1.2)), b2 = eo(P(t, 115.75, 1.2));
-  $('aib1').style.width = 230 * b1 + 'px'; $('aiv1').style.left = (1440 + 230 * b1 + 16) + 'px'; $('aiv1').textContent = Math.round(70 * b1) + '%';
-  $('aib2').style.width = 187 * b2 + 'px'; $('aiv2').style.left = (1440 + 187 * b2 + 16) + 'px'; $('aiv2').textContent = Math.round(57 * b2) + '%';
+  const E0 = DATA.aiExp[0].use_pct, E1 = DATA.aiExp[1].use_pct, ew = 230 / 70;
+  $('aib1').style.width = ew * E0 * b1 + 'px'; $('aiv1').style.left = (1440 + ew * E0 * b1 + 16) + 'px'; $('aiv1').textContent = Math.round(E0 * b1) + '%';
+  $('aib2').style.width = ew * E1 * b2 + 'px'; $('aiv2').style.left = (1440 + ew * E1 * b2 + 16) + 'px'; $('aiv2').textContent = Math.round(E1 * b2) + '%';
 }
 
 /* ================= S11 ROADMAP ================= */
@@ -871,7 +892,7 @@ function frame() {
 addEventListener('resize', sizeSpacer); sizeSpacer(); fit(); applyPersona();
 const still = new URLSearchParams(location.search).get('t');
 (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => { if (still !== null) render(+still); else requestAnimationFrame(frame); });
-})();
+}).catch(showDataError);
 </script>
 </body>
 </html>
