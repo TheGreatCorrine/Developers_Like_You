@@ -10,7 +10,7 @@ The page loads its data with `d3.csv`, which browsers block on `file://`. From t
     python -m http.server 8000
     # open http://localhost:8000
 
-Add `?t=64` to the URL to jump to a moment on the story timeline (in seconds).
+Add `?t=64` to the URL to jump to a moment on the story timeline (in seconds), and `&country=India` to start with one scope (`All`, `Canada`, `United States`, `United Kingdom`, `Germany`, `India`).
 
 ## Folder layout
     index.html                 story page (layout, scroll timeline, all scenes)
@@ -28,14 +28,16 @@ Add `?t=64` to the URL to jump to a moment on the story timeline (in seconds).
 
 Year rule: the AI trend uses 2023–2025. Every other table uses 2025, the most recent complete year.
 
+Scope rule: the chart tables have one block for all respondents and one each for Canada, United States, United Kingdom, Germany and India. A switch at the top right of the page picks the scope for every chart; it starts at the picked person's country. Pay has countries only (USD is not comparable across countries), and the crowd of dots always shows all respondents.
+
 | Output | Used by | Definition |
 | --- | --- | --- |
-| role_share_2025.csv | Ch. 1 bars, dot crowd | DevType, 2025; bars are % of respondents who reported a role, dots are counts (1 dot per 100 respondents) |
+| role_share_2025.csv | Ch. 1 bars, dot crowd | DevType, 2025; bars are % of respondents who reported a role, dots are counts (1 dot per 100 respondents, all respondents); all respondents plus 5 countries |
 | role_experience_2025.csv | Ch. 2 heatmap (D3), peer locator | Within-role % by WorkExp band, 5 roles, 2025; all respondents plus 5 countries |
-| pay_by_experience_2025.csv | Ch. 3 pay chart (D3) | ConvertedCompYearly Q1/median/Q3 by WorkExp band; professional developers; US and Canada |
-| languages_2025.csv | Ch. 4 dumbbell | % using / wanting each language among respondents who answered both language questions |
-| ai_trends.csv | Ch. 5 lines | Adoption = "Yes" in AISelect / answered; trust = Somewhat+Highly trust among current users (AIBen 2023, AIAcc 2024–25) |
-| ai_use_by_experience_2025.csv | Ch. 5 bars | AI adoption, professional developers, WorkExp 1–5 vs 6+ |
+| pay_by_experience_2025.csv | Ch. 3 pay chart (D3) | ConvertedCompYearly Q1/median/Q3 by WorkExp band; professional developers; 5 countries |
+| languages_2025.csv | Ch. 4 dumbbell | % using / wanting each language among respondents who answered both language questions; all respondents plus 5 countries |
+| ai_trends.csv | Ch. 5 lines | Adoption = "Yes" in AISelect / answered; trust = Somewhat+Highly trust among current users (AIBen 2023, AIAcc 2024–25); all respondents plus 5 countries |
+| ai_use_by_experience_2025.csv | Ch. 5 bars | AI adoption, professional developers, WorkExp 1–5 vs 6+, with the gap and its 95% interval; all respondents plus 5 countries |
 | story_cards_2025.csv | Opening cards | Six real 2025 respondents, each the lowest ResponseId that fits a written rule |
 | ai_trust_by_frequency_2025.csv | draft A (process book) | Trust distribution by AI-use frequency, 2025 |
 | languages_wanted_by_experience_2025.csv | draft B (process book) | Wanted languages, professional developers, WorkExp 1–5 vs 6+ |

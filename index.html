@@ -65,6 +65,17 @@ b{font-weight:600;color:var(--navy)}
 .sel:focus{border-color:rgba(212,93,0,.8);box-shadow:0 0 0 3px rgba(212,93,0,.25);background:#fff7f0}
 .fcard{cursor:pointer}
 .flab{position:absolute;top:347px;font:400 15px/20px var(--mono);letter-spacing:.12em;color:#8a8f98}
+/* scope: which respondents a chart shows (first part of each subtitle) */
+.sub .scope{color:var(--navy);font-weight:500}
+/* country switch, top right; it scopes every chart from chapter 1 to the end */
+#cswitch{position:absolute;right:144px;top:80px;width:420px;height:130px;z-index:30;opacity:0}
+#cswitch .lab{position:absolute;right:0;top:0;font:500 15px/20px var(--mono);letter-spacing:.2em;color:var(--mute)}
+#cswitch .selw{top:28px;right:0;width:252px;height:48px}
+#cswitch .selw:after{line-height:48px;right:16px;font-size:14px}
+#cswitch .sel{font-size:20px;padding:0 40px 0 16px}
+#chint{position:absolute;right:0;top:88px;font:400 15px/20px var(--mono);letter-spacing:.04em;color:var(--mute);white-space:nowrap}
+.chip{font:500 21px/50px var(--sans);padding:0 24px;border:1.5px solid #e3ddd3;border-radius:26px;background:#fff;color:var(--navy);cursor:pointer;transition:border-color .2s,background .2s}
+.chip:hover,.chip:focus-visible{border-color:rgba(212,93,0,.8);background:#fff7f0;outline:none}
 </style>
 </head>
 <body>
@@ -151,6 +162,7 @@ b{font-weight:600;color:var(--navy)}
 <div class="scene" id="s5" data-a="39.8" data-b="47.15" data-o="0.6">
   <div class="chap" data-t="40.0" style="top:98px">CHAPTER 1</div>
   <div class="h2 serif" data-t="40.35" style="top:130px">Who's in the room?</div>
+  <div class="sub" data-t="40.6" style="top:234px"><span class="scope">ALL RESPONDENTS · 2025 · N = <span id="crowdN"></span></span> · 1 DOT ≈ 100 PEOPLE</div>
   <div id="glabels"></div>
 </div>
 
@@ -166,7 +178,7 @@ b{font-weight:600;color:var(--navy)}
 <div class="scene" id="s6" data-a="48.0" data-b="60.15" data-o="0.6">
   <div class="chap" data-t="48.05">CHAPTER 1</div>
   <div class="h2 serif" data-t="48.25">Where do developers actually work?</div>
-  <div class="sub" data-t="48.65">SHARE OF 2025 RESPONDENTS WHO REPORTED A ROLE</div>
+  <div class="sub" data-t="48.65"><span class="scope" data-scope="bars"></span> · SHARE OF RESPONDENTS WHO REPORTED A ROLE</div>
   <div id="bars"></div>
   <div class="abs" data-t="50.6" style="left:450px;top:703px;font-size:21px;line-height:28px;color:#6b6e78">The other <span id="otherPct"></span> are spread across many smaller roles.</div>
   <div class="abs serif" data-t="53.45" style="left:144px;top:806px;font-size:42px;line-height:52px;font-weight:600;white-space:nowrap">Full-stack is the most common reported role. But are roles distributed<br>differently across <span style="color:var(--orange)">career stages</span>?</div>
@@ -177,10 +189,10 @@ b{font-weight:600;color:var(--navy)}
 <div class="scene" id="s7" data-a="60.9" data-b="76.15" data-o="0.6">
   <div class="chap" data-t="60.95">CHAPTER 2</div>
   <div class="h2 serif" data-t="61.25">Your starting point: find your peers</div>
-  <div class="sub" data-t="61.65">% OF EACH ROLE IN EACH EXPERIENCE BAND · 2025</div>
+  <div class="sub" data-t="61.65"><span class="scope" data-scope="heat"></span> · % OF EACH ROLE IN EACH EXPERIENCE BAND</div>
   <div id="heat"></div>
-  <div id="cap1" class="abs" style="left:144px;top:891px;font-size:24px;line-height:30px;color:#4a4f5c;white-space:nowrap">In their first 1–5 years: <b><span id="feEarly"></span> of front-end</b> and <b><span id="fsEarly"></span> of full-stack</b> developers. These roles have a lot of early-career peers.</div>
-  <div id="cap2" class="abs" style="left:144px;top:891px;font-size:24px;line-height:30px;color:#4a4f5c;white-space:nowrap"><b>Architects</b> peak at <b><span id="archBand"></span> years</b> (<span id="archPct"></span>). Some roles are reached later in a career.</div>
+  <div id="cap1" class="abs" style="left:144px;top:891px;font-size:24px;line-height:30px;color:#4a4f5c;white-space:nowrap"></div>
+  <div id="cap2" class="abs" style="left:144px;top:891px;font-size:24px;line-height:30px;color:#4a4f5c;white-space:nowrap"></div>
   <div class="abs arrow" data-t="74.0" style="left:144px;top:977px">→ What does gaining experience bring?</div>
 </div>
 
@@ -188,12 +200,20 @@ b{font-weight:600;color:var(--navy)}
 <div class="scene" id="s8" data-a="76.95" data-b="91.8" data-o="0.6">
   <div class="chap" data-t="77.0">CHAPTER 3</div>
   <div class="h2 serif" data-t="77.3">Growing your career: experience &amp; pay</div>
-  <div class="sub" data-t="77.7">ANNUAL COMPENSATION (USD) · US PROFESSIONAL DEVELOPERS · 2025 · MEDIAN AND MIDDLE 50%</div>
+  <div class="sub" data-t="77.7"><span class="scope" data-scope="pay"></span> · ANNUAL COMPENSATION (USD) · PROFESSIONAL DEVELOPERS · MEDIAN AND MIDDLE 50%</div>
   <svg width="1920" height="1080" id="paysvg"></svg>
-  <div class="abs mono" data-t="78.55" style="left:1590px;top:300px;font-size:18px;line-height:24px;color:#6b6e78"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--navy);margin-right:12px;vertical-align:-1px"></span>Median</div>
-  <div class="abs mono" data-t="78.55" style="left:1590px;top:342px;font-size:18px;line-height:24px;color:#6b6e78"><span style="display:inline-block;width:4px;height:22px;background:#0071ad;margin-right:12px;vertical-align:-5px"></span>Middle 50%<br><span style="padding-left:16px">(Q1–Q3)</span></div>
-  <div id="pn1" class="abs" style="left:1590px;top:437px;font-size:22px;line-height:35px;color:#4a4f5c;width:262px">Median pay rises from <b id="payLo"></b> to <b id="payHi"></b> by <span id="payPeak"></span> years, then levels off.</div>
-  <div id="pn2" class="abs" style="left:1590px;top:437px;font-size:22px;line-height:35px;color:#4a4f5c;width:262px">The ranges <b style="background:#fae1ce;padding:0 2px">overlap</b>. Experience matters, but it doesn't guarantee a fixed outcome.</div>
+  <div id="payKey">
+    <div class="abs mono" data-t="78.55" style="left:1590px;top:300px;font-size:18px;line-height:24px;color:#6b6e78"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--navy);margin-right:12px;vertical-align:-1px"></span>Median</div>
+    <div class="abs mono" data-t="78.55" style="left:1590px;top:342px;font-size:18px;line-height:24px;color:#6b6e78"><span style="display:inline-block;width:4px;height:22px;background:#0071ad;margin-right:12px;vertical-align:-5px"></span>Middle 50%<br><span style="padding-left:16px">(Q1–Q3)</span></div>
+    <div id="pn1" class="abs" style="left:1590px;top:437px;font-size:22px;line-height:35px;color:#4a4f5c;width:262px"></div>
+    <div id="pn2" class="abs" style="left:1590px;top:437px;font-size:22px;line-height:35px;color:#4a4f5c;width:262px">The ranges <b style="background:#fae1ce;padding:0 2px">overlap</b>. Experience matters, but it doesn't guarantee a fixed outcome.</div>
+  </div>
+  <!-- shown instead of the chart when "All respondents" is selected: pay in USD is not comparable across countries -->
+  <div id="payAll" class="abs" style="left:145px;top:450px;width:1300px;opacity:0;display:none">
+    <div class="serif" style="font-size:46px;line-height:58px">Pay in US dollars isn't comparable across countries.</div>
+    <div style="margin-top:16px;font-size:24px;line-height:36px;color:#4a4f5c">Pick a country to see how pay changes with experience there.</div>
+    <div id="payChips" style="margin-top:36px;display:flex;gap:16px"></div>
+  </div>
   <div class="abs arrow" data-t="89.6" style="left:144px;top:990px">→ What can <span class="pn">Alex</span> start learning today?</div>
 </div>
 
@@ -201,7 +221,7 @@ b{font-weight:600;color:var(--navy)}
 <div class="scene" id="s9" data-a="93.2" data-b="106.85" data-o="0.6">
   <div class="chap" data-t="93.25">CHAPTER 4</div>
   <div class="h2 serif" data-t="93.45">Building skills: use versus interest</div>
-  <div class="sub" data-t="93.75">SHARE OF 2025 RESPONDENTS WHO ANSWERED BOTH LANGUAGE QUESTIONS (%)</div>
+  <div class="sub" data-t="93.75"><span class="scope" data-scope="langs"></span> · SHARE OF RESPONDENTS WHO ANSWERED BOTH LANGUAGE QUESTIONS (%)</div>
   <svg width="1920" height="1080" id="sksvg"></svg>
   <div id="sn1" class="abs" style="left:1575px;top:604px;font-size:22px;line-height:36px;color:#4a4f5c;width:310px"><b>Rust</b> and <b>Go</b>: more developers want them than use them today.</div>
   <div id="sn2" class="abs" style="left:1575px;top:303px;font-size:22px;line-height:36px;color:#4a4f5c;width:310px"><b>JavaScript</b>, <b>SQL</b>, <b>Python</b>: widely used today. A practical foundation.</div>
@@ -212,19 +232,19 @@ b{font-weight:600;color:var(--navy)}
 <div class="scene" id="s10" data-a="108.1" data-b="122.15" data-o="0.6">
   <div class="chap" data-t="108.15">CHAPTER 5</div>
   <div class="h2 serif" data-t="108.45">Adapting to change: the rise of AI</div>
-  <div class="sub" data-t="108.75">USE: % OF RESPONDENTS WHO ANSWERED · TRUST: % OF CURRENT AI USERS WHO ANSWERED · 2023–2025</div>
+  <div class="sub" data-t="108.75"><span class="scope" data-scope="ai"></span> · USE: % OF RESPONDENTS WHO ANSWERED · TRUST: % OF CURRENT AI USERS WHO ANSWERED</div>
   <svg width="1920" height="1080" id="aisvg"></svg>
   <div id="aip" style="opacity:0">
-    <div class="abs mono" style="left:1440px;top:300px;font-size:17px;line-height:21px;letter-spacing:.14em;color:#6b6e78;white-space:nowrap">USE AI TOOLS, BY WORK EXPERIENCE ·<br>PROFESSIONAL DEVELOPERS · 2025</div>
-    <div id="aig1" class="abs" style="left:1440px;top:363px;font-size:22px;line-height:28px;color:var(--navy)"></div>
-    <div id="aib1" class="abs" style="left:1440px;top:401px;height:32px;width:0;background:var(--blue);border-radius:3px"></div>
-    <div id="aiv1" class="abs serif" style="left:1440px;top:395px;font-size:34px;line-height:44px">0%</div>
-    <div id="aig2" class="abs" style="left:1440px;top:459px;font-size:22px;line-height:28px;color:var(--navy)"></div>
-    <div id="aib2" class="abs" style="left:1440px;top:497px;height:32px;width:0;background:#7eb0d4;border-radius:3px"></div>
-    <div id="aiv2" class="abs serif" style="left:1440px;top:491px;font-size:34px;line-height:44px">0%</div>
-    <div class="abs" style="left:1440px;top:558px;font-size:21px;line-height:28px;color:#4a4f5c">Newer developers use AI more.</div>
+    <div class="abs mono" style="left:1440px;top:300px;font-size:17px;line-height:21px;letter-spacing:.14em;color:#6b6e78;white-space:nowrap">USE AI TOOLS, BY WORK EXPERIENCE ·<br>PROFESSIONAL DEVELOPERS · 2025 ·<br><span style="color:var(--navy);font-weight:500" data-scope="aiExp"></span></div>
+    <div id="aig1" class="abs" style="left:1440px;top:385px;font-size:22px;line-height:28px;color:var(--navy)"></div>
+    <div id="aib1" class="abs" style="left:1440px;top:423px;height:32px;width:0;background:var(--blue);border-radius:3px"></div>
+    <div id="aiv1" class="abs serif" style="left:1440px;top:417px;font-size:34px;line-height:44px">0%</div>
+    <div id="aig2" class="abs" style="left:1440px;top:481px;font-size:22px;line-height:28px;color:var(--navy)"></div>
+    <div id="aib2" class="abs" style="left:1440px;top:519px;height:32px;width:0;background:#7eb0d4;border-radius:3px"></div>
+    <div id="aiv2" class="abs serif" style="left:1440px;top:513px;font-size:34px;line-height:44px">0%</div>
+    <div id="aiExpNote" class="abs" style="left:1440px;top:580px;font-size:21px;line-height:28px;color:#4a4f5c;width:400px"></div>
   </div>
-  <div class="abs serif" data-t="117.95" style="left:144px;top:927px;font-size:36px;line-height:46px;font-weight:600;white-space:nowrap">More developers use AI every year, but <span style="color:var(--green)">trust is falling</span>. Adoption doesn't mean trust.</div>
+  <div id="aiHead" class="abs serif" data-t="117.95" style="left:144px;top:927px;font-size:36px;line-height:46px;font-weight:600;white-space:nowrap"></div>
   <div class="abs arrow" data-t="120.35" style="left:144px;top:1003px">→ How should <span class="pn">Alex</span> prepare to adapt?</div>
 </div>
 
@@ -243,13 +263,12 @@ b{font-weight:600;color:var(--navy)}
   <div class="chap" data-t="137.15">NEXT STEP</div>
   <div class="h2 serif" data-t="137.4">Make your own career plan</div>
   <div id="pcard" class="abs" data-t="137.85" style="left:301px;top:265px;width:1318px;height:448px;background:#fdfdfc;border:1.5px solid #ebe6df;border-radius:22px;box-shadow:0 20px 40px rgba(60,40,20,.08)">
-    <div class="abs mono" style="left:48px;top:42px;font-size:16px;letter-spacing:.16em;color:#8a8f98">PEER LOCATOR</div>
+    <div class="abs mono" style="left:48px;top:42px;font-size:16px;letter-spacing:.16em;color:#8a8f98">PEER LOCATOR · <span style="color:var(--navy)" data-scope="place"></span> · 2025</div>
   </div>
   <div id="pin" data-t="137.85">
-    <div class="flab" style="left:350px">ROLE</div><div class="flab" style="left:766px">EXPERIENCE</div><div class="flab" style="left:1182px">LOCATION</div>
+    <div class="flab" style="left:350px">ROLE</div><div class="flab" style="left:766px">EXPERIENCE</div>
     <div class="selw" style="left:350px"><select class="sel" id="selRole"></select></div>
     <div class="selw" style="left:766px"><select class="sel" id="selExp"></select></div>
-    <div class="selw" style="left:1182px"><select class="sel" id="selLoc"></select></div>
     <div id="pbig" class="abs serif" style="left:348px;top:478px;font-size:116px;line-height:120px;color:var(--orange);font-weight:500">0%</div>
     <div id="pdesc" class="abs" style="left:603px;top:551px;font-size:20px;line-height:38px;color:#4a4f5c;width:830px"></div>
   </div>
@@ -263,6 +282,13 @@ b{font-weight:600;color:var(--navy)}
   <div class="abs" data-t="147.4" style="left:0;width:1920px;text-align:center;top:551px;font-size:27px;line-height:36px;color:#4a4f5c">Understand what developers like you are doing.</div>
   <div class="abs mono" data-t="147.65" style="left:0;width:1920px;text-align:center;top:646px;font-size:19.5px;line-height:26px;color:var(--navy)">Corrine Xiang · Andy Chen · Clovis Zhu</div>
   <div class="abs mono" data-t="147.85" style="left:0;width:1920px;text-align:center;top:686px;font-size:16.5px;line-height:22px;color:#8a8d95">CSC316 · Data: Stack Overflow Developer Survey, 2023–2025</div>
+</div>
+
+<!-- country switch: one setting for every chart from chapter 1 to the end -->
+<div id="cswitch">
+  <div class="lab">SHOWING</div>
+  <div class="selw"><select class="sel" id="selCountry" aria-label="Whose answers the charts show"></select></div>
+  <div id="chint"><span class="pn">Alex</span>'s country · change it any time</div>
 </div>
 
 </div>
@@ -285,6 +311,47 @@ function el(html, parent) { const d = document.createElement('div'); d.innerHTML
 function op(e, v) { e.style.opacity = v; }
 function fade(e, t, a, d = .6, dy = 0) { const k = eo(P(t, a, d)); e.style.opacity = k; if (dy) e.style.transform = `translateY(${(1 - k) * dy}px)`; return k; }
 let rnd = (() => { let s = 7; return () => (s = (s * 16807) % 2147483647) / 2147483647; })();
+
+/* ---------- scope: whose answers the charts show ----------
+   One setting for every chart from chapter 1 to the end. Picking a card sets it to that person's
+   country; the switch (top right) changes it. Chart values ease from the old scope to the new one. */
+const ALL = DATA.countries[0];                 // 'All respondents'
+const SCOPES = DATA.scopes;
+const nf = d3.format(',');
+const placeOf = c => c === ALL ? 'ALL RESPONDENTS' : c.toUpperCase();
+function mixv(a, b, k) {                       // every number in b, eased from the matching number in a
+  if (typeof b === 'number') return typeof a === 'number' ? a + (b - a) * k : b;
+  if (Array.isArray(b)) return b.map((x, i) => mixv(a && a[i], x, k));
+  if (b && typeof b === 'object') { const o = {}; for (const key in b) o[key] = mixv(a && a[key], b[key], k); return o; }
+  return b;
+}
+const TWEEN_MS = 600;
+let country = ALL, S0 = SCOPES.get(ALL), S1 = S0, V = S1, tk = 1, tStart = 0;   // from, to, shown now, progress
+const selCountry = $('selCountry'), cswitch = $('cswitch'), chint = $('chint');
+DATA.countries.forEach(c => selCountry.add(new Option(c, c)));
+selCountry.addEventListener('change', () => setCountry(selCountry.value, false));
+function setCountry(c, instant) {
+  if (!SCOPES.has(c)) c = ALL;
+  S0 = instant ? SCOPES.get(c) : V; S1 = SCOPES.get(c); V = S0;
+  tk = instant ? 1 : 0; tStart = performance.now(); country = c;
+  selCountry.value = c;
+  applyScope();
+  dirty = true;
+}
+function applyScope() {                        // text that depends on the scope; marks ease in each frame
+  const s = S1, P = placeOf(country);
+  const scopeText = {
+    bars: `${P} · 2025 · N = ${nf(s.bars.n)}`,
+    heat: `${P} · 2025 · N = ${nf(s.heat.total)}`,
+    pay: s.pay ? `${P} · 2025 · N = ${nf(d3.sum(s.pay, d => d.n))}` : `${P} · 2025`,
+    langs: `${P} · 2025 · N = ${nf(s.langN)}`,
+    ai: `${P} · ${DATA.aiYears[0]}–${DATA.aiYears[DATA.aiYears.length - 1]} · N = ${s.ai.n.map(nf).join(' / ')}`,
+    aiExp: `${P} · N = ${nf(d3.sum(s.aiExp, d => d.n))}`,
+    place: P
+  };
+  document.querySelectorAll('[data-scope]').forEach(e => { e.textContent = scopeText[e.dataset.scope]; });
+  scopeS6(s); scopeS7(s); scopeS8(s); scopeS10(s); scopeS12();
+}
 
 /* ---------- fit stage ---------- */
 function fit() {
@@ -347,7 +414,8 @@ function applyPersona() {
   $('avI').textContent = q.name[0]; $('aid').textContent = q.id; $('phid').textContent = q.id;
   [q.role, q.years, q.learned, q.langs, q.edu, q.country].forEach((v, i) => { $('fv' + i).textContent = v; });
   $('pkind').textContent = q.kind; $('phr').textContent = q.phrase;
-  setLocator(q.heat ? q.heat[0] : 0, q.heat ? q.heat[1] : 0, q.country, true);
+  setCountry(q.country, true);               // the story looks at the picked person's country until the reader changes it
+  setLocator(q.heat ? q.heat[0] : 0, q.heat ? q.heat[1] : 0, true);
 }
 function pick(i) {
   if (!(cur > 9.9 && cur < 13.2)) return;
@@ -489,19 +557,20 @@ function s45(t) {
 const gl = $('glabels');
 const gls = ['Full-stack', 'Back-end', 'Student', 'Front-end', 'Other / not stated'].map((s, g) => el(`<div class="abs mono" style="left:${GX(g) - 120}px;width:240px;text-align:center;top:918px;font-size:19px;line-height:24px;color:#555a66">${s}</div>`, gl));
 function s5(t) { gls.forEach((e, g) => fade(e, t, 41.15 + g * .14, .5)); }
+$('crowdN').textContent = nf(DATA.respondents);
 
 /* ================= S6 BARS ================= */
 const bars = $('bars');
-const bdef = [['Full-stack', DATA.share.fs, 0, 347], ['Back-end', DATA.share.be, 1, 473], ['Student', DATA.share.st, 0, 599]];
-const BMAX = DATA.share.fs * 1.017;
-$('otherPct').textContent = '~' + Math.round(DATA.share.other) + '%';
-const B = bdef.map(([lab, v, dec, y], i) => {
+const bdef = [['Full-stack', 'fs', 347], ['Back-end', 'be', 473], ['Student', 'st', 599]];
+const BMAX = d3.max([...SCOPES.values()], s => s.bars.fs) * 1.017;     // one axis for every scope
+const B = bdef.map(([lab, key, y], i) => {
   const L = el(`<div class="abs" style="left:145px;top:${y - 15}px;font-size:24px;line-height:30px;color:var(--navy)">${lab}</div>`, bars);
   const tr = el(`<div class="abs" style="left:450px;top:${y - 29}px;width:906px;height:60px;background:#efe9e2;border-radius:4px"></div>`, bars);
   const br = el(`<div class="abs" style="left:450px;top:${y - 29}px;height:60px;width:0;background:${i ? 'var(--navy)' : 'var(--orange)'};border-radius:4px"></div>`, bars);
   const nv = el(`<div class="abs serif" style="top:${y - 24}px;font-size:37px;line-height:48px">0%</div>`, bars);
-  return { L, tr, br, nv, v, dec: lab === 'Back-end' ? 1 : 0, i };
+  return { L, tr, br, nv, key, i };
 });
+function scopeS6(s) { $('otherPct').textContent = '~' + Math.round(s.bars.other) + '%'; }
 const bRing = el(`<div class="abs" style="left:1298px;top:338px;width:21px;height:21px;border-radius:50%;border:2.5px solid #fff"></div>`, bars);
 const bTag = el(`<div class="tag" style="left:1281px;top:273px"><span class="pn">Alex</span></div>`, bars);
 function s6(t) {
@@ -509,18 +578,19 @@ function s6(t) {
   B.forEach(b => {
     fade(b.L, t, 48.85 + b.i * .15, .5); fade(b.tr, t, 48.85 + b.i * .15, .5);
     const k = eo(P(t, 49.6 + b.i * .34, 1.25)) * (1 - out);
-    const w = b.v / BMAX * 906 * k;
+    const v = V.bars[b.key];
+    const w = v / BMAX * 906 * k;
     b.br.style.width = w + 'px';
     b.br.style.opacity = P(t, 49.5 + b.i * .34, .1);
     b.nv.style.left = (450 + Math.max(w, 0) + 21) + 'px';
-    const val = b.v * k;
+    const val = v * k;
     b.nv.textContent = val.toFixed(1) + '%';
     b.nv.style.opacity = P(t, 49.5 + b.i * .34, .3) * (k < .05 ? .4 : 1);
     b.br.style.background = b.i === P0().bar ? 'var(--orange)' : 'var(--navy)';
   });
   const pb = P0().bar;
   if (pb >= 0) {
-    const bx = 450 + B[pb].v / BMAX * 906 - 33, by = bdef[pb][3];
+    const bx = 450 + V.bars[B[pb].key] / BMAX * 906 - 33, by = bdef[pb][2];
     bRing.style.left = (bx - 10.5) + 'px'; bRing.style.top = (by - 9) + 'px'; bRing.style.display = 'block';
     bTag.style.left = (bx - 27) + 'px'; bTag.style.top = (by - 74) + 'px';
   } else { bRing.style.display = 'none'; bTag.style.left = '1050px'; bTag.style.top = '700px'; }
@@ -529,37 +599,42 @@ function s6(t) {
 
 /* ================= S7 HEATMAP ================= */
 const heat = $('heat');
-/* D3 #1 — peer-locator heatmap (novel view). Data: data/role_experience_2025.csv, "All countries" block */
+/* D3 #1 — peer-locator heatmap (novel view). Data: data/role_experience_2025.csv, the selected scope */
 const HR = DATA.heatRoles, HC = DATA.heatBands;
-const HV = HR.map(r => HC.map(b => Math.round(DATA.heatPct.get(r).get(b))));
 const hx = d3.scaleBand().domain(HC).range([435, 435 + 153 * HC.length]).paddingInner(6 / 153);
 const hy = d3.scaleBand().domain(HR).range([300, 300 + 93 * HR.length]).paddingInner(6 / 93);
-const hmax = d3.max(DATA.heat, d => d.pct);
-const hscale = d3.scaleSequential(d3.interpolateRgbBasis(['#f8f0e5', '#f3d8b8', '#f0bf8e', '#e18c43', '#d45d00'])).domain([0, hmax]);
-const hcol = v => hscale(v);
+const HEAT_MAX = 60;          // one colour scale for every scope; the largest cell is 59% (India, full-stack, 1–5 years)
+const hscale = d3.scaleSequential(d3.interpolateRgbBasis(['#f8f0e5', '#f3d8b8', '#f0bf8e', '#e18c43', '#d45d00'])).domain([0, HEAT_MAX]);
+const hcol = v => hscale(Math.min(v, HEAT_MAX));
 const hl = HR.map((r, i) => el(`<div class="abs" style="left:145px;top:${hy(r) + 28}px;font-size:23px;line-height:30px;color:var(--navy);white-space:nowrap">${r}</div>`, heat));
-const cellSel = d3.select(heat).selectAll('div.cell').data(DATA.heat, d => d.role + '|' + d.band).join('div')
+const cellSel = d3.select(heat).selectAll('div.cell').data(d3.cross(d3.range(HR.length), d3.range(HC.length))).join('div')
   .attr('class', 'cell')
-  .attr('title', d => `${d.role}, ${d.band} years: ${d.pct.toFixed(1)}% (${d3.format(',')(d.n)} of ${d3.format(',')(d.role_n)})`)
-  .style('left', d => hx(d.band) + 'px').style('top', d => hy(d.role) + 'px')
+  .style('left', ([i, j]) => hx(HC[j]) + 'px').style('top', ([i, j]) => hy(HR[i]) + 'px')
   .style('width', hx.bandwidth() + 'px').style('height', hy.bandwidth() + 'px')
-  .style('background', d => hcol(d.pct)).style('color', d => d.pct >= 22 ? '#fff' : '#2b3048')
   .text('0%');
-const cells = cellSel.nodes().map(c => { const d = d3.select(c).datum(); return { c, d, v: Math.round(d.pct), i: HR.indexOf(d.role), j: HC.indexOf(d.band) }; });
-// captions computed from the data
-const pctAt = (r, b) => Math.round(DATA.heatPct.get(r).get(b));
-const archRow = HR.indexOf('Architect'), archPeak = d3.maxIndex(HV[archRow]);
-$('feEarly').textContent = pctAt('Front-end', HC[0]) + '%';
-$('fsEarly').textContent = pctAt('Full-stack', HC[0]) + '%';
-$('archBand').textContent = HC[archPeak]; $('archPct').textContent = HV[archRow][archPeak] + '%';
+const cells = cellSel.nodes().map(c => { const [i, j] = d3.select(c).datum(); return { c, i, j }; });
+const archRow = HR.indexOf('Architect');
+let archPeak = 0;             // band where architects peak in the selected scope
 const hcl = HC.map((s, j) => el(`<div class="abs mono" style="left:${hx(s)}px;width:147px;text-align:center;top:774px;font-size:18px;line-height:24px;color:#6b6e78">${s}</div>`, heat));
 const hax = el(`<div class="abs mono" style="left:435px;width:1218px;text-align:center;top:811px;font-size:17px;line-height:22px;letter-spacing:.06em;color:#8a8d95">YEARS OF PROFESSIONAL WORK EXPERIENCE</div>`, heat);
 const box1 = el(`<div class="box" style="left:${hx(HC[0]) - 7}px;top:${hy(HR[0]) - 6}px;width:${hx.bandwidth() + 14}px;height:${hy.range()[1] - hy.range()[0] + 6}px"></div>`, heat);
-const box2 = el(`<div class="box" style="left:${hx(HC[archPeak]) - 6}px;top:${hy('Architect') - 6}px;width:${hx.bandwidth() + 12}px;height:${hy.bandwidth() + 12}px"></div>`, heat);
+const box2 = el(`<div class="box" style="top:${hy('Architect') - 6}px;width:${hx.bandwidth() + 12}px;height:${hy.bandwidth() + 12}px"></div>`, heat);
 const hRing = el(`<div class="abs" style="left:553px;top:307px;width:22px;height:22px;border-radius:50%;border:2.5px solid #fff"></div>`, heat);
 const hRingDot = el(`<div class="abs" style="left:553px;top:307px;width:22px;height:22px;border-radius:50%;background:#e07a2a;border:2.5px solid #fff;opacity:0"></div>`, heat);
 const hTag = el(`<div class="tag" style="left:579px;top:268px"><span class="pn">Alex</span></div>`, heat);
 const cap1 = $('cap1'), cap2 = $('cap2');
+function scopeS7(s) {
+  const H = s.heat, fe = H.pct[HR.indexOf('Front-end')][0], fs = H.pct[HR.indexOf('Full-stack')][0];
+  archPeak = d3.maxIndex(H.pct[archRow]);
+  box2.style.left = (hx(HC[archPeak]) - 6) + 'px';
+  cells.forEach(o => { o.c.title = `${HR[o.i]}, ${HC[o.j]} years: ${H.pct[o.i][o.j].toFixed(1)}% (${nf(H.cnt[o.i][o.j])} of ${nf(H.n[o.i])})`; });
+  hl.forEach((e, i) => { e.textContent = HR[i] + (H.shown[i] ? '' : ` (n = ${H.n[i]})`); });
+  // In all six scopes front-end and full-stack have the two highest 1–5 year shares (docs/features/4-country-scope.md);
+  // "a lot of early-career peers" only when both are 25% or more.
+  const tail = fe >= 25 && fs >= 25 ? 'These roles have a lot of early-career peers.' : 'More than in other roles, but most have 6+ years of experience.';
+  cap1.innerHTML = `In their first 1–5 years: <b>${Math.round(fe)}% of front-end</b> and <b>${Math.round(fs)}% of full-stack</b> developers. ${tail}`;
+  cap2.innerHTML = `<b>Architects</b> peak at <b>${HC[archPeak]} years</b> (${Math.round(H.pct[archRow][archPeak])}%). Some roles are reached later in a career.`;
+}
 function s7(t) {
   hl.forEach((e, i) => fade(e, t, 61.8 + i * .08, .5));
   hcl.forEach((e, j) => fade(e, t, 62.1 + j * .2, .5)); fade(hax, t, 63.0, .5);
@@ -569,11 +644,13 @@ function s7(t) {
     const st = 62.0 + o.j * .17 + o.i * .03;
     const k = eo(P(t, st, .5));
     const cnt = eo(P(t, st, .9));
-    o.c.textContent = Math.round(o.v * cnt) + '%';
+    const v = V.heat.pct[o.i][o.j], shown = V.heat.shown[o.i];
+    o.c.textContent = shown ? Math.round(v * cnt) + '%' : '—';
+    o.c.style.background = hcol(v); o.c.style.color = v >= 50 ? '#fff' : '#2b3048';
     let dim = 1;
     if (!(o.j === 0)) dim = Math.min(dim, 1 - .74 * ph1);
     if (!(o.i === archRow && o.j === archPeak)) dim = Math.min(dim, 1 - .74 * ph2);
-    o.c.style.opacity = k * dim;
+    o.c.style.opacity = k * dim * (shown ? 1 : .35);
     o.c.style.transform = `scale(${lerp(.92, 1, k)})`;
   });
   op(box1, ph1); op(box2, ph2);
@@ -582,7 +659,7 @@ function s7(t) {
     const x0 = hx(HC[hc[1]]), y0 = hy(HR[hc[0]]);
     [hRing, hRingDot].forEach(e => { e.style.left = (x0 + 118) + 'px'; e.style.top = (y0 + 7) + 'px'; e.style.display = 'block'; });
     hTag.style.left = (x0 + 144) + 'px'; hTag.style.top = (y0 - 32) + 'px'; hTag.style.display = 'block';
-    hRingDot.style.background = hcol(HV[hc[0]][hc[1]]);
+    hRingDot.style.background = hcol(V.heat.pct[hc[0]][hc[1]]);
     fade(hRing, t, 63.35, .4); fade(hTag, t, 63.35, .4, 8);
     hRingDot.style.opacity = Math.max(hc[1] !== 0 ? ph1 : 0, (hc[0] === archRow && hc[1] === archPeak) ? 0 : ph2);
   } else { [hRing, hRingDot, hTag].forEach(e => { e.style.display = 'none'; }); }
@@ -592,62 +669,97 @@ function s7(t) {
 
 /* ================= S8 PAY ================= */
 const ps = $('paysvg');
-/* D3 #2 — pay point-and-interval chart. Data: data/pay_by_experience_2025.csv (US) */
-const PXL = DATA.payUS.map(d => d.band);
+/* D3 #2 — pay point-and-interval chart. Data: data/pay_by_experience_2025.csv, the selected country.
+   Each country has its own y axis: pay in USD is not comparable across countries, and with
+   "All respondents" a note with country buttons replaces the chart. */
+const PXL = DATA.payBands;
 const px = d3.scalePoint().domain(PXL).range([375, 1410]);
-const py = d3.scaleLinear().domain([50, 200]).range([777, 402]);          // thousands of USD
+for (const s of SCOPES.values())             // y domain per country, in thousands of USD; eases with the rest of the scope
+  s.payDom = s.pay ? d3.scaleLinear().domain([d3.min(s.pay, d => d.q1) / 1000, d3.max(s.pay, d => d.q3) / 1000]).nice(4).domain() : null;
+const py = d3.scaleLinear().range([777, 402]);
 const PX = i => px(PXL[i]), PY = v => py(v);
 const kfmt = v => '$' + Math.round(v) + 'K';
-const PD = DATA.payUS.map(d => [d.median / 1000, d.q1 / 1000, d.q3 / 1000, kfmt(d.median / 1000), d]);
-const pGrid = d3.select(ps).append('g');
-const gTick = pGrid.selectAll('g').data(py.ticks(4)).join('g');
-gTick.append('line').attr('x1', 285).attr('x2', 1500).attr('y1', py).attr('y2', py).attr('stroke', '#e8e1d8').attr('stroke-width', 1.5);
-gTick.append('text').attr('x', 270).attr('y', v => py(v) + 6).attr('text-anchor', 'end').attr('font-family', 'JetBrains Mono').attr('font-size', 18).attr('fill', '#6b6e78').text(v => '$' + v + 'K');
-const pXl = d3.select(ps).append('g');
+const payG = d3.select(ps).append('g');      // the whole chart
+const pGrid = payG.append('g');
+const pXl = payG.append('g');
 pXl.selectAll('text').data(PXL).join('text').attr('x', b => px(b)).attr('y', 888).attr('text-anchor', 'middle')
   .attr('font-family', 'JetBrains Mono').attr('font-size', 20).attr('fill', '#1f2944').text(b => b);
-const pAx = sv('text', { x: 892, y: 930, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#8a8d95', 'letter-spacing': '1' }, ps); pAx.textContent = 'YEARS OF PROFESSIONAL WORK EXPERIENCE';
+const pAx = sv('text', { x: 892, y: 930, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#8a8d95', 'letter-spacing': '1' }, payG.node()); pAx.textContent = 'YEARS OF PROFESSIONAL WORK EXPERIENCE';
 // overlap between the 3–5 and 6–10 middle-50% ranges
 const oA = PXL.indexOf('3–5'), oB = PXL.indexOf('6–10');
-const ovLo = Math.max(PD[oA][1], PD[oB][1]), ovHi = Math.min(PD[oA][2], PD[oB][2]);
-const pHl = sv('rect', { x: PX(oA) - 60, y: PY(ovHi), width: PX(oB) - PX(oA) + 120, height: Math.max(0, PY(ovLo) - PY(ovHi)), rx: 6, fill: '#fae1ce' }, ps);
-const pLine = sv('path', { d: d3.line().x((d, i) => PX(i)).y(d => PY(d[0]))(PD), fill: 'none', stroke: '#5b5f6e', 'stroke-width': 2, 'stroke-dasharray': '6 5' }, ps);
+const pHl = sv('rect', { rx: 6, fill: '#fae1ce' }, payG.node());
+const pLine = sv('path', { fill: 'none', stroke: '#5b5f6e', 'stroke-width': 2, 'stroke-dasharray': '6 5' }, payG.node());
 const pLineMask = sv('clipPath', { id: 'plc' }, ps); const pClip = sv('rect', { x: 0, y: 0, width: 0, height: 1080 }, pLineMask); pLine.setAttribute('clip-path', 'url(#plc)');
-const ppSel = d3.select(ps).selectAll('g.pp').data(PD).join('g').attr('class', 'pp');
-ppSel.append('title').text(d => `${d[4].band} years · n = ${d3.format(',')(d[4].n)}\nMedian ${kfmt(d[0])} · middle 50% ${kfmt(d[1])}–${kfmt(d[2])}`);
+const ppSel = payG.selectAll('g.pp').data(PXL).join('g').attr('class', 'pp');
+const ppTitle = ppSel.append('title');
 const PP = ppSel.nodes().map((node, i) => {
-  const g = d3.select(node), d = PD[i];
+  const g = d3.select(node);
   const sp = g.append('g');
-  const vl = sp.append('line').attr('x1', PX(i)).attr('x2', PX(i)).attr('y1', PY(d[0])).attr('y2', PY(d[0])).attr('stroke', '#0071ad').attr('stroke-width', 4).node();
-  const c1 = sp.append('line').attr('x1', PX(i) - 15).attr('x2', PX(i) + 15).attr('y1', PY(d[2])).attr('y2', PY(d[2])).attr('stroke', '#0071ad').attr('stroke-width', 4).node();
-  const c2 = sp.append('line').attr('x1', PX(i) - 15).attr('x2', PX(i) + 15).attr('y1', PY(d[1])).attr('y2', PY(d[1])).attr('stroke', '#0071ad').attr('stroke-width', 4).node();
-  const dot = g.append('circle').attr('cx', PX(i)).attr('cy', PY(d[0])).attr('r', 11).attr('fill', '#1f2944').attr('stroke', '#fff').attr('stroke-width', 2.5).node();
-  const lb = g.append('text').attr('x', PX(i) + 24).attr('y', PY(d[0]) + 7).attr('font-family', 'JetBrains Mono').attr('font-size', 20).attr('font-weight', 500).attr('fill', '#1f2944').text(d[3]).node();
-  return { d, i, vl, c1, c2, dot, lb, sp: sp.node() };
+  const vl = sp.append('line').attr('stroke', '#0071ad').attr('stroke-width', 4).node();
+  const c1 = sp.append('line').attr('stroke', '#0071ad').attr('stroke-width', 4).node();
+  const c2 = sp.append('line').attr('stroke', '#0071ad').attr('stroke-width', 4).node();
+  const dot = g.append('circle').attr('r', 11).attr('fill', '#1f2944').attr('stroke', '#fff').attr('stroke-width', 2.5).node();
+  const lb = g.append('text').attr('font-family', 'JetBrains Mono').attr('font-size', 20).attr('font-weight', 500).attr('fill', '#1f2944').node();
+  return { i, node, vl, c1, c2, dot, lb, sp: sp.node() };
 });
-const pPeak = d3.maxIndex(PD, d => d[0]), pLast = PD.length - 1;     // band with the highest median; last band
-$('payLo').textContent = '~' + kfmt(PD[0][0]); $('payHi').textContent = '~' + kfmt(PD[pPeak][0]); $('payPeak').textContent = PXL[pPeak];
-const pAH = sv('circle', { r: 19, fill: '#f2decc' }, ps), pAD = sv('circle', { r: 9, fill: '#db5900', stroke: '#fff', 'stroke-width': 2 }, ps);
+let pPeak = 0, pLast = PXL.length - 1;        // band with the highest median; last band with 30+ answers
+const pAH = sv('circle', { r: 19, fill: '#f2decc' }, payG.node()), pAD = sv('circle', { r: 9, fill: '#db5900', stroke: '#fff', 'stroke-width': 2 }, payG.node());
 const pTag = el(`<div class="tag" style="left:0;top:0"><span class="pn">Alex</span></div>`, $('s8'));
-const pn1 = $('pn1'), pn2 = $('pn2');
+const pn1 = $('pn1'), pn2 = $('pn2'), payKey = $('payKey'), payAll = $('payAll');
+DATA.countries.slice(1).forEach(c => el(`<button class="chip" type="button">${c}</button>`, $('payChips')).addEventListener('click', () => setCountry(c, false)));
+function scopeS8(s) {
+  payAll.style.display = s.pay ? 'none' : 'block';
+  if (!s.pay) return;
+  const med = s.pay.map(d => d.median / 1000);
+  pLast = s.pay.map(d => d.shown).lastIndexOf(true);
+  pPeak = d3.maxIndex(med.slice(0, pLast + 1));
+  const from = `Median pay rises from <b>~${kfmt(med[0])}</b> to <b>~${kfmt(med[pPeak])}</b>`;
+  pn1.innerHTML = pLast < PXL.length - 1 ? `${from} by ${PXL[pPeak]} years. Too few answers after that.`
+    : pPeak < pLast ? `${from} by ${PXL[pPeak]} years, then levels off.`
+    : `${from}. Growth slows after ${PXL[pLast - 1]} years.`;       // peak in the last band (checked: growth slows wherever this happens)
+  ppTitle.text((b, i) => { const d = s.pay[i]; return `${d.band} years · n = ${nf(d.n)}\nMedian ${kfmt(d.median / 1000)} · middle 50% ${kfmt(d.q1 / 1000)}–${kfmt(d.q3 / 1000)}`; });
+}
 function s8(t) {
+  // switching to or from "All respondents" crossfades the chart and the note
+  const chartK = S1.pay ? (S0.pay ? 1 : eo(tk)) : 0;
+  ps.style.opacity = chartK; payKey.style.opacity = chartK; pTag.style.visibility = S1.pay ? 'visible' : 'hidden';
+  payAll.style.opacity = S1.pay ? 0 : eo(P(t, 78.0, .6)) * (S0.pay ? eo(tk) : 1);
+  if (!V.pay) return;
+  py.domain(V.payDom);
+  const PD = V.pay.map(d => [d.median / 1000, d.q1 / 1000, d.q3 / 1000, d.shown, d.n]);
   pGrid.attr('opacity', eo(P(t, 77.95, .5))); pXl.attr('opacity', eo(P(t, 78.15, .5))); op(pAx, eo(P(t, 78.55, .5)));
+  const tick = pGrid.selectAll('g').data(py.ticks(3), v => v).join(enter => {
+    const g = enter.append('g');
+    g.append('line').attr('x1', 285).attr('x2', 1500).attr('stroke', '#e8e1d8').attr('stroke-width', 1.5);
+    g.append('text').attr('x', 270).attr('text-anchor', 'end').attr('font-family', 'JetBrains Mono').attr('font-size', 18).attr('fill', '#6b6e78');
+    return g;
+  });
+  tick.select('line').attr('y1', py).attr('y2', py);
+  tick.select('text').attr('y', v => py(v) + 6).text(v => v ? '$' + v + 'K' : '$0');
+  const ovLo = Math.max(PD[oA][1], PD[oB][1]), ovHi = Math.min(PD[oA][2], PD[oB][2]);
+  pHl.setAttribute('x', PX(oA) - 60); pHl.setAttribute('y', PY(ovHi)); pHl.setAttribute('width', PX(oB) - PX(oA) + 120); pHl.setAttribute('height', Math.max(0, PY(ovLo) - PY(ovHi)));
+  pLine.setAttribute('d', d3.line().x((d, i) => PX(i)).y(d => PY(d[0]))(PD.slice(0, pLast + 1)));
   PP.forEach(p => {
-    const st = 79.1 + p.i * .33, i = p.i, d = p.d;
+    const st = 79.1 + p.i * .33, i = p.i, d = PD[i], x = PX(i);
     const kd = eo(P(t, st, .3));
+    p.dot.setAttribute('cx', x); p.dot.setAttribute('cy', PY(d[0]));
     p.dot.setAttribute('opacity', kd); p.dot.setAttribute('r', 11 * lerp(.4, 1, kd));
     const ks = eo(P(t, st + .15, .45));
     const yT = lerp(PY(d[0]), PY(d[2]), ks), yB = lerp(PY(d[0]), PY(d[1]), ks);
+    [p.vl, p.c1, p.c2].forEach((e, j) => { e.setAttribute('x1', j ? x - 15 : x); e.setAttribute('x2', j ? x + 15 : x); });
     p.vl.setAttribute('y1', yT); p.vl.setAttribute('y2', yB);
     p.c1.setAttribute('y1', yT); p.c1.setAttribute('y2', yT); p.c2.setAttribute('y1', yB); p.c2.setAttribute('y2', yB);
     p.sp.setAttribute('opacity', ks > 0 ? 1 : 0);
+    p.lb.setAttribute('x', x + 24); p.lb.setAttribute('y', PY(d[0]) + 7);
+    p.lb.textContent = d[3] ? kfmt(d[0]) : 'n = ' + Math.round(d[4]);        // under 30 answers: faded, n instead of a value
     p.lb.setAttribute('opacity', eo(P(t, st + .3, .5)));
+    p.node.setAttribute('opacity', d[3] ? 1 : .35);
   });
   pClip.setAttribute('width', 1500 * eio(P(t, 81.85, .8)));
   // Alex along median line
   const s0 = P0().pay, s1e = s0 < pPeak ? pPeak : s0;
   const s = lerp(s0, s1e, eio(P(t, 82.75, 2.4 * Math.max(.4, (s1e - s0) / 4))));
-  const j = Math.min(pLast - 1, Math.floor(s)), f = s - j, j2 = Math.min(pLast, j + 1);
+  const last = PXL.length - 1, j = Math.min(last - 1, Math.floor(s)), f = s - j, j2 = Math.min(last, j + 1);
   const ax = lerp(PX(j), PX(j2), f), ay = lerp(PY(PD[j][0]), PY(PD[j2][0]), f);
   const ak = eo(P(t, 81.6, .4));
   [pAH, pAD].forEach(c => { c.setAttribute('cx', ax); c.setAttribute('cy', ay); c.setAttribute('opacity', ak); });
@@ -659,25 +771,24 @@ function s8(t) {
 
 /* ================= S9 SKILLS ================= */
 const ks = $('sksvg');
-const SX = v => 450 + (v - 10) * 17.5, SY = i => 318 + i * 67.5;
-const SD = DATA.langs;
+const SX = v => 450 + v * 15, SY = i => 318 + i * 67.5;      // one axis, 0–70%, for every scope (largest value: 68%)
 const sBands = sv('g', {}, ks);
 const sGrid = sv('g', {}, ks);
-for (let v = 10; v <= 70; v += 10) {
+for (let v = 0; v <= 70; v += 10) {
   sv('line', { x1: SX(v), x2: SX(v), y1: 288, y2: 832, stroke: '#edece5', 'stroke-width': 1.5 }, sGrid);
   const tx = sv('text', { x: SX(v), y: 857, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#6b6e78' }, sGrid); tx.textContent = v + '%';
 }
 const sLeg = sv('g', {}, ks);
 sv('circle', { cx: 457, cy: 276, r: 7, fill: '#0a6bb5' }, sLeg); let tx = sv('text', { x: 475, y: 282, 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#6b6e78' }, sLeg); tx.textContent = 'Worked with in past year';
 sv('circle', { cx: 769, cy: 276, r: 7, fill: '#cf5d05' }, sLeg); tx = sv('text', { x: 787, y: 282, 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#6b6e78' }, sLeg); tx.textContent = 'Want to work with next year';
-const SR = SD.map((d, i) => {
+const SR = S1.langs.map((d, i) => {          // same languages, in the same order, in every scope
   const band = sv('rect', { x: 135, y: SY(i) - 30, width: 1402, height: 60, rx: 8, fill: '#fbe8da', opacity: 0 }, sBands);
   const g = sv('g', {}, ks);
-  const lab = sv('text', { x: 414, y: SY(i) + 8, 'text-anchor': 'end', 'font-family': 'Inter', 'font-size': 23, fill: '#1f2944' }, g); lab.textContent = d[0];
-  const ln = sv('line', { x1: SX(d[1]), x2: SX(d[1]), y1: SY(i), y2: SY(i), stroke: '#9e9ca6', 'stroke-width': 3 }, g);
-  const od = sv('circle', { cx: SX(d[1]), cy: SY(i), r: 12, fill: '#cf5d05' }, g);
-  const bd = sv('circle', { cx: SX(d[1]), cy: SY(i), r: 12, fill: '#0a6bb5' }, g);
-  return { d, i, band, g, lab, ln, od, bd };
+  const lab = sv('text', { x: 414, y: SY(i) + 8, 'text-anchor': 'end', 'font-family': 'Inter', 'font-size': 23, fill: '#1f2944' }, g); lab.textContent = d.name;
+  const ln = sv('line', { y1: SY(i), y2: SY(i), stroke: '#9e9ca6', 'stroke-width': 3 }, g);
+  const od = sv('circle', { cy: SY(i), r: 12, fill: '#cf5d05' }, g);
+  const bd = sv('circle', { cy: SY(i), r: 12, fill: '#0a6bb5' }, g);
+  return { i, band, g, lab, ln, od, bd };
 });
 const sn1 = $('sn1'), sn2 = $('sn2');
 function s9(t) {
@@ -685,12 +796,13 @@ function s9(t) {
   const hA = eo(P(t, 99.45, .45)) * (1 - eo(P(t, 102.35, .45)));
   const hB = eo(P(t, 102.35, .45)) * (1 - eo(P(t, 105.35, .45)));
   SR.forEach(r => {
-    const i = r.i, d = r.d;
+    const i = r.i, d = V.langs[i];
     r.lab.setAttribute('opacity', eo(P(t, 94.05 + i * .06, .5)));
     const kb = eo(P(t, 94.3 + i * .12, .35));
     r.bd.setAttribute('opacity', kb); r.bd.setAttribute('r', 12 * lerp(.3, 1, kb));
+    r.bd.setAttribute('cx', SX(d.used)); r.ln.setAttribute('x1', SX(d.used));
     const ko = eio(P(t, 95.45 + i * .15, .85));
-    const ox = lerp(SX(d[1]), SX(d[2]), ko);
+    const ox = lerp(SX(d.used), SX(d.want), ko);
     r.od.setAttribute('cx', ox); r.od.setAttribute('opacity', P(t, 95.45 + i * .15, .15));
     r.ln.setAttribute('x2', ox);
     const inA = i === 5 || i === 7, inB = i === 0 || i === 1 || i === 3;
@@ -706,41 +818,66 @@ function s9(t) {
 /* ================= S10 AI ================= */
 const ai = $('aisvg');
 const AX = i => 315 + 405 * i, AY = v => 840 - v * 5.25;
-const UB = DATA.aiUse, TG = DATA.aiTrust;
 const aGrid = sv('g', {}, ai);
 for (let v = 0; v <= 100; v += 20) {
   sv('line', { x1: 225, x2: 1200, y1: AY(v), y2: AY(v), stroke: v ? '#ebe7df' : '#d0cfc6', 'stroke-width': v ? 1.5 : 2 }, aGrid);
   const t2 = sv('text', { x: 210, y: AY(v) + 6, 'text-anchor': 'end', 'font-family': 'JetBrains Mono', 'font-size': 18, fill: '#6b6e78' }, aGrid); t2.textContent = v + '%';
 }
 const aXl = sv('g', {}, ai);
-[2023, 2024, 2025].forEach((y, i) => { const t2 = sv('text', { x: AX(i), y: 882, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 20, fill: '#1f2944' }, aXl); t2.textContent = y; });
-const cf = (TG[0] - UB[0]) / ((UB[1] - UB[0]) - (TG[1] - TG[0])), cxp = lerp(AX(0), AX(1), cf), cyp = AY(lerp(UB[0], UB[1], cf));
-const aArea = sv('polygon', { points: `${cxp},${cyp} ${AX(1)},${AY(UB[1])} ${AX(2)},${AY(UB[2])} ${AX(2)},${AY(TG[2])} ${AX(1)},${AY(TG[1])}`, fill: '#e4eef6' }, ai);
+DATA.aiYears.forEach((y, i) => { const t2 = sv('text', { x: AX(i), y: 882, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 20, fill: '#1f2944' }, aXl); t2.textContent = y; });
+const aArea = sv('polygon', { fill: '#e4eef6' }, ai);
 const aClipP = sv('clipPath', { id: 'aic' }, ai); const aClip = sv('rect', { x: 0, y: 0, width: 0, height: 1080 }, aClipP);
-const lU = sv('polyline', { points: UB.map((v, i) => `${AX(i)},${AY(v)}`).join(' '), fill: 'none', stroke: '#0a6bb5', 'stroke-width': 4, 'clip-path': 'url(#aic)' }, ai);
-const lT = sv('polyline', { points: TG.map((v, i) => `${AX(i)},${AY(v)}`).join(' '), fill: 'none', stroke: '#0f9a73', 'stroke-width': 4, 'clip-path': 'url(#aic)' }, ai);
+const lU = sv('polyline', { fill: 'none', stroke: '#0a6bb5', 'stroke-width': 4, 'clip-path': 'url(#aic)' }, ai);
+const lT = sv('polyline', { fill: 'none', stroke: '#0f9a73', 'stroke-width': 4, 'clip-path': 'url(#aic)' }, ai);
 const aPts = [];
-[[UB, '#0a6bb5', [1, -1, -1]], [TG, '#0f9a73', [-1, 1, 1]]].forEach(([arr, col, side]) => arr.forEach((v, i) => {
-  const c = sv('circle', { cx: AX(i), cy: AY(v), r: 8, fill: col, stroke: '#fff', 'stroke-width': 2 }, ai);
-  const lb = sv('text', { x: AX(i) - (i === 0 ? 47 : 0), y: AY(v) + (side[i] < 0 ? -22 : 39), 'text-anchor': i === 0 ? 'middle' : 'middle', 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: col }, ai);
-  lb.textContent = v.toFixed(1) + '%';
-  aPts.push({ c, lb, i });
+[['use', '#0a6bb5'], ['trust', '#0f9a73']].forEach(([key, col]) => DATA.aiYears.forEach((y, i) => {
+  const c = sv('circle', { r: 8, fill: col, stroke: '#fff', 'stroke-width': 2 }, ai);
+  const lb = sv('text', { 'text-anchor': 'middle', 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: col }, ai);
+  aPts.push({ c, lb, i, key });
 }));
-// 2023 labels positioned left of points
-aPts.forEach(p => { if (p.i === 0) p.lb.setAttribute('x', 268); });
-const eU = sv('text', { x: 1230, y: AY(UB[2]) + 7, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#0a6bb5' }, ai); eU.textContent = 'Use AI tools';
-const eT = sv('text', { x: 1230, y: AY(TG[2]) + 7, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#0f9a73' }, ai); eT.textContent = 'Trust AI output';
-const aip = $('aip');
-$('aig1').textContent = DATA.aiExp[0].group; $('aig2').textContent = DATA.aiExp[1].group;
+const eU = sv('text', { x: 1230, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#0a6bb5' }, ai); eU.textContent = 'Use AI tools';
+const eT = sv('text', { x: 1230, 'font-family': 'JetBrains Mono', 'font-size': 20, 'font-weight': 500, fill: '#0f9a73' }, ai); eT.textContent = 'Trust AI output';
+// shaded gap: from the point where use passes trust (between two years, or at the first year if use is already higher)
+function aiGapPoints(U, T) {
+  const i = U.findIndex((u, j) => u >= T[j]);
+  if (i < 0) return '';
+  const pts = [];
+  if (i > 0) { const d0 = U[i - 1] - T[i - 1], d1 = U[i] - T[i], f = -d0 / (d1 - d0); pts.push([lerp(AX(i - 1), AX(i), f), AY(lerp(U[i - 1], U[i], f))]); }
+  for (let j = i; j < U.length; j++) pts.push([AX(j), AY(U[j])]);
+  for (let j = U.length - 1; j >= i; j--) pts.push([AX(j), AY(T[j])]);
+  return pts.map(p => p.join(',')).join(' ');
+}
+const aip = $('aip'), aiHead = $('aiHead');
+function scopeS10(s) {
+  // use rises every year in all six scopes; trust falls every year in all but India
+  const T = s.ai.trust, falls = T.every((v, i) => i === 0 || v < T[i - 1]);
+  aiHead.innerHTML = `More developers use AI every year, but <span style="color:var(--green)">${falls ? 'trust is falling' : "trust hasn't kept up"}</span>. Adoption doesn't mean trust.`;
+  $('aig1').textContent = s.aiExp[0].group; $('aig2').textContent = s.aiExp[1].group;
+  // say one group uses AI more only when the 95% interval of the gap excludes zero
+  const g = s.aiGap;
+  $('aiExpNote').textContent = g.lo > 0 ? 'Newer developers use AI more.' : g.hi < 0 ? 'Experienced developers use AI more.' : 'About the same at both career stages.';
+}
 function s10(t) {
+  const U = V.ai.use, T = V.ai.trust;
   op(aGrid, eo(P(t, 108.85, .5))); op(aXl, eo(P(t, 109.15, .5)));
   const k = P(t, 110.0, 2.7);
   aClip.setAttribute('width', AX(0) - 2 + k * (AX(2) - AX(0) + 14));
-  aPts.forEach(p => { const a = eo(P(t, 110.0 + p.i * 1.35, .3)); p.c.setAttribute('opacity', a); p.lb.setAttribute('opacity', a); });
+  lU.setAttribute('points', U.map((v, i) => `${AX(i)},${AY(v)}`).join(' '));
+  lT.setAttribute('points', T.map((v, i) => `${AX(i)},${AY(v)}`).join(' '));
+  aPts.forEach(p => {
+    const mine = p.key === 'use' ? U : T, other = p.key === 'use' ? T : U, v = mine[p.i];
+    p.c.setAttribute('cx', AX(p.i)); p.c.setAttribute('cy', AY(v));
+    // the higher line is labelled above its point, the lower one below; first-year labels sit left of the points
+    p.lb.setAttribute('x', p.i === 0 ? 268 : AX(p.i)); p.lb.setAttribute('y', AY(v) + (v >= other[p.i] ? -22 : 39));
+    p.lb.textContent = v.toFixed(1) + '%';
+    const a = eo(P(t, 110.0 + p.i * 1.35, .3)); p.c.setAttribute('opacity', a); p.lb.setAttribute('opacity', a);
+  });
+  aArea.setAttribute('points', aiGapPoints(U, T));
+  eU.setAttribute('y', AY(U[U.length - 1]) + 7); eT.setAttribute('y', AY(T[T.length - 1]) + 7);
   const ea = eo(P(t, 112.95, .6)); aArea.setAttribute('opacity', ea); eU.setAttribute('opacity', ea); eT.setAttribute('opacity', ea);
   const pk = eo(P(t, 115.3, .5)); aip.style.opacity = pk; aip.style.transform = `translateY(${(1 - pk) * 14}px)`;
   const b1 = eo(P(t, 115.45, 1.2)), b2 = eo(P(t, 115.75, 1.2));
-  const E0 = DATA.aiExp[0].use_pct, E1 = DATA.aiExp[1].use_pct, ew = 230 / 70;
+  const E0 = V.aiExp[0].use, E1 = V.aiExp[1].use, ew = 230 / 70;
   $('aib1').style.width = ew * E0 * b1 + 'px'; $('aiv1').style.left = (1440 + ew * E0 * b1 + 16) + 'px'; $('aiv1').textContent = Math.round(E0 * b1) + '%';
   $('aib2').style.width = ew * E1 * b2 + 'px'; $('aiv2').style.left = (1440 + ew * E1 * b2 + 16) + 'px'; $('aiv2').textContent = Math.round(E1 * b2) + '%';
 }
@@ -789,33 +926,31 @@ function s11(t) {
 function invE(y) { let lo = 0, hi = 1; for (let n = 0; n < 30; n++) { const m = (lo + hi) / 2; if (eio(m) < y) lo = m; else hi = m; } return lo; }
 
 /* ================= S12 PLAN ================= */
-const pbig = $('pbig'), pdesc = $('pdesc'), selRole = $('selRole'), selExp = $('selExp'), selLoc = $('selLoc');
-const LOCS = DATA.countries;              // 'All countries' first, then the five countries in the data
+const pbig = $('pbig'), pdesc = $('pdesc'), selRole = $('selRole'), selExp = $('selExp');
 HR.forEach((r, i) => selRole.add(new Option(r, i)));
 HC.forEach((c, i) => selExp.add(new Option(c + ' years', i)));
-LOCS.forEach(c => selLoc.add(new Option(c, c)));
 const NOUN = ['full-stack developers', 'back-end developers', 'front-end developers', 'architects', 'enterprise / desktop developers'];
-const nfmt = d3.format(',');
-function descFor(r, c, country) {
-  const blk = DATA.heatByCountry.get(country), n = blk.n[r];
-  const where = country === LOCS[0] ? '' : ' in ' + (/^United/.test(country) ? 'the ' : '') + country;
-  if (!blk.shown[r]) return `Only ${nfmt(n)} ${NOUN[r]}${where} answered, too few to show a share.`;
-  const v = blk.pct[r][c];
+function descFor(r, c) {                     // the location is the story-wide country setting
+  const blk = S1.heat, n = blk.n[r], row = blk.pct[r].map(Math.round);
+  const where = country === ALL ? '' : ' in ' + (/^United/.test(country) ? 'the ' : '') + country;
+  if (!blk.shown[r]) return `Only ${nf(n)} ${NOUN[r]}${where} answered, too few to show a share.`;
+  const v = row[c];
   const span = c === 0 ? 'are in their first 1–5 years' : c === 7 ? 'have 50+ years of professional experience' : `have ${HC[c]} years of professional experience`;
-  const fixed = country === LOCS[0] ? { '0,0': 'Plenty of peers start here.', '2,0': 'The most early-career role.', '3,0': 'A role most people grow into later.' }[r + ',' + c] : null;
-  const tail = fixed || (v === Math.max(...blk.pct[r]) ? 'The most common stage for this role.' : v >= 15 ? 'A common stage for this role.' : v >= 5 ? 'A smaller group of peers.' : 'Very few peers are at this stage.');
-  return `of ${NOUN[r]}${where} ${span}. ${tail} Based on ${nfmt(n)} survey answers.`;
+  const fixed = country === ALL ? { '0,0': 'Plenty of peers start here.', '2,0': 'The most early-career role.', '3,0': 'A role most people grow into later.' }[r + ',' + c] : null;
+  const tail = fixed || (v === Math.max(...row) ? 'The most common stage for this role.' : v >= 15 ? 'A common stage for this role.' : v >= 5 ? 'A smaller group of peers.' : 'Very few peers are at this stage.');
+  return `of ${NOUN[r]}${where} ${span}. ${tail} Based on ${nf(n)} survey answers.`;
 }
 let locTarget = 0, locAnim = 0, locShown = true;
-function setLocator(r, c, country, instant) {
-  selRole.value = r; selExp.value = c; if (country) selLoc.value = LOCS.includes(country) ? country : LOCS[0];
-  const blk = DATA.heatByCountry.get(selLoc.value);
+function setLocator(r, c, instant) {
+  selRole.value = r; selExp.value = c;
+  const blk = S1.heat;
   locShown = blk.shown[r];
-  locTarget = locShown ? blk.pct[r][c] : 0; if (instant) locAnim = locTarget;
-  pdesc.textContent = descFor(r, c, selLoc.value);
+  locTarget = locShown ? Math.round(blk.pct[r][c]) : 0; if (instant) locAnim = locTarget;
+  pdesc.textContent = descFor(r, c);
   dirty = true;
 }
-[selRole, selExp, selLoc].forEach(e => e.addEventListener('change', () => setLocator(+selRole.value, +selExp.value, null, false)));
+[selRole, selExp].forEach(e => e.addEventListener('change', () => setLocator(+selRole.value, +selExp.value, false)));
+function scopeS12() { setLocator(+selRole.value, +selExp.value, false); }
 function s12(t) {
   const k = eo(P(t, 138.55, .9));
   pbig.textContent = locShown ? Math.round(locAnim * k) + '%' : '—';
@@ -845,6 +980,10 @@ function render(t) {
   if (t > 108 && t < 123) s10(t);
   if (t > 122.9 && t < 137) s11(t);
   if (t > 137 && t < 147.1) s12(t);
+  // country switch: from the chapter 1 bars to the end of the last section; the hint shows on its first appearance
+  const sw = eo(P(t, 48.3, .5)) * (1 - P(t, 146.55, .6));
+  cswitch.style.opacity = sw; cswitch.style.visibility = sw > 0 ? 'visible' : 'hidden'; cswitch.style.pointerEvents = sw > .5 ? 'auto' : 'none';
+  chint.style.opacity = country === P0().country ? eo(P(t, 48.8, .5)) * (1 - P(t, 58.6, .6)) : 0;
 }
 const END = 153;
 window.__render = render;
@@ -881,13 +1020,15 @@ function uiTick() {
   let moving = false;
   lift.forEach((v, i) => { const g = i === hoverI ? 16 : 0; lift[i] += (g - v) * .2; if (Math.abs(g - lift[i]) < .05) lift[i] = g; else moving = true; });
   locAnim += (locTarget - locAnim) * .12; if (Math.abs(locTarget - locAnim) < .02) locAnim = locTarget; else moving = true;
+  if (tk < 1) { tk = Math.min(1, (performance.now() - tStart) / TWEEN_MS); V = tk < 1 ? mixv(S0, S1, eio(tk)) : S1; moving = true; }
   return moving;
 }
 let dirty = true;
 let cur = timeAtScroll(window.scrollY), last = -1;
 function frame() {
-  let target = timeAtScroll(window.scrollY);
-  if (picked === null) target = Math.min(target, GATE);
+  // ?t= holds one moment, but the loop keeps running so the switch and menus still animate there
+  let target = still !== null ? +still : timeAtScroll(window.scrollY);
+  if (picked === null && still === null) target = Math.min(target, GATE);
   // ease toward the scroll target so wheel steps feel smooth
   cur += (target - cur) * (Math.abs(target - cur) < .002 ? 1 : .14);
   const ui = uiTick();
@@ -895,10 +1036,13 @@ function frame() {
   requestAnimationFrame(frame);
 }
 addEventListener('resize', sizeSpacer); sizeSpacer(); fit(); applyPersona();
-const still = new URLSearchParams(location.search).get('t');
+const params = new URLSearchParams(location.search);
+const still = params.get('t');
+const askC = (params.get('country') || '').toLowerCase();      // e.g. ?t=88&country=India, for checking one scope
+if (askC) setCountry(DATA.countries.find(c => c.toLowerCase() === askC) || (askC.startsWith('all') ? ALL : country), true);
 (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => {
-  if (still !== null) render(+still);
-  else { render(cur); last = cur; dirty = false; requestAnimationFrame(frame); }
+  if (still !== null) cur = +still;
+  render(cur); last = cur; dirty = false; requestAnimationFrame(frame);
   stage.classList.add('ready');
 });
 }).catch(showDataError);

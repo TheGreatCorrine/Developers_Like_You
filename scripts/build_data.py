@@ -4,6 +4,8 @@ Input : data/raw/results_{2023,2024,2025}.csv  (official StackExchange/Survey ar
 Output: data/*.csv  (small, chart-ready tables loaded by the site with d3.csv)
 
 Year rule: the AI trend uses 2023-2025. Every other table uses 2025 only.
+Scope rule: the tables behind the story charts have one block for all respondents and one per country in
+COUNTRIES (pay: countries only, because pay in USD is not comparable across countries).
 Definitions, denominators and caveats for each table are in data/PROVENANCE.md.
 
 Run from the prototype folder:  python scripts/build_data.py
@@ -28,11 +30,19 @@ COUNTRIES = {
     "Germany": "Germany",
     "India": "India",
 }
-ALL_COUNTRIES = "All countries"
+ALL_COUNTRIES = "All respondents"   # includes the 28% of 2025 respondents who gave no country
+Z95 = 1.96                          # two-sided 95% normal interval
 
 
 def load(year, cols):
     return pd.read_csv(RAW / f"results_{year}.csv", usecols=cols, low_memory=False)
+
+
+def scopes(d):
+    """(order, label, rows): all respondents first, then one block per country in COUNTRIES order."""
+    yield 0, ALL_COUNTRIES, d
+    for i, (full, short) in enumerate(COUNTRIES.items(), start=1):
+        yield i, short, d[d.Country == full]
 
 
 def work_years(s):
@@ -46,11 +56,13 @@ def split_multi(s):
 
 # ---------------------------------------------------------------- 1. role shares (2025)
 def role_shares():
-    d = load(YEAR, ["DevType"])
-    ans = d["DevType"].dropna()
-    rows = [dict(year=YEAR, role=role, n=int(n), answered_n=len(ans), respondents_n=len(d),
-                 pct_of_answered=100 * n / len(ans), pct_of_all=100 * n / len(d))
-            for role, n in ans.value_counts().items()]
+    d = load(YEAR, ["DevType", "Country"])
+    rows = []
+    for c_i, country, s in scopes(d):
+        ans = s["DevType"].dropna()
+        rows += [dict(country=country, country_order=c_i, year=YEAR, role=role, n=int(n), answered_n=len(ans),
+                      respondents_n=len(s), pct_of_answered=100 * n / len(ans), pct_of_all=100 * n / len(s))
+                 for role, n in ans.value_counts().items()]
     df = pd.DataFrame(rows)
     df.to_csv(OUT / "role_share_2025.csv", index=False)
     return df
@@ -77,16 +89,15 @@ def band_of(x):
 
 def heatmap():
     """Within each role, the share of respondents in each WorkExp band. One block for all
-    respondents and one per country offered in the peer locator."""
+    respondents and one per country."""
     d = load(YEAR, ["DevType", "WorkExp", "Country"])
     d = d[d["DevType"].isin(ROLE_MAP)].copy()
     d["exp"] = work_years(d["WorkExp"])
     d = d.dropna(subset=["exp"])
     d["band"] = d["exp"].apply(band_of)
     d["role"] = d["DevType"].map(ROLE_MAP)
-    blocks = [(ALL_COUNTRIES, d)] + [(short, d[d.Country == full]) for full, short in COUNTRIES.items()]
     rows = []
-    for c_i, (country, block) in enumerate(blocks):
+    for c_i, country, block in scopes(d):
         for r_i, role in enumerate(ROLE_MAP.values()):
             sub = block[block.role == role]
             for b_i, (_, _, lab) in enumerate(BANDS):
@@ -110,13 +121,12 @@ def pay():
     d = d.dropna(subset=["exp", "ConvertedCompYearly"])
     d = d[d.ConvertedCompYearly > 0]
     rows = []
-    for full in ["United States of America", "Canada"]:
-        c = d[d.Country == full]
+    for c_i, country, c in list(scopes(d))[1:]:          # countries only: USD pay is not comparable across countries
         for i, (lo, hi, lab) in enumerate(PAY_BANDS):
             v = c[(c.exp > lo) & (c.exp <= hi)]["ConvertedCompYearly"]
             q1, med, q3 = np.percentile(v, [25, 50, 75]) if len(v) else (np.nan,) * 3
-            rows.append(dict(country=COUNTRIES[full], band=lab, band_order=i, n=len(v), q1=q1, median=med, q3=q3,
-                             displayed=len(v) >= MIN_N))
+            rows.append(dict(country=country, country_order=c_i, band=lab, band_order=i, n=len(v), q1=q1, median=med,
+                             q3=q3, displayed=len(v) >= MIN_N))
     df = pd.DataFrame(rows)
     df.to_csv(OUT / "pay_by_experience_2025.csv", index=False)
     return df
@@ -128,13 +138,16 @@ LANGS = ["Python", "SQL", "HTML/CSS", "JavaScript", "TypeScript", "Rust", "Bash/
 
 def languages():
     """Both percentages use the same people: respondents who answered both language questions."""
-    d = load(YEAR, ["LanguageHaveWorkedWith", "LanguageWantToWorkWith"])
-    base = d[d.LanguageHaveWorkedWith.notna() & d.LanguageWantToWorkWith.notna()]
-    used = split_multi(base.LanguageHaveWorkedWith).explode().value_counts()
-    want = split_multi(base.LanguageWantToWorkWith).explode().value_counts()
-    rows = [dict(language=l.replace(" (all shells)", ""), used_n=int(used.get(l, 0)), want_n=int(want.get(l, 0)),
-                 used_pct=100 * used.get(l, 0) / len(base), want_pct=100 * want.get(l, 0) / len(base),
-                 denominator_n=len(base)) for l in LANGS]
+    d = load(YEAR, ["LanguageHaveWorkedWith", "LanguageWantToWorkWith", "Country"])
+    both = d[d.LanguageHaveWorkedWith.notna() & d.LanguageWantToWorkWith.notna()]
+    rows = []
+    for c_i, country, base in scopes(both):
+        used = split_multi(base.LanguageHaveWorkedWith).explode().value_counts()
+        want = split_multi(base.LanguageWantToWorkWith).explode().value_counts()
+        rows += [dict(country=country, country_order=c_i, language=l.replace(" (all shells)", ""),
+                      used_n=int(used.get(l, 0)), want_n=int(want.get(l, 0)),
+                      used_pct=100 * used.get(l, 0) / len(base), want_pct=100 * want.get(l, 0) / len(base),
+                      denominator_n=len(base)) for l in LANGS]
     df = pd.DataFrame(rows)
     df.to_csv(OUT / "languages_2025.csv", index=False)
     return df
@@ -148,29 +161,38 @@ def ai_trends():
     rows = []
     for year in TREND_YEARS:
         f = TRUST_FIELD[year]
-        d = load(year, ["AISelect", f])
-        ans = d[d.AISelect.notna()]
-        users = ans[ans.AISelect.str.startswith("Yes")]
-        t = users[f].dropna()
-        trust = t.isin(["Somewhat trust", "Highly trust"]).sum()
-        rows.append(dict(year=year, respondents_n=len(d), use_answered_n=len(ans), users_n=len(users),
-                         adoption_pct=100 * len(users) / len(ans), trust_answered_n=len(t),
-                         trust_pct=100 * trust / len(t), trust_field=f))
-    df = pd.DataFrame(rows)
+        for c_i, country, d in scopes(load(year, ["AISelect", f, "Country"])):
+            ans = d[d.AISelect.notna()]
+            users = ans[ans.AISelect.str.startswith("Yes")]
+            t = users[f].dropna()
+            trust = t.isin(["Somewhat trust", "Highly trust"]).sum()
+            rows.append(dict(country=country, country_order=c_i, year=year, respondents_n=len(d),
+                             use_answered_n=len(ans), users_n=len(users), adoption_pct=100 * len(users) / len(ans),
+                             trust_answered_n=len(t), trust_pct=100 * trust / len(t), trust_field=f))
+    df = pd.DataFrame(rows).sort_values(["country_order", "year"])
     df.to_csv(OUT / "ai_trends.csv", index=False)
     return df
 
 
 # ---------------------------------------------------------------- 6. AI use by experience (2025)
 def ai_by_experience():
-    d = load(YEAR, ["MainBranch", "WorkExp", "AISelect"])
+    """AI use, 1-5 vs 6+ years of work. gap_* is the difference (1-5 minus 6+) in points with a 95% interval
+    (difference of two independent proportions, normal approximation); the page only says one group uses AI
+    more when the interval does not include zero."""
+    d = load(YEAR, ["MainBranch", "WorkExp", "AISelect", "Country"])
     d = d[(d.MainBranch == PRO) & d.AISelect.notna()].copy()
     d["exp"] = work_years(d["WorkExp"])
     d = d.dropna(subset=["exp"])
     rows = []
-    for lab, m in [("1–5 years", d.exp <= 5), ("6+ years", d.exp > 5)]:
-        s = d[m]
-        rows.append(dict(group=lab, n=len(s), use_pct=100 * s.AISelect.str.startswith("Yes").mean()))
+    for c_i, country, s in scopes(d):
+        groups = [(lab, s[m]) for lab, m in [("1–5 years", s.exp <= 5), ("6+ years", s.exp > 5)]]
+        p = [g.AISelect.str.startswith("Yes").mean() for _, g in groups]
+        n = [len(g) for _, g in groups]
+        gap = 100 * (p[0] - p[1])
+        half = 100 * Z95 * np.sqrt(p[0] * (1 - p[0]) / n[0] + p[1] * (1 - p[1]) / n[1])
+        for (lab, _), n_i, p_i in zip(groups, n, p):
+            rows.append(dict(country=country, country_order=c_i, group=lab, n=n_i, use_pct=100 * p_i,
+                             gap_pts=gap, gap_lo=gap - half, gap_hi=gap + half))
     df = pd.DataFrame(rows)
     df.to_csv(OUT / "ai_use_by_experience_2025.csv", index=False)
     return df
