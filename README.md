@@ -36,7 +36,7 @@ Year rule: the AI trend uses 2023–2025. Every other table uses 2025, the most 
 | languages_2025.csv | Ch. 4 dumbbell | % using / wanting each language among respondents who answered both language questions |
 | ai_trends.csv | Ch. 5 lines | Adoption = "Yes" in AISelect / answered; trust = Somewhat+Highly trust among current users (AIBen 2023, AIAcc 2024–25) |
 | ai_use_by_experience_2025.csv | Ch. 5 bars | AI adoption, professional developers, WorkExp 1–5 vs 6+ |
-| story_cards_2025.csv | Opening cards | Six real 2025 respondents, each the lowest ResponseId that fits a written rule |
+| story_cards_2025.csv | Opening cards | Alex (lowest ResponseId that fits a written rule) plus a pool of 100 real 2025 respondents: 5 roles × 5 countries × the 4 lowest ResponseIds; each reader sees Alex and 5 drawn cards (kept 15 minutes; `?seed=` fixes the draw) |
 | ai_trust_by_frequency_2025.csv | draft A (process book) | Trust distribution by AI-use frequency, 2025 |
 | languages_wanted_by_experience_2025.csv | draft B (process book) | Wanted languages, professional developers, WorkExp 1–5 vs 6+ |
 
