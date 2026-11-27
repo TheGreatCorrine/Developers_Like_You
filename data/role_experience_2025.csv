@@ -1,44 +1,44 @@
 country,country_order,role,role_order,band,band_order,n,role_n,pct,displayed
-All countries,0,Full-stack,0,1–5,0,3615,11982,30.17025538307461,True
-All countries,0,Full-stack,0,6–10,1,2947,11982,24.595226172592223,True
-All countries,0,Full-stack,0,11–15,2,1940,11982,16.190953096311134,True
-All countries,0,Full-stack,0,16–20,3,1369,11982,11.425471540644299,True
-All countries,0,Full-stack,0,21–30,4,1547,11982,12.911033216491404,True
-All countries,0,Full-stack,0,31–40,5,445,11982,3.71390418961776,True
-All countries,0,Full-stack,0,41–50,6,112,11982,0.9347354364880655,True
-All countries,0,Full-stack,0,50+,7,7,11982,0.05842096478050409,True
-All countries,0,Back-end,1,1–5,0,1691,6272,26.961096938775512,True
-All countries,0,Back-end,1,6–10,1,1631,6272,26.004464285714285,True
-All countries,0,Back-end,1,11–15,2,1195,6272,19.052933673469386,True
-All countries,0,Back-end,1,16–20,3,754,6272,12.021683673469388,True
-All countries,0,Back-end,1,21–30,4,767,6272,12.228954081632653,True
-All countries,0,Back-end,1,31–40,5,190,6272,3.0293367346938775,True
-All countries,0,Back-end,1,41–50,6,38,6272,0.6058673469387755,True
-All countries,0,Back-end,1,50+,7,6,6272,0.09566326530612244,True
-All countries,0,Front-end,2,1–5,0,658,1872,35.14957264957265,True
-All countries,0,Front-end,2,6–10,1,558,1872,29.807692307692307,True
-All countries,0,Front-end,2,11–15,2,317,1872,16.933760683760685,True
-All countries,0,Front-end,2,16–20,3,159,1872,8.493589743589743,True
-All countries,0,Front-end,2,21–30,4,139,1872,7.4252136752136755,True
-All countries,0,Front-end,2,31–40,5,36,1872,1.9230769230769231,True
-All countries,0,Front-end,2,41–50,6,3,1872,0.16025641025641027,True
-All countries,0,Front-end,2,50+,7,2,1872,0.10683760683760683,True
-All countries,0,Architect,3,1–5,0,168,2640,6.363636363636363,True
-All countries,0,Architect,3,6–10,1,358,2640,13.56060606060606,True
-All countries,0,Architect,3,11–15,2,526,2640,19.924242424242426,True
-All countries,0,Architect,3,16–20,3,529,2640,20.03787878787879,True
-All countries,0,Architect,3,21–30,4,745,2640,28.21969696969697,True
-All countries,0,Architect,3,31–40,5,245,2640,9.280303030303031,True
-All countries,0,Architect,3,41–50,6,59,2640,2.234848484848485,True
-All countries,0,Architect,3,50+,7,10,2640,0.3787878787878788,True
-All countries,0,Enterprise / desktop,4,1–5,0,429,1849,23.201730665224446,True
-All countries,0,Enterprise / desktop,4,6–10,1,309,1849,16.711736073553272,True
-All countries,0,Enterprise / desktop,4,11–15,2,244,1849,13.196322336398053,True
-All countries,0,Enterprise / desktop,4,16–20,3,196,1849,10.600324499729583,True
-All countries,0,Enterprise / desktop,4,21–30,4,403,1849,21.79556517036236,True
-All countries,0,Enterprise / desktop,4,31–40,5,208,1849,11.249323958896701,True
-All countries,0,Enterprise / desktop,4,41–50,6,51,1849,2.758247701460249,True
-All countries,0,Enterprise / desktop,4,50+,7,9,1849,0.48674959437533805,True
+All respondents,0,Full-stack,0,1–5,0,3615,11982,30.17025538307461,True
+All respondents,0,Full-stack,0,6–10,1,2947,11982,24.595226172592223,True
+All respondents,0,Full-stack,0,11–15,2,1940,11982,16.190953096311134,True
+All respondents,0,Full-stack,0,16–20,3,1369,11982,11.425471540644299,True
+All respondents,0,Full-stack,0,21–30,4,1547,11982,12.911033216491404,True
+All respondents,0,Full-stack,0,31–40,5,445,11982,3.71390418961776,True
+All respondents,0,Full-stack,0,41–50,6,112,11982,0.9347354364880655,True
+All respondents,0,Full-stack,0,50+,7,7,11982,0.05842096478050409,True
+All respondents,0,Back-end,1,1–5,0,1691,6272,26.961096938775512,True
+All respondents,0,Back-end,1,6–10,1,1631,6272,26.004464285714285,True
+All respondents,0,Back-end,1,11–15,2,1195,6272,19.052933673469386,True
+All respondents,0,Back-end,1,16–20,3,754,6272,12.021683673469388,True
+All respondents,0,Back-end,1,21–30,4,767,6272,12.228954081632653,True
+All respondents,0,Back-end,1,31–40,5,190,6272,3.0293367346938775,True
+All respondents,0,Back-end,1,41–50,6,38,6272,0.6058673469387755,True
+All respondents,0,Back-end,1,50+,7,6,6272,0.09566326530612244,True
+All respondents,0,Front-end,2,1–5,0,658,1872,35.14957264957265,True
+All respondents,0,Front-end,2,6–10,1,558,1872,29.807692307692307,True
+All respondents,0,Front-end,2,11–15,2,317,1872,16.933760683760685,True
+All respondents,0,Front-end,2,16–20,3,159,1872,8.493589743589743,True
+All respondents,0,Front-end,2,21–30,4,139,1872,7.4252136752136755,True
+All respondents,0,Front-end,2,31–40,5,36,1872,1.9230769230769231,True
+All respondents,0,Front-end,2,41–50,6,3,1872,0.16025641025641027,True
+All respondents,0,Front-end,2,50+,7,2,1872,0.10683760683760683,True
+All respondents,0,Architect,3,1–5,0,168,2640,6.363636363636363,True
+All respondents,0,Architect,3,6–10,1,358,2640,13.56060606060606,True
+All respondents,0,Architect,3,11–15,2,526,2640,19.924242424242426,True
+All respondents,0,Architect,3,16–20,3,529,2640,20.03787878787879,True
+All respondents,0,Architect,3,21–30,4,745,2640,28.21969696969697,True
+All respondents,0,Architect,3,31–40,5,245,2640,9.280303030303031,True
+All respondents,0,Architect,3,41–50,6,59,2640,2.234848484848485,True
+All respondents,0,Architect,3,50+,7,10,2640,0.3787878787878788,True
+All respondents,0,Enterprise / desktop,4,1–5,0,429,1849,23.201730665224446,True
+All respondents,0,Enterprise / desktop,4,6–10,1,309,1849,16.711736073553272,True
+All respondents,0,Enterprise / desktop,4,11–15,2,244,1849,13.196322336398053,True
+All respondents,0,Enterprise / desktop,4,16–20,3,196,1849,10.600324499729583,True
+All respondents,0,Enterprise / desktop,4,21–30,4,403,1849,21.79556517036236,True
+All respondents,0,Enterprise / desktop,4,31–40,5,208,1849,11.249323958896701,True
+All respondents,0,Enterprise / desktop,4,41–50,6,51,1849,2.758247701460249,True
+All respondents,0,Enterprise / desktop,4,50+,7,9,1849,0.48674959437533805,True
 Canada,1,Full-stack,0,1–5,0,85,383,22.193211488250654,True
 Canada,1,Full-stack,0,6–10,1,82,383,21.409921671018278,True
 Canada,1,Full-stack,0,11–15,2,71,383,18.5378590078329,True

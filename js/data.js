@@ -1,10 +1,12 @@
 /* Loads the aggregated survey tables (built by scripts/build_data.py) with d3.csv
    and shapes them for the story. Every number on the page comes from here.
-   Year rule: the AI trend uses 2023–2025; everything else uses 2025. */
+   Year rule: the AI trend uses 2023–2025; everything else uses 2025.
+   Scope rule: every chart table has one block for all respondents and one per country;
+   the crowd of dots always uses all respondents. */
 
 const DATA_DIR = 'data/';
 const DOT_SIZE = 100;                 // one crowd dot stands for about 100 respondents
-const ALL_COUNTRIES = 'All countries';
+const ALL_COUNTRIES = 'All respondents';   // includes the 28% of 2025 respondents who gave no country
 const ROOM_ROLES = ['Developer, full-stack', 'Developer, back-end', 'Student', 'Developer, front-end'];   // dot groups; a fifth group holds everyone else
 const BAR_ROLES = ['Developer, full-stack', 'Developer, back-end', 'Student'];                            // bars in chapter 1
 
@@ -57,49 +59,66 @@ function loadData() {
     d3.csv(DATA_DIR + 'ai_use_by_experience_2025.csv', num),
     d3.csv(DATA_DIR + 'story_cards_2025.csv', num)
   ]).then(([roles, heatAll, pay, langs, ai, aiExp, cards]) => {
-    /* --- Chapter 1: role shares (% of respondents who reported a role) and the dot crowd (counts) --- */
-    const row = role => roles.find(d => d.role === role) || { n: 0, pct_of_answered: 0 };
-    const [fs, be, st] = BAR_ROLES.map(r => row(r).pct_of_answered);
-    const respondents = roles[0].respondents_n;
+    const order = (...keys) => (a, b) => { for (const k of keys) { const c = d3.ascending(a[k], b[k]); if (c) return c; } return 0; };
+    heatAll.sort(order('country_order', 'role_order', 'band_order'));
+    pay.sort(order('country_order', 'band_order'));
+    ai.sort(order('country_order', 'year'));
+    const countries = [...new Set(heatAll.map(d => d.country))];      // 'All respondents' first, then the five countries
+    const heatRoles = [...new Set(heatAll.map(d => d.role))];
+    const heatBands = [...new Set(heatAll.map(d => d.band))];
+    const payBands = [...new Set(pay.map(d => d.band))];
+
+    /* --- Crowd of dots: always all respondents, from counts --- */
+    const allRoles = roles.filter(d => d.country === ALL_COUNTRIES);
+    const countOf = role => (allRoles.find(d => d.role === role) || { n: 0 }).n;
+    const respondents = allRoles[0].respondents_n;
     const totalDots = Math.round(respondents / DOT_SIZE);
-    const grp = ROOM_ROLES.map(r => Math.round(row(r).n / DOT_SIZE));
+    const grp = ROOM_ROLES.map(r => Math.round(countOf(r) / DOT_SIZE));
     grp.push(totalDots - d3.sum(grp));              // other roles and people who gave no role
 
-    /* --- Chapter 2: role × experience heatmap, plus one block per country for the peer locator --- */
-    heatAll.sort((a, b) => d3.ascending(a.country_order, b.country_order) || d3.ascending(a.role_order, b.role_order) || d3.ascending(a.band_order, b.band_order));
-    const heat = heatAll.filter(d => d.country === ALL_COUNTRIES);
-    const heatRoles = [...new Set(heat.map(d => d.role))];
-    const heatBands = [...new Set(heat.map(d => d.band))];
-    const heatPct = d3.rollup(heat, v => v[0].pct, d => d.role, d => d.band);
-    const countries = [...new Set(heatAll.map(d => d.country))];
-    const heatByCountry = new Map(countries.map(c => {
-      const block = heatAll.filter(d => d.country === c);
-      const cell = (r, b) => block.find(d => d.role === r && d.band === b);
+    /* --- One object per scope. Every chart reads the scope the reader has selected. All scopes have the
+       same shape (pay is null for all respondents) so the page can ease from one to another. --- */
+    const scopes = new Map(countries.map(c => {
+      const rs = roles.filter(d => d.country === c);
+      const share = role => (rs.find(d => d.role === role) || { pct_of_answered: 0 }).pct_of_answered;
+      const [fs, be, st] = BAR_ROLES.map(share);
+      const hb = heatAll.filter(d => d.country === c);
+      const cell = (r, b) => hb.find(d => d.role === r && d.band === b);
+      const roleN = heatRoles.map(r => cell(r, heatBands[0]).role_n);
+      const pb = pay.filter(d => d.country === c);
+      const lg = langs.filter(d => d.country === c);
+      const ay = ai.filter(d => d.country === c);
+      const ae = aiExp.filter(d => d.country === c);
       return [c, {
-        pct: heatRoles.map(r => heatBands.map(b => Math.round(cell(r, b).pct))),
-        n: heatRoles.map(r => cell(r, heatBands[0]).role_n),
-        shown: heatRoles.map(r => cell(r, heatBands[0]).displayed === 'True')
+        name: c,
+        // chapter 1: % of respondents who reported a role
+        bars: { fs, be, st, other: 100 - fs - be - st, n: rs[0].answered_n },
+        // chapter 2: within-role % by WorkExp band
+        heat: {
+          pct: heatRoles.map(r => heatBands.map(b => cell(r, b).pct)),
+          cnt: heatRoles.map(r => heatBands.map(b => cell(r, b).n)),
+          n: roleN, total: d3.sum(roleN),
+          shown: heatRoles.map(r => cell(r, heatBands[0]).displayed === 'True')
+        },
+        // chapter 3: professional developers, USD; countries only
+        pay: pb.length ? pb.map(d => ({ band: d.band, n: d.n, q1: d.q1, median: d.median, q3: d.q3, shown: d.displayed === 'True' })) : null,
+        // chapter 4: same base for both points
+        langs: lg.map(d => ({ name: d.language, used: d.used_pct, want: d.want_pct })), langN: lg[0].denominator_n,
+        // chapter 5: use of those who answered; trust of current users who answered
+        ai: { use: ay.map(d => d.adoption_pct), trust: ay.map(d => d.trust_pct), n: ay.map(d => d.use_answered_n) },
+        aiExp: ae.map(d => ({ group: d.group, n: d.n, use: d.use_pct })),
+        aiGap: { pts: ae[0].gap_pts, lo: ae[0].gap_lo, hi: ae[0].gap_hi }     // 1–5 minus 6+ years, 95% interval
       }];
     }));
 
-    /* --- Chapter 3: pay, US professional developers --- */
-    const payUS = pay.filter(d => d.country === 'United States').sort((a, b) => a.band_order - b.band_order);
-
-    /* --- Chapter 5: AI --- */
-    ai.sort((a, b) => a.year - b.year);
-
     /* --- Story cards --- */
     cards.sort((a, b) => a.card_order - b.card_order);
-    const personas = cards.map(c => toPersona(c, heatRoles, heatBands, payUS.map(d => d.band)));
+    const personas = cards.map(c => toPersona(c, heatRoles, heatBands, payBands));
 
     return {
-      share: { fs, be, st, other: 100 - fs - be - st },
       roomCounts: grp, totalDots,
-      heat, heatRoles, heatBands, heatPct, heatByCountry, countries,
-      payUS,
-      langs: langs.map(d => [d.language, d.used_pct, d.want_pct]),
-      ai, aiUse: ai.map(d => d.adoption_pct), aiTrust: ai.map(d => d.trust_pct),
-      aiExp,
+      countries, scopes, heatRoles, heatBands, payBands,
+      aiYears: [...new Set(ai.map(d => d.year))],
       personas,
       respondents,
       aboutN: Math.round(respondents / 1000) * 1000
