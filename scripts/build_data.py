@@ -213,51 +213,71 @@ def languages_by_experience():
     return df
 
 
-# ---------------------------------------------------------------- 9. story cards: six real respondents (2025)
+# ---------------------------------------------------------------- 9. story cards: real respondents (2025)
 SCHOOL = "School (i.e., University, College, etc)"
 COURSES = "Online Courses or Certification (includes all media types)"
 BOOKS = "Books / Physical media"
 VIDEOS = "Videos (not associated with specific online course or certification)"
-# Each card is the lowest ResponseId that fits its rule. Only the name is added by us.
-#   exp  = WorkExp range, inclusive (None = not required)
-#   edu  = start of the EdLevel answer (None = any)
-#   learn = a learning source the respondent selected for the past year; it is the one shown on the card
-STORY_CARDS = [
-    dict(name="Maya", role="Developer, front-end", country="India", exp=(3, 5), edu="Bachelor", learn=COURSES, main=None),
-    dict(name="Sam", role="Developer, back-end", country="Germany", exp=(6, 10), edu="Master", learn=SCHOOL, main=None),
-    dict(name="Priya", role="Architect, software or solutions", country="United States of America", exp=(21, 30), edu="Master", learn=BOOKS, main=None),
-    dict(name="Alex", role="Developer, full-stack", country="Canada", exp=(1, 2), edu="Bachelor", learn=SCHOOL, main=PRO),
-    dict(name="Jordan", role="Developer, desktop or enterprise applications", country="United Kingdom of Great Britain and Northern Ireland", exp=(11, 15), edu="Bachelor", learn=VIDEOS, main=None),
-    dict(name="Lee", role="Student", country="Canada", exp=None, edu=None, learn=SCHOOL, main=None),
-]
+LEARN_ORDER = [SCHOOL, COURSES, BOOKS, VIDEOS]   # the card shows the first of these the person selected
 CARD_FIELDS = ["DevType", "YearsCode", "LearnCode", "LanguageHaveWorkedWith", "EdLevel", "Country"]
+# Alex, the story's main person, is always the centre card (slot 3): the lowest ResponseId that fits this rule.
+ALEX = dict(name="Alex", role="Developer, full-stack", country="Canada", exp=(1, 2), edu="Bachelor", learn=SCHOOL)
+# The other five cards are drawn on the page from a pool: one slot per role, in fan order.
+POOL_SLOTS = {0: "Developer, front-end", 1: "Developer, back-end", 2: "Architect, software or solutions",
+              4: "Developer, desktop or enterprise applications", 5: "Student"}
+POOL_PER_CELL = 4      # lowest ResponseIds per role x country: 5 roles x 5 countries x 4 = 100 people
+# Names added for the story (nothing else is added). Short, so they fit the layout; not matched to countries.
+POOL_NAMES = [
+    "Maya", "Sam", "Priya", "Jordan", "Lee", "Noor", "Kai", "Ravi", "Lena", "Omar",
+    "Mei", "Tomas", "Ines", "Arjun", "Sofia", "Yuki", "Leo", "Amara", "Felix", "Hana",
+    "Diego", "Zara", "Ivan", "Nia", "Theo", "Anya", "Malik", "Elena", "Kofi", "Lina",
+    "Mateo", "Asha", "Jonas", "Rosa", "Hugo", "Sana", "Ben", "Iris", "Raj", "Clara",
+    "Emil", "Dana", "Tariq", "Nora", "Luca", "Mina", "Erik", "Aisha", "Paulo", "Ada",
+    "Karim", "Lia", "Oscar", "Riya", "Finn", "Esme", "Jae", "Talia", "Nikhil", "Greta",
+    "Ali", "June", "Marco", "Selin", "Rohan", "Ella", "Dev", "Aiko", "Pablo", "Vera",
+    "Kiran", "Maeve", "Ilya", "Rana", "Jamal", "Lucia", "Tom", "Freya", "Ahmed", "Ana",
+    "Nils", "Meera", "Cole", "Yara", "Mario", "Hiro", "Leila", "Owen", "Sara", "Bilal",
+    "Rhea", "Kamal", "Ruth", "Anil", "Elif", "Pedro", "Lotte", "Sunil", "Ivy", "Gabe",
+]
+assert len(set(POOL_NAMES)) == len(POOL_NAMES) == 100 and max(map(len, POOL_NAMES)) <= 6 and "Alex" not in POOL_NAMES
 
 
 def story_cards():
+    """Alex (fixed) plus a pool of 100 real respondents for the five other cards. For each pool role and each
+    country in COUNTRIES, the POOL_PER_CELL lowest ResponseIds that have all six card fields, selected at least
+    one of the four learning sources, and (developer roles) are developers by profession with a WorkExp.
+    Nobody is picked by hand; the page draws one per slot."""
     d = load(YEAR, ["ResponseId", "MainBranch", "WorkExp"] + CARD_FIELDS)
     d["exp"] = work_years(d["WorkExp"])
-    complete = d.dropna(subset=CARD_FIELDS)
-    rows = []
-    for i, c in enumerate(STORY_CARDS):
-        m = (complete.DevType == c["role"]) & (complete.Country == c["country"])
-        m &= complete.LearnCode.str.split(";").apply(lambda picks: c["learn"] in picks)
-        if c["exp"]:
-            m &= complete.exp.between(*c["exp"])
-        if c["edu"]:
-            m &= complete.EdLevel.str.startswith(c["edu"])
-        if c["main"]:
-            m &= complete.MainBranch == c["main"]
-        found = complete[m].sort_values("ResponseId")
-        r = found.iloc[0]
+    complete = d.dropna(subset=CARD_FIELDS).sort_values("ResponseId")
+    picks = complete.LearnCode.str.split(";")
+
+    def card(r, slot, name, pool, learn, candidates_n):
         has_exp = not pd.isna(r.exp)
-        rows.append(dict(card_order=i, name=c["name"], response_id=int(r.ResponseId), candidates_n=len(found),
-                         main_branch=r.MainBranch, dev_type=r.DevType,
-                         work_exp=int(r.exp) if has_exp else "", years_code=int(float(r.YearsCode)),
-                         learn_featured=c["learn"], learn_selected_n=len(r.LearnCode.split(";")),
-                         languages=r.LanguageHaveWorkedWith, ed_level=r.EdLevel, country=r.Country,
-                         # where this person sits in the heatmap and the pay chart (same bands as those tables)
-                         heat_role=ROLE_MAP.get(r.DevType, ""), heat_band=band_of(r.exp) if has_exp else "",
-                         pay_band=next((lab for lo, hi, lab in PAY_BANDS if lo < r.exp <= hi), "") if has_exp else ""))
+        return dict(slot=slot, pool=pool, name=name, response_id=int(r.ResponseId), candidates_n=candidates_n,
+                    main_branch=r.MainBranch, dev_type=r.DevType,
+                    work_exp=int(r.exp) if has_exp else "", years_code=int(float(r.YearsCode)),
+                    learn_featured=learn, learn_selected_n=len(r.LearnCode.split(";")),
+                    languages=r.LanguageHaveWorkedWith, ed_level=r.EdLevel, country=r.Country,
+                    # where this person sits in the heatmap and the pay chart (same bands as those tables)
+                    heat_role=ROLE_MAP.get(r.DevType, ""), heat_band=band_of(r.exp) if has_exp else "",
+                    pay_band=next((lab for lo, hi, lab in PAY_BANDS if lo < r.exp <= hi), "") if has_exp else "")
+
+    m = ((complete.DevType == ALEX["role"]) & (complete.Country == ALEX["country"]) & (complete.MainBranch == PRO)
+         & picks.apply(lambda p: ALEX["learn"] in p) & complete.exp.between(*ALEX["exp"])
+         & complete.EdLevel.str.startswith(ALEX["edu"]))
+    rows = [card(complete[m].iloc[0], 3, ALEX["name"], 0, ALEX["learn"], int(m.sum()))]
+
+    learnt = picks.apply(lambda p: next((s for s in LEARN_ORDER if s in p), None))
+    names = iter(POOL_NAMES)                     # each name used once
+    for slot, role in POOL_SLOTS.items():
+        m = (complete.DevType == role) & learnt.notna()
+        if role != "Student":
+            m &= (complete.MainBranch == PRO) & complete.exp.notna()
+        for full in COUNTRIES:
+            found = complete[m & (complete.Country == full)]
+            for _, r in found.head(POOL_PER_CELL).iterrows():
+                rows.append(card(r, slot, next(names), 1, learnt[r.name], len(found)))
     df = pd.DataFrame(rows)
     df.to_csv(OUT / "story_cards_2025.csv", index=False)
     return df

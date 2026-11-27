@@ -2,7 +2,7 @@
 
 Notes on where every number on the site comes from. The page itself only carries short labels; the detail is here.
 
-Last checked: 2026-11-19.
+Last checked: 2026-11-26.
 
 ## Source
 
@@ -98,27 +98,40 @@ Far more people skipped the use question in 2025. If skipped answers were counte
 
 - Fields: `MainBranch`, `WorkExp`, `LanguageWantToWorkWith`, 2025. Professional developers with a `WorkExp` who answered the want question: 5,300 with 1–5 years, 15,331 with 6 or more.
 
-### `story_cards_2025.csv` · the six cards at the start
+### `story_cards_2025.csv` · the cards at the start
 
-Each card is one real 2025 respondent. The only thing added is the first name.
+Each card is one real 2025 respondent. The only thing added is the first name. The file holds Alex plus a pool of 100 people; each reader sees Alex and five people drawn from the pool.
 
-Selection: for each card, take every 2025 respondent who fits the rule below and has all six card fields filled in, then keep the lowest `ResponseId`. Nobody was picked by hand after that.
+Alex, the story's main person, is always the centre card (`slot` 3, `pool` 0): the lowest `ResponseId` among respondents with all six card fields who fit this rule.
 
-| Name | Role | Country | Work experience | Education starts with | Learning source selected | Fits rule | Chosen |
-| --- | --- | --- | --- | --- | --- | ---: | --- |
-| Maya | Developer, front-end | India | 3–5 | Bachelor | Online courses | 4 | #26886 |
-| Sam | Developer, back-end | Germany | 6–10 | Master | School | 3 | #2733 |
-| Priya | Architect | United States | 21–30 | Master | Books | 7 | #421 |
-| Alex | Developer, full-stack | Canada | 1–2 | Bachelor | School | 6 | #336 |
-| Jordan | Developer, desktop or enterprise | United Kingdom | 11–15 | Bachelor | Videos | 1 | #13635 |
-| Lee | Student | Canada | any | any | School | 42 | #553 |
+| Name | Role | Country | Work experience | Education starts with | Learning source selected | Developer by profession | Fits rule | Chosen |
+| --- | --- | --- | --- | --- | --- | --- | ---: | --- |
+| Alex | Developer, full-stack | Canada | 1–2 | Bachelor | School | yes | 6 | #336 |
 
-Alex must also be a developer by profession.
+The pool (`pool` 1) has one slot per card position: front-end (slot 0), back-end (1), architect (2), desktop or enterprise (4), student (5). For each slot and each of the five countries it holds the four lowest `ResponseId`s among respondents who:
+
+- have that role and country, and all six card fields filled in;
+- selected at least one of four past-year learning sources: school, online courses, books, videos;
+- for the four developer slots: chose "I am a developer by profession" and gave a `WorkExp`.
+
+That is 5 slots × 5 countries × 4 = 100 people. Nobody was picked by hand. People who fit each slot and country (`candidates_n`):
+
+| Slot | Canada | United States | United Kingdom | Germany | India |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Front-end | 23 | 111 | 29 | 46 | 61 |
+| Back-end | 67 | 322 | 122 | 150 | 170 |
+| Architect | 25 | 169 | 42 | 86 | 60 |
+| Desktop or enterprise | 33 | 134 | 38 | 84 | 33 |
+| Student | 56 | 247 | 55 | 145 | 227 |
+
+The draw happens in the reader's browser (`js/data.js`). The five countries are shuffled across the five slots, then one of the four people in each slot-and-country cell is chosen, so every set of cards covers all five countries. The draw is kept in the browser's `localStorage` for 15 minutes, so a refresh or a new tab shows the same cards; after that the next visit draws again. `?seed=<number>` always gives the same draw (for screenshots). In a check of 5,000 draws every draw was valid and all 100 people appeared, each 223–279 times.
+
+Names: a fixed list of 100 short first names, not matched to countries, given in pool order; Alex keeps the same name. No two cards in one draw share a name.
 
 What the card shows:
 
 - Years coding: `YearsCode`, which includes years in education.
-- Learned from: the 2025 question is "How did you learn to code in the past year?". The card shows the source named in the rule and how many other sources the person ticked. It does not say how the person first learned to code.
+- Learned from: the 2025 question is "How did you learn to code in the past year?". The card shows one source the person selected (Alex: school; pool: the first of school, online courses, books, videos that the person ticked) and how many other sources the person ticked. It does not say how the person first learned to code.
 - Languages: the first few from `LanguageHaveWorkedWith` in the survey's own order, with a count of the rest. The order is not a ranking.
 - The marker that follows the chosen person through the heatmap and the pay chart uses that person's own role and `WorkExp` (columns `heat_role`, `heat_band`, `pay_band`).
 
@@ -136,8 +149,16 @@ What the card shows:
 | Peer locator country menu | listed five countries, changed nothing | all countries plus five, changes the result and shows the base |
 | Role shares, heatmap, AI trend | 2025; 2023–2025 | same values |
 
+## What changed for the card pool (2026-11-26, Issue #5)
+
+| Item | Before | Now |
+| --- | --- | --- |
+| Cards a reader sees | the same six for everyone: Maya #26886, Sam #2733, Priya #421, Alex #336, Jordan #13635, Lee #553 | Alex #336 in the centre plus five drawn from a pool of 100, one per role, all five countries |
+| Selection rule | one written rule per card (role, country, experience, education, learning source) | Alex unchanged; pool: role, country, complete card fields, a learning source, professional developers with `WorkExp` |
+| Columns | `card_order` | `slot`, `pool` (0 = Alex, 1 = pool) |
+
 ## Checking
 
 `scripts/build_data.py` run twice on the hashed raw files gives byte-identical CSVs.
 
-A second calculation that shares no code with the build script (Python standard library only, reading the raw CSVs directly) reproduces all nine tables: 344 rows, 1,926 cells, no differences. It re-selects the six story cards from the written rule and compares each field with the raw record.
+A second calculation that shares no code with the build script (Python standard library only, reading the raw CSVs directly) reproduces all nine tables: 344 rows, 1,926 cells, no differences. It re-selects the six story cards from the written rule and compares each field with the raw record. (That check was run on 2026-11-19, before the card pool. The pool's candidate counts were recomputed separately on 2026-11-26 and match the table above.)
