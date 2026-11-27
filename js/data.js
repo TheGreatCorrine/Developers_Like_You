@@ -9,6 +9,9 @@ const DOT_SIZE = 100;                 // one crowd dot stands for about 100 resp
 const ALL_COUNTRIES = 'All respondents';   // includes the 28% of 2025 respondents who gave no country
 const ROOM_ROLES = ['Developer, full-stack', 'Developer, back-end', 'Student', 'Developer, front-end'];   // dot groups; a fifth group holds everyone else
 const BAR_ROLES = ['Developer, full-stack', 'Developer, back-end', 'Student'];                            // bars in chapter 1
+/* heatmap role label -> survey answer; the last section shows these five roles as bars */
+const HEAT_DEVTYPE = { 'Full-stack': 'Developer, full-stack', 'Back-end': 'Developer, back-end', 'Front-end': 'Developer, front-end',
+  'Architect': 'Architect, software or solutions', 'Enterprise / desktop': 'Developer, desktop or enterprise applications' };
 
 /* Short forms of long survey answers, used on the story cards. */
 const ROLE_SHORT = { 'Developer, desktop or enterprise applications': 'Developer, desktop or enterprise' };
@@ -92,7 +95,7 @@ function loadData() {
       return [c, {
         name: c,
         // chapter 1: % of respondents who reported a role
-        bars: { fs, be, st, other: 100 - fs - be - st, n: rs[0].answered_n },
+        bars: { fs, be, st, other: 100 - fs - be - st, n: rs[0].answered_n, roles: heatRoles.map(r => share(HEAT_DEVTYPE[r])) },
         // chapter 2: within-role % by WorkExp band
         heat: {
           pct: heatRoles.map(r => heatBands.map(b => cell(r, b).pct)),
